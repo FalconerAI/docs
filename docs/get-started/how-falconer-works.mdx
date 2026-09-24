@@ -1,0 +1,54 @@
+---
+title: How Falconer works
+description: Falconer is a knowledge platform for engineering teams. It connects to the tools your team already uses, builds a unified knowledge base from them, and gives you an AI agent -- Falcon -- to search, write, and keep documentation up to date.
+sidebar:
+  order: 1
+---
+
+Falconer is a knowledge platform for engineering teams. It connects to the tools your team already uses, builds a unified knowledge base from them, and gives you an AI agent -- Falcon -- to search, write, and keep documentation up to date.
+
+## Connect, understand, and act
+
+Falconer works in three stages: connect, understand, and act.
+
+### 1. Connect your sources
+
+Falconer connects to the tools where your team already works:
+
+- **GitHub**: code repositories, pull requests, and commit history
+- **Slack**: public-channel messages across your connected workspace, searched on demand
+- **Linear**: tasks, issues, and project status
+- **Notion, Google Docs, and Confluence**: existing documentation
+
+Once [connected](/docs/set-up/connect-sources), Falconer continuously indexes synced sources and accesses live sources on demand so its knowledge stays current as your codebase and team evolve.
+
+### 2. Build a unified knowledge base
+
+Falconer processes ingested content into a searchable knowledge base using a hybrid approach:
+
+- **Semantic search** understands the meaning behind a query, not just keywords
+- **Full-text search** handles exact matches across documents, code, and tasks
+- **A knowledge graph** maps relationships between documents, code, people, and entities
+
+Together, these three layers let Falconer answer questions like *"What does the payment service do and who owns it?"* by reasoning across sources.
+
+### 3. Act through Falcon
+
+Falcon is the AI agent that sits on top of the knowledge base. It can:
+
+- [**Answer questions**](/docs/ask/ask-questions-in-slack): search relevant connected sources and return cited answers
+- [**Write documentation**](/docs/write/write-a-doc): generate docs grounded in your actual code, tasks, and existing docs
+- [**Keep docs up to date**](/docs/update/keep-docs-in-sync-with-prs): when a PR merges, Falcon detects which documents are affected and proposes updates for your review
+- [**Work where you are**](/docs/update/update-docs-from-slack): available in the Falconer editor (type **/** anywhere), on the homepage, and directly in Slack (`@Falcon`)
+
+Every response includes citations so you can verify where the information came from.
+
+## Documents in Falconer
+
+Falconer has its own document editor for writing and publishing documentation. Start from scratch or let Falcon draft a document based on your connected sources.
+
+Documents are organized into collections: either private (visible only to you) or company-wide (searchable by your whole team).
+
+## The self-updating loop
+
+The core idea behind Falconer is that documentation should stay in sync with your codebase automatically. When code changes, Falconer detects which docs are affected and Falcon drafts proposed updates, then notifies the document owner to accept, review, or reject them -- keeping your knowledge base accurate without manual effort.

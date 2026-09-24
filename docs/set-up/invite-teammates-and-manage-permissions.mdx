@@ -1,0 +1,62 @@
+---
+title: Invite teammates and manage permissions
+description: Get your team into Falconer and control what they can see and edit.
+sidebar:
+  order: 2
+---
+
+Get your team into Falconer and control what they can see and edit.
+
+## Organization roles
+
+Falconer has two roles at the organization level:
+
+| Role | What they can do |
+| --- | --- |
+| **Owner** | Invite and remove members; manage org settings; manage doc permissions |
+| **Member** | Create and edit documents; access published company content |
+
+## Invite teammates
+
+Only owners can invite new members. If you don't see the option to invite a teammate, ask your org owner to send the invite.
+
+1. In the bottom left, go to **Your org name -> Invite user.**
+
+   ![](/docs/images/invite-teammates-dialog.png)
+
+2. Enter your teammate's email address and select a role.
+3. Click **Invite**.
+
+Falconer sends the teammate an invite link valid for 7 days. Once they accept, they're added as a member of your organization and can access all published company documents.
+
+## Manage permissions
+
+Use permissions to control who can view, comment on, edit, and share docs and folders.
+
+Start with [**Plan doc access**](/docs/use-cases/manage-permissions/plan-doc-access) to understand permission levels, inherited permissions, and custom permissions.
+
+Then use:
+
+- [**Share a doc**](/docs/use-cases/manage-permissions/share-a-doc) -- Manage access, authors, organization access, and link access for one doc.
+- [**Manage folder access**](/docs/use-cases/manage-permissions/manage-folder-access) -- Manage access for a folder and the docs that inherit from it.
+- [**Choose inherited or custom permissions**](/docs/use-cases/manage-permissions/choose-inherited-custom-permissions) -- Decide when a doc or folder should follow its parent permissions.
+
+## Publish to the company collection
+
+Documents start in your Private collection, visible only to you. To make a document searchable and visible across your organization:
+
+1. Click **Publish** at the top of the document.
+
+   ![](/docs/images/invite-teammates-publish.png)
+
+2. Choose a location in the company collection. Falconer suggests one based on the content.
+
+Published documents are accessible to all org members and surfaced by Falconer in search and Q&A.
+
+## Access requests
+
+If a teammate tries to open a document they don't have access to, they'll see a **Request Access** button. This sends a Slack notification to the document owner, who can grant access directly from Slack -- either for that individual or for the whole org.
+
+## Permissions and the Falcon agent
+
+The Falcon agent only surfaces documents the requesting user has permission to see. Docs with restricted access won't appear in search results or agent answers for users who don't have access.

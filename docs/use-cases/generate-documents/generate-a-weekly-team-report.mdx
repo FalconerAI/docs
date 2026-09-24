@@ -1,0 +1,80 @@
+---
+title: Generate a weekly team report
+description: Summarize what your team shipped, what's in progress, and what's blocked in minutes.
+sidebar:
+  order: 6
+---
+
+Summarize what your team shipped, what's in progress, and what's blocked in minutes.
+Falconer reads your connected GitHub and Linear data to compile the week's activity into a structured report ready to share.
+To add Slack context, ask Falcon to search public-channel messages across your connected workspace, optionally naming a channel to narrow the search.
+
+## Prerequisites
+
+[Connect your tools](/docs/set-up/connect-sources) to Falconer:
+
+- GitHub to pull in merged PRs and code changes
+- Linear to pull in completed and in-progress tasks
+- Slack for public-channel context searched on demand
+
+For Slack search from the web app, [connect your personal Slack account](/docs/integrations/slack#search-from-the-web-app) first.
+
+## Generate the report
+
+On the Falconer homepage, in the sidebar, or in Slack, ask Falconer to write the draft:
+
+```
+Write a weekly engineering report for this week
+```
+
+Falconer pulls merged pull requests from GitHub, completed and in-progress tasks from Linear, and synthesizes them into a structured report ready to share.
+
+## Scope to a specific team or project
+
+If you have multiple teams or want to focus on a particular area:
+
+```
+Write a weekly report for the infrastructure team only
+```
+
+```
+Generate a report covering only the billing project this week
+```
+
+## Iterate on the draft
+
+Once the draft is open in the editor, use Falcon in the sidebar to refine it.
+
+Rewrite highlights for a leadership audience:
+
+```
+Rewrite the highlights section for a non-technical audience
+```
+
+Check for any PRs or tasks that may have been missed:
+
+```
+Check if there are any merged PRs from this week that aren't reflected in the report
+```
+
+Add deploy counts, incident counts, or other stats:
+
+```
+Add a metrics section with deploy count and any incidents from this week
+```
+
+Pull open Linear issues to populate the plan section:
+
+```
+Populate next week's plan from open Linear issues assigned to the team
+```
+
+## Share the report
+
+Once the report is ready, publish it to your company collection so it's findable by your team and leadership.
+
+To generate and share a report without leaving Slack, ask Falcon directly in the channel:
+
+```
+@Falcon write a summary of what the engineering team shipped this week and post it here
+```

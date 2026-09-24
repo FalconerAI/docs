@@ -1,0 +1,89 @@
+---
+title: Vercel Connect
+description: Give apps and agents running on Vercel user-scoped access to Falconer through MCP.
+sidebar:
+  order: 3
+---
+
+Use Vercel Connect to give an app or agent running on Vercel user-scoped access to Falconer.
+
+## Create the connector
+
+Run these commands from the Vercel project that will use Falconer:
+
+```bash
+vercel link
+vercel connect create https://falconer.com/api/mcp --name falconer
+vercel env pull
+```
+
+The create command prints the connector identifier `oauth/falconer`.
+If you choose a different name, use the identifier printed by the command or find it with `vercel connect list`.
+
+## Install the SDK
+
+Install the Vercel Connect and MCP adapters:
+
+```bash
+npm install @vercel/connect @ai-sdk/mcp
+```
+
+## Connect an MCP client
+
+Use that identifier with a user-scoped MCP client in a server route:
+
+```ts
+import { createMCPClient } from '@ai-sdk/mcp';
+import {
+  connectAuthProvider,
+  ConsentRequiredError,
+} from '@vercel/connect/ai-sdk';
+
+export async function GET() {
+  try {
+    const falconer = await createMCPClient({
+      transport: {
+        type: 'http',
+        url: 'https://falconer.com/api/mcp',
+        authProvider: connectAuthProvider('oauth/falconer', {
+          subject: { type: 'user', id: 'user_123' },
+        }),
+      },
+    });
+
+    try {
+      const tools = await falconer.tools();
+      return Response.json({ toolCount: Object.keys(tools).length });
+    } finally {
+      await falconer.close();
+    }
+  } catch (error) {
+    if (error instanceof ConsentRequiredError) {
+      return Response.redirect(error.url);
+    }
+    throw error;
+  }
+}
+```
+
+Replace `user_123` with the stable ID of the user authenticated by your app on the server.
+Do not accept the subject ID directly from request input or use one shared ID for every user.
+
+## Revoke access
+
+When a user disconnects Falconer from your app, revoke that user's grant from authenticated server code using the same stable subject ID:
+
+```ts
+import { revokeToken } from '@vercel/connect';
+
+await revokeToken('oauth/falconer', {
+  subject: { type: 'user', id: 'user_123' },
+});
+```
+
+This removes the grant from Vercel Connect and asks Falconer to revoke its OAuth tokens.
+To revoke access for every user of the connector, run:
+
+```bash
+vercel connect revoke-tokens oauth/falconer --all-tokens
+```

@@ -1,0 +1,45 @@
+---
+title: Ask questions in Slack
+description: Ask Falcon questions directly in Slack to get instant answers from your knowledge base -- without leaving your conversation.
+sidebar:
+  order: 4
+---
+
+Ask Falcon questions directly in Slack to get instant answers from your knowledge base -- without leaving your conversation.
+
+## Prerequisite
+
+Ensure [Slack is connected](/docs/set-up/connect-sources) to your Falconer org.
+
+## Add Falcon to a channel
+
+Mention `@Falcon` in any channel where the bot is present to ask questions. Falcon responds with answers grounded in your knowledge base, including citations to source materials. You can also DM with Falcon or add it to a group DM.
+
+## Ask questions
+
+Mention `@Falcon` followed by your question.
+Falcon searches your connected documents, code repositories, and Linear tasks to provide accurate answers with citations.
+Falcon searches public-channel messages across your connected Slack workspace on demand.
+You can name a channel to narrow the search.
+
+![](/docs/images/ask-questions-in-slack.png)
+
+**Example questions:**
+
+```
+@Falcon How does authentication work in our API?
+```
+
+```
+@Falcon What's the deployment process for staging?
+```
+
+```
+@Falcon Who owns the marketing site?
+```
+
+Falcon provides real-time responses with citations to specific files, documents, or conversations so you can verify the information and explore further.
+
+## Permissions
+
+Falcon respects your organization's permissions. Users only see answers based on documents and resources they have access to in Falconer.

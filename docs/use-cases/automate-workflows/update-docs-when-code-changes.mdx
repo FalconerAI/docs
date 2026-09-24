@@ -1,0 +1,47 @@
+---
+title: Update docs when code changes
+description: Automatically keep documentation in sync with your codebase as your team ships.
+sidebar:
+  order: 2
+---
+
+Automatically keep documentation in sync with your codebase as your team ships.
+
+Falconer monitors your [connected](/docs/set-up/connect-sources) GitHub repositories and, when a pull request merges, identifies which existing docs are affected and proposes updates.
+
+## Review automated updates
+
+When a PR merges in a connected GitHub repository, Falconer automatically detects the affected docs and sends the document owner a Slack notification with **Accept**, **Review**, or **Reject** options. See [Keep docs in sync with PRs](/docs/update/keep-docs-in-sync-with-prs) for a full breakdown of the notification flow.
+
+## Trigger a manual update
+
+You can also trigger an update manually -- before a PR merges, or when you want more control over the scope of the update.
+
+### Trigger an update within a doc
+
+Use a prompt like this from any doc:
+
+```
+Our auth flow will change in this PR: [link]. Update the authentication docs to reflect the new token refresh logic and remove any references to the old session handling approach.
+```
+
+### Find stale information across docs
+
+Alternatively, ask Falcon to do a broader check before a release across your docs. In the prompt box on the home page, try:
+
+```
+Do a full review of the rate limiting API docs and update anything that's out of date -- I want to make sure everything is in sync before we publish.
+```
+
+## Iterate on the update
+
+Once Falcon drafts the update, open the document and type **/** to open Falcon in the editor to refine it. You can ask the agent to:
+
+- **Confirm the scope** -- learn which sections need updating and which should stay unchanged
+- **Ensure accuracy** -- cross-reference the PR diff against the existing doc
+- **Refresh code samples** -- update snippets that reflect the new implementation
+- **Update diagrams** -- regenerate architecture or flow diagrams to match the new behavior
+- **Tailor the tone** -- adjust the depth and language for the right reader (like internal engineers vs. external API consumers)
+- **Find related docs** -- surface other docs that may also be affected by the same change
+
+Once you're satisfied, accept the changes and they'll be saved directly to the published doc.

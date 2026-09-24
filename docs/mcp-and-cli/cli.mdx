@@ -1,0 +1,82 @@
+---
+title: Falconer CLI
+description: Install the Falconer CLI for shell scripts and direct document operations.
+sidebar:
+  order: 5
+---
+
+Use the Falconer CLI when you want direct command-line access to Falconer documents. It is published on npm as [`@falconer/cli`](https://www.npmjs.com/package/@falconer/cli).
+
+For AI clients, MCP is the primary setup path. Use the CLI for shell scripts, terminal workflows, and direct document operations.
+
+## Install and sign in
+
+Install the CLI:
+
+```bash
+npm install -g @falconer/cli
+```
+
+Sign in with OAuth:
+
+```bash
+falconer oauth login
+```
+
+This opens your browser for Falconer authentication. Your local credentials are stored at `~/.config/falconer/config.json`.
+
+Verify your signed-in account and active organization:
+
+```text
+% falconer oauth status
+Logged in as xll@falconer.com (org: Lilu's Organization)
+```
+
+## Useful commands
+
+Use the help command to list available commands and options:
+
+```bash
+falconer help
+falconer <command> --help
+```
+
+Manage your session and organization:
+
+```bash
+falconer oauth status
+falconer oauth org list
+falconer oauth org set <org-id-or-name>
+```
+
+Search and read docs:
+
+```bash
+falconer search "runbooks"
+falconer read <document-id-or-url>
+```
+
+Search results include document metadata and a preview. Use the returned `id` or a Falconer URL with `falconer read`.
+
+```text
+% falconer search "runbooks"
+---
+title: Write runbooks
+id: dg84gsb9oryxx2mwp5dp4f8e
+visibility: shared
+updated: 77d ago
+---
+# Write runbooks
+
+Turn your codebase, Slack threads, and notes into step-by-step runbooks ready for the next incident or deployment. Falconer drafts the runbook from your actual systems so it reflects how things really work, not how someone remembered them.
+
+## Prerequisites
+...
+```
+
+Create or update docs:
+
+```bash
+falconer create -f runbook.md
+falconer content replace <document-id> --old "staging-v1" --new "staging-v2"
+```
