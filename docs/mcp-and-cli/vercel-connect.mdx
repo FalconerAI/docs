@@ -17,8 +17,7 @@ vercel connect create https://falconer.com/api/mcp --name falconer
 vercel env pull
 ```
 
-The create command prints the connector identifier `oauth/falconer`.
-If you choose a different name, use the identifier printed by the command or find it with `vercel connect list`.
+The create command prints the connector identifier `oauth/falconer`. If you choose a different name, use the identifier printed by the command or find it with `vercel connect list`.
 
 ## Install the SDK
 
@@ -66,8 +65,7 @@ export async function GET() {
 }
 ```
 
-Replace `user_123` with the stable ID of the user authenticated by your app on the server.
-Do not accept the subject ID directly from request input or use one shared ID for every user.
+Replace `user_123` with the stable ID of the user authenticated by your app on the server. Do not accept the subject ID directly from request input or use one shared ID for every user.
 
 ## Revoke access
 
@@ -81,8 +79,7 @@ await revokeToken('oauth/falconer', {
 });
 ```
 
-This removes the grant from Vercel Connect and asks Falconer to revoke its OAuth tokens.
-To revoke access for every user of the connector, run:
+This removes the grant from Vercel Connect and asks Falconer to revoke its OAuth tokens. To revoke access for every user of the connector, run:
 
 ```bash
 vercel connect revoke-tokens oauth/falconer --all-tokens
