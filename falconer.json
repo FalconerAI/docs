@@ -4,7 +4,8 @@
     "name": "Falconer",
     "favicon": "assets/favicon.svg",
     "logo": {
-      "light": "assets/falconer-logo.svg"
+      "light": "assets/falconer-logo-light.svg",
+      "dark": "assets/falconer-logo-dark.svg"
     },
     "seo": {
       "indexable": true
@@ -17,13 +18,11 @@
       {
         "tab": "Basics",
         "pages": [
+          "index.mdx",
           "quickstart.mdx",
           {
             "anchor": "Get started",
-            "pages": [
-              "docs/get-started/generate-docs-automatically.mdx",
-              "docs/get-started/how-falconer-works.mdx"
-            ]
+            "pages": []
           },
           {
             "anchor": "Ask",
@@ -32,49 +31,32 @@
               "ask/capture-decisions-in-slack.mdx",
               "ask/falconer-vs-ai-chatbots.mdx",
               "ask/find-answers-with-falconer.mdx",
-              "ask/personalize-the-agent.mdx",
-              "docs/ask/use-voice-mode.mdx"
+              "ask/personalize-the-agent.mdx"
             ]
           },
           {
             "anchor": "Set up",
             "pages": [
-              "docs/set-up/allowlist-a-domain.mdx",
               "set-up/invite-teammates-and-manage-permissions.mdx",
               "set-up/connect-sources.mdx"
             ]
           },
           {
             "anchor": "Integrations",
-            "pages": [
-              "docs/integrations/confluence.mdx",
-              "docs/integrations/github.mdx",
-              "docs/integrations/gmail.mdx",
-              "docs/integrations/google-drive.mdx",
-              "docs/integrations/google-workspace.mdx",
-              "docs/integrations/granola.mdx",
-              "docs/integrations/index.mdx",
-              "docs/integrations/linear.mdx",
-              "docs/integrations/notion.mdx",
-              "docs/integrations/slack.mdx",
-              "docs/integrations/zendesk.mdx"
-            ]
+            "pages": []
           },
           {
             "anchor": "MCP and CLI",
             "pages": [
-              "docs/mcp-and-cli/cli.mdx",
               "mcp-and-cli/connect.mdx",
               "mcp-and-cli/organization-bots.mdx",
               "mcp-and-cli/quickstart.mdx",
-              "mcp-and-cli/tools-reference.mdx",
-              "docs/mcp-and-cli/vercel-connect.mdx"
+              "mcp-and-cli/tools-reference.mdx"
             ]
           },
           {
             "anchor": "Write",
             "pages": [
-              "docs/write/write-a-doc-from-slack.mdx",
               "write/write-a-doc.mdx"
             ]
           },
@@ -89,7 +71,6 @@
             "anchor": "Update",
             "pages": [
               "update/auto-update-docs.mdx",
-              "docs/update/edit-a-doc-with-inline-ai.mdx",
               "update/find-and-fix-outdated-docs.mdx",
               "update/keep-docs-in-sync-with-prs.mdx",
               "update/update-docs-from-slack.mdx"
@@ -99,104 +80,30 @@
             "anchor": "Use cases",
             "pages": [
               {
-                "group": "automate-workflows",
+                "group": "Automate workflows",
                 "pages": [
                   "use-cases/automate-workflows/create-linear-issues-from-falconer.mdx",
                   "use-cases/automate-workflows/sync-granola-meeting-notes.mdx",
-                  "use-cases/automate-workflows/talk-to-the-falconer-agent-like-a-teammate.mdx",
-                  "docs/use-cases/automate-workflows/update-docs-when-code-changes.mdx"
+                  "use-cases/automate-workflows/talk-to-the-falconer-agent-like-a-teammate.mdx"
                 ]
               },
               {
-                "group": "generate-documents",
+                "group": "Generate documents",
                 "pages": [
-                  "docs/use-cases/generate-documents/create-an-onboarding-guide.mdx",
                   "use-cases/generate-documents/create-architecture-overviews.mdx",
-                  "docs/use-cases/generate-documents/generate-a-weekly-team-report.mdx",
-                  "docs/use-cases/generate-documents/generate-an-api-reference-from-code.mdx",
                   "use-cases/generate-documents/write-a-changelog.mdx",
                   "use-cases/generate-documents/write-a-runbook.mdx"
                 ]
               },
               {
-                "group": "manage-permissions",
-                "pages": [
-                  "docs/use-cases/manage-permissions/choose-inherited-custom-permissions.mdx",
-                  "docs/use-cases/manage-permissions/manage-folder-access.mdx",
-                  "docs/use-cases/manage-permissions/plan-doc-access.mdx",
-                  "docs/use-cases/manage-permissions/share-a-doc.mdx",
-                  "docs/use-cases/manage-permissions/troubleshooting-access.mdx"
-                ]
-              },
-              {
-                "group": "skill-docs",
-                "pages": [
-                  "docs/use-cases/skill-docs/create-skill-docs.mdx",
-                  "docs/use-cases/skill-docs/use-skill-docs.mdx"
-                ]
-              }
-            ]
-          },
-          "docs/index.mdx"
-        ]
-      }
-    ],
-    "groups": [
-      {
-        "group": "docs",
-        "pages": [
-          {
-            "group": "ask",
-            "pages": []
-          },
-          {
-            "group": "get-started",
-            "pages": []
-          },
-          {
-            "group": "integrations",
-            "pages": []
-          },
-          {
-            "group": "mcp-and-cli",
-            "pages": []
-          },
-          {
-            "group": "organize",
-            "pages": []
-          },
-          {
-            "group": "set-up",
-            "pages": []
-          },
-          {
-            "group": "update",
-            "pages": []
-          },
-          {
-            "group": "use-cases",
-            "pages": [
-              {
-                "group": "automate-workflows",
+                "group": "Manage permissions",
                 "pages": []
               },
               {
-                "group": "generate-documents",
-                "pages": []
-              },
-              {
-                "group": "manage-permissions",
-                "pages": []
-              },
-              {
-                "group": "skill-docs",
+                "group": "Skill docs",
                 "pages": []
               }
             ]
-          },
-          {
-            "group": "write",
-            "pages": []
           }
         ]
       }
