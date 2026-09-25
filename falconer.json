@@ -4,7 +4,8 @@
     "name": "Falconer",
     "favicon": "assets/favicon.svg",
     "logo": {
-      "light": "assets/falconer-logo.svg"
+      "light": "assets/falconer-logo-light.svg",
+      "dark": "assets/falconer-logo-dark.svg"
     },
     "seo": {
       "indexable": true
@@ -17,6 +18,7 @@
       {
         "tab": "Basics",
         "pages": [
+          "index.mdx",
           "quickstart.mdx",
           {
             "anchor": "Get started",
@@ -99,7 +101,7 @@
             "anchor": "Use cases",
             "pages": [
               {
-                "group": "automate-workflows",
+                "group": "Automate workflows",
                 "pages": [
                   "use-cases/automate-workflows/create-linear-issues-from-falconer.mdx",
                   "use-cases/automate-workflows/sync-granola-meeting-notes.mdx",
@@ -108,7 +110,7 @@
                 ]
               },
               {
-                "group": "generate-documents",
+                "group": "Generate documents",
                 "pages": [
                   "use-cases/generate-documents/create-an-onboarding-guide.mdx",
                   "use-cases/generate-documents/create-architecture-overviews.mdx",
@@ -119,7 +121,7 @@
                 ]
               },
               {
-                "group": "manage-permissions",
+                "group": "Manage permissions",
                 "pages": [
                   "use-cases/manage-permissions/choose-inherited-custom-permissions.mdx",
                   "use-cases/manage-permissions/manage-folder-access.mdx",
@@ -129,74 +131,13 @@
                 ]
               },
               {
-                "group": "skill-docs",
+                "group": "Skill docs",
                 "pages": [
                   "use-cases/skill-docs/create-skill-docs.mdx",
                   "use-cases/skill-docs/use-skill-docs.mdx"
                 ]
               }
             ]
-          },
-          "index.mdx"
-        ]
-      }
-    ],
-    "groups": [
-      {
-        "group": "docs",
-        "pages": [
-          {
-            "group": "ask",
-            "pages": []
-          },
-          {
-            "group": "get-started",
-            "pages": []
-          },
-          {
-            "group": "integrations",
-            "pages": []
-          },
-          {
-            "group": "mcp-and-cli",
-            "pages": []
-          },
-          {
-            "group": "organize",
-            "pages": []
-          },
-          {
-            "group": "set-up",
-            "pages": []
-          },
-          {
-            "group": "update",
-            "pages": []
-          },
-          {
-            "group": "use-cases",
-            "pages": [
-              {
-                "group": "automate-workflows",
-                "pages": []
-              },
-              {
-                "group": "generate-documents",
-                "pages": []
-              },
-              {
-                "group": "manage-permissions",
-                "pages": []
-              },
-              {
-                "group": "skill-docs",
-                "pages": []
-              }
-            ]
-          },
-          {
-            "group": "write",
-            "pages": []
           }
         ]
       }
