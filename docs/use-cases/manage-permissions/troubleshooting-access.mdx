@@ -7,6 +7,7 @@ sidebar:
 
 Permissions in Falconer usually do exactly what you expect. The questions below cover the few cases that surprise people, so you can tell intended behavior from a real problem.
 
+```mdx
 <details>
 <summary>I restricted a doc, but it still shows up in search</summary>
 
@@ -15,7 +16,9 @@ Search and agent answers use the broadest access a doc has from any of its locat
 This is intended. To fully restrict a doc, make sure every place it lives has the access you want, not just the one you were looking at.
 
 </details>
+```
 
+```mdx
 <details>
 <summary>I moved a doc or folder and now different people can see it</summary>
 
@@ -24,7 +27,9 @@ When an item uses inherited permissions, it follows the access of wherever it cu
 If you want an item's access to stay the same no matter where it lives, switch it to custom permissions before or after moving it. See [Choose inherited or custom permissions](/docs/use-cases/manage-permissions/choose-inherited-custom-permissions/).
 
 </details>
+```
 
+```mdx
 <details>
 <summary>I gave my whole organization access, but an external collaborator still can't open the doc</summary>
 
@@ -33,7 +38,9 @@ If you want an item's access to stay the same no matter where it lives, switch i
 To give an external person access, add them directly under **People**, or turn on **Anyone with the link** for the doc.
 
 </details>
+```
 
+```mdx
 <details>
 <summary>Why can everyone in my organization edit my new doc?</summary>
 
@@ -42,7 +49,9 @@ New docs and folders use inherited permissions by default, and they inherit from
 "New" does not mean "private," and "inherited" can mean "anyone can edit" depending on the location. To restrict a doc, switch it to custom permissions and set the access you want, or create it in your private docs first.
 
 </details>
+```
 
+```mdx
 <details>
 <summary>The sharing controls are greyed out and I can't change who has access</summary>
 
@@ -51,14 +60,18 @@ That doc or folder is using inherited permissions, so its access comes from a pa
 Turn off inherited permissions to make the item keep its own settings. Falconer copies the current access in so nothing changes until you edit it. You also need edit access to change sharing in the first place.
 
 </details>
+```
 
+```mdx
 <details>
 <summary>I can't remove the last person with edit access</summary>
 
 Every doc and folder needs at least one person who can edit it, so Falconer blocks a change that would leave it with no editor. Add another editor first, then remove the original one.
 
 </details>
+```
 
+```mdx
 <details>
 <summary>An old doc I never shared is visible to my whole organization</summary>
 
@@ -67,3 +80,4 @@ Docs created before inherited permissions existed can resolve their access from 
 To fix it, open the doc, switch it to custom permissions, and set the access you want. If you have many older docs to review, contact support and we can help you audit them.
 
 </details>
+```
