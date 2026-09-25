@@ -21,8 +21,8 @@
           {
             "anchor": "Get started",
             "pages": [
-              "docs/get-started/generate-docs-automatically.mdx",
-              "docs/get-started/how-falconer-works.mdx"
+              "get-started/generate-docs-automatically.mdx",
+              "get-started/how-falconer-works.mdx"
             ]
           },
           {
@@ -33,13 +33,13 @@
               "ask/falconer-vs-ai-chatbots.mdx",
               "ask/find-answers-with-falconer.mdx",
               "ask/personalize-the-agent.mdx",
-              "docs/ask/use-voice-mode.mdx"
+              "ask/use-voice-mode.mdx"
             ]
           },
           {
             "anchor": "Set up",
             "pages": [
-              "docs/set-up/allowlist-a-domain.mdx",
+              "set-up/allowlist-a-domain.mdx",
               "set-up/invite-teammates-and-manage-permissions.mdx",
               "set-up/connect-sources.mdx"
             ]
@@ -47,34 +47,34 @@
           {
             "anchor": "Integrations",
             "pages": [
-              "docs/integrations/confluence.mdx",
-              "docs/integrations/github.mdx",
-              "docs/integrations/gmail.mdx",
-              "docs/integrations/google-drive.mdx",
-              "docs/integrations/google-workspace.mdx",
-              "docs/integrations/granola.mdx",
-              "docs/integrations/index.mdx",
-              "docs/integrations/linear.mdx",
-              "docs/integrations/notion.mdx",
-              "docs/integrations/slack.mdx",
-              "docs/integrations/zendesk.mdx"
+              "integrations/confluence.mdx",
+              "integrations/github.mdx",
+              "integrations/gmail.mdx",
+              "integrations/google-drive.mdx",
+              "integrations/google-workspace.mdx",
+              "integrations/granola.mdx",
+              "integrations/index.mdx",
+              "integrations/linear.mdx",
+              "integrations/notion.mdx",
+              "integrations/slack.mdx",
+              "integrations/zendesk.mdx"
             ]
           },
           {
             "anchor": "MCP and CLI",
             "pages": [
-              "docs/mcp-and-cli/cli.mdx",
+              "mcp-and-cli/cli.mdx",
               "mcp-and-cli/connect.mdx",
               "mcp-and-cli/organization-bots.mdx",
               "mcp-and-cli/quickstart.mdx",
               "mcp-and-cli/tools-reference.mdx",
-              "docs/mcp-and-cli/vercel-connect.mdx"
+              "mcp-and-cli/vercel-connect.mdx"
             ]
           },
           {
             "anchor": "Write",
             "pages": [
-              "docs/write/write-a-doc-from-slack.mdx",
+              "write/write-a-doc-from-slack.mdx",
               "write/write-a-doc.mdx"
             ]
           },
@@ -89,7 +89,7 @@
             "anchor": "Update",
             "pages": [
               "update/auto-update-docs.mdx",
-              "docs/update/edit-a-doc-with-inline-ai.mdx",
+              "update/edit-a-doc-with-inline-ai.mdx",
               "update/find-and-fix-outdated-docs.mdx",
               "update/keep-docs-in-sync-with-prs.mdx",
               "update/update-docs-from-slack.mdx"
@@ -104,16 +104,16 @@
                   "use-cases/automate-workflows/create-linear-issues-from-falconer.mdx",
                   "use-cases/automate-workflows/sync-granola-meeting-notes.mdx",
                   "use-cases/automate-workflows/talk-to-the-falconer-agent-like-a-teammate.mdx",
-                  "docs/use-cases/automate-workflows/update-docs-when-code-changes.mdx"
+                  "use-cases/automate-workflows/update-docs-when-code-changes.mdx"
                 ]
               },
               {
                 "group": "generate-documents",
                 "pages": [
-                  "docs/use-cases/generate-documents/create-an-onboarding-guide.mdx",
+                  "use-cases/generate-documents/create-an-onboarding-guide.mdx",
                   "use-cases/generate-documents/create-architecture-overviews.mdx",
-                  "docs/use-cases/generate-documents/generate-a-weekly-team-report.mdx",
-                  "docs/use-cases/generate-documents/generate-an-api-reference-from-code.mdx",
+                  "use-cases/generate-documents/generate-a-weekly-team-report.mdx",
+                  "use-cases/generate-documents/generate-an-api-reference-from-code.mdx",
                   "use-cases/generate-documents/write-a-changelog.mdx",
                   "use-cases/generate-documents/write-a-runbook.mdx"
                 ]
@@ -121,23 +121,23 @@
               {
                 "group": "manage-permissions",
                 "pages": [
-                  "docs/use-cases/manage-permissions/choose-inherited-custom-permissions.mdx",
-                  "docs/use-cases/manage-permissions/manage-folder-access.mdx",
-                  "docs/use-cases/manage-permissions/plan-doc-access.mdx",
-                  "docs/use-cases/manage-permissions/share-a-doc.mdx",
-                  "docs/use-cases/manage-permissions/troubleshooting-access.mdx"
+                  "use-cases/manage-permissions/choose-inherited-custom-permissions.mdx",
+                  "use-cases/manage-permissions/manage-folder-access.mdx",
+                  "use-cases/manage-permissions/plan-doc-access.mdx",
+                  "use-cases/manage-permissions/share-a-doc.mdx",
+                  "use-cases/manage-permissions/troubleshooting-access.mdx"
                 ]
               },
               {
                 "group": "skill-docs",
                 "pages": [
-                  "docs/use-cases/skill-docs/create-skill-docs.mdx",
-                  "docs/use-cases/skill-docs/use-skill-docs.mdx"
+                  "use-cases/skill-docs/create-skill-docs.mdx",
+                  "use-cases/skill-docs/use-skill-docs.mdx"
                 ]
               }
             ]
           },
-          "docs/index.mdx"
+          "index.mdx"
         ]
       }
     ],

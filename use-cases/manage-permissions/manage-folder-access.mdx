@@ -1,0 +1,49 @@
+---
+title: Manage folder access
+description: Use folder permissions to manage access for groups of related docs.
+sidebar:
+  order: 3
+---
+
+Use folder sharing when a set of related docs should be available to the same people.
+
+Folder permissions apply to docs and folders inside the folder when those descendants use inherited permissions.
+
+## Open folder sharing
+
+1. Open the folder.
+2. Click **Share** in the folder header.
+
+The folder share dialog shows whether the folder uses inherited permissions or custom permissions.
+
+`<img src="https://falconer.com/api/file/s3/file-tree/1790293377416-gw4llp.png?fileNodeId=filenode_vpj1s868s3ds2gqi1up35elz&amp;repoPath=%2Fdocs%2Fimages%2Fmanage-folder-access-inherited.png" alt="" width="520" style="margin-inline: auto;" />`
+
+## Use custom permissions
+
+If **Inherit permissions** is on, the folder follows permissions from its parent folder or section. Turn it off to set custom permissions for this folder.
+
+When you turn inherited permissions off, Falconer copies the current access into the folder. You can then update people, groups, and organization access directly.
+
+`<img src="https://falconer.com/api/file/s3/file-tree/1790293377351-uqein4.png?fileNodeId=filenode_fzcbjpccj7ets0d8zlb43qgf&amp;repoPath=%2Fdocs%2Fimages%2Fmanage-folder-access-custom.png" alt="" width="520" style="margin-inline: auto;" />`
+
+## Add people or groups
+
+1. Under **People with access**, enter a person's name or group name.
+2. Select the person or group.
+3. Use the permission menu next to their name to choose **Can view**, **Can comment**, or **Can edit**.
+
+To remove access, open the same permission menu and choose **Remove access**.
+
+## Change organization access
+
+Use **General access** to choose what everyone in your Falconer organization can do with the folder.
+
+Folder sharing does not include **Anyone with the link**. Link access is managed on individual docs.
+
+## How folder changes affect docs
+
+When you change custom permissions on a folder, the change applies to descendants that inherit from that folder.
+
+For example, if a folder gives your organization **Can view**, an inheriting doc inside that folder gives your organization **Can view** too. If that doc uses custom permissions, it keeps its own settings instead.
+
+`<img src="https://falconer.com/api/file/s3/file-tree/1790293377309-puc8ko.png?fileNodeId=filenode_rzab33umliaha15dr1qzhigm&amp;repoPath=%2Fdocs%2Fimages%2Fmanage-folder-access-child-inherits.png" alt="" width="520" style="margin-inline: auto;" />`

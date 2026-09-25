@@ -1,0 +1,63 @@
+---
+title: Plan doc access
+description: Plan who should be able to view, comment on, edit, and share docs before you update permissions.
+sidebar:
+  order: 1
+---
+
+Before you share docs broadly, decide who needs access and where that access should be managed.
+
+Folders help you manage access at scale. When a folder uses custom permissions, docs and folders inside it can inherit those settings automatically.
+
+## Permission levels
+
+Falconer uses the same access levels for docs, folders, people, groups, and your organization.
+
+| Level | What it allows |
+| --- | --- |
+| **No access** | Cannot open the doc or folder |
+| **Can view** | Can read the doc or browse the folder |
+| **Can comment** | Can read and leave comments |
+| **Can edit** | Can edit, move, and share |
+
+Docs can also have authors. Authors help Falconer know who is responsible for a doc, including review and update notifications. Author status is separate from the access level shown in **People with access**.
+
+## Decide where access should come from
+
+A doc or folder can get access from several places:
+
+- **People** -- specific teammates or external users
+- **Groups** -- connected groups from your organization
+- **Your organization** -- everyone in your Falconer organization
+- **Anyone with the link** -- link access for docs
+- **A parent folder or section** -- inherited permissions
+
+Falconer uses the highest access level someone receives from any source. For example, if your organization has **Can view** and a teammate is added directly with **Can edit**, that teammate can edit.
+
+## Use folders for repeated access
+
+Inherited permissions let a doc or folder follow the access settings from the nearest parent folder or section.
+
+`<img src="https://falconer.com/api/file/s3/file-tree/1790293377579-06dn07.png?fileNodeId=filenode_itw1mbg6sft3x23qhdjsrp2r&amp;repoPath=%2Fdocs%2Fimages%2Fplan-doc-access-inherited-permissions.png" alt="" width="520" style="margin-inline: auto;" />`
+
+This is the default for new docs and folders. It keeps a folder tree easy to manage because changing a parent folder can update access for everything inside it that still inherits from that folder.
+
+When a doc or folder inherits permissions, its share dialog shows where those permissions come from. The individual access controls are read-only until you switch to custom permissions.
+
+## Use custom permissions for exceptions
+
+Custom permissions let a doc or folder keep its own access settings.
+
+Use custom permissions when one doc needs a different audience than the folder around it, or when a subfolder should manage a smaller group of docs separately.
+
+When you turn off inherited permissions, Falconer copies the current effective access into the doc or folder. You can then edit the copied settings without changing the parent.
+
+## Remember that folder permissions affect docs
+
+Folder permissions are ultimately for managing access to docs. If a folder has custom permissions, descendants that inherit from it use that folder's settings.
+
+Descendants with custom permissions keep their own settings. Changing a parent folder does not overwrite them.
+
+## Check search and agent access
+
+Falconer search, Q&A, and agent answers only use docs the requesting user can access. If someone cannot open a doc, Falconer does not surface that doc in answers or search results for them.
