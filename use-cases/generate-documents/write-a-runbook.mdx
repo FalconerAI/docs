@@ -1,0 +1,61 @@
+---
+title: Write a runbook
+description: Turn your codebase, Slack threads, and notes into step-by-step runbooks ready for the next incident or deployment.
+sidebar:
+  order: 3
+---
+
+Turn your codebase, Slack threads, and notes into step-by-step runbooks ready for the next incident or deployment. Falconer drafts the runbook from your actual systems so it reflects how things really work, not how someone remembered them.
+
+## Prerequisites
+
+[Connect sources](/docs/set-up/connect-sources) like GitHub and Slack so Falconer can read your codebase and pull in context from past incidents and discussions.
+
+## Draft a runbook
+
+Use Falcon to start the draft. Be specific about the service or scenario:
+
+```
+Write a runbook for deploying the payments service
+```
+
+```
+Create an incident response runbook for database connection failures
+```
+
+Falconer reads your connected repositories, finds the relevant code and configuration, and produces a structured runbook with steps, commands, and context.
+
+## Build from a past incident
+
+If your team resolved an incident in Slack, ask Falconer to turn that thread into a runbook so the fix is documented for next time.
+
+![](/images/write-a-runbook-incident.png)
+
+Falconer reads the thread, extracts the resolution steps, and structures them into a reusable runbook.
+
+## Reference specific files
+
+Use **@** to point Falconer at the exact services, scripts, or config files you want the runbook to cover:
+
+```
+Write a deployment runbook for @src/services/ingest using @infra/deploy.sh
+```
+
+```
+Create a rollback runbook based on @scripts/rollback.sh and @infra/pulumi/instance
+```
+
+## Iterate on the draft
+
+Once the draft is open in the editor, use the agent in the right pane to refine it:
+
+- **Commands** -- ask Falconer to verify commands against your actual scripts or add missing flags
+- **Sections** -- add a prerequisites section, an escalation path, or a rollback procedure
+- **Audience** -- adjust the level of detail for a junior on-call engineer vs. a senior SRE
+- **Edge cases** -- ask Falconer to identify failure modes or gotchas based on your code
+
+## Keep runbooks up-to-date
+
+Once published, Falconer monitors your connected repositories for changes. When a PR merges that affects a service your runbook covers, Falconer flags the runbook and proposes updates -- so your procedures stay accurate as your infrastructure evolves.
+
+You can also manually audit your runbooks for staleness at any time. See [Find and fix outdated docs](/docs/update/find-and-fix-outdated-docs).
