@@ -37,6 +37,20 @@ Mention `@Falcon` followed by your question. Falcon searches your connected docu
 
 Falcon provides real-time responses with citations to specific files, documents, or conversations so you can verify the information and explore further.
 
+## Ask about Knowledge Health findings
+
+If Knowledge Health is enabled for your organization, Falcon can search its findings from Slack, so you do not have to open the dashboard to see what the last audit flagged.
+
+```
+@Falcon what did the last Knowledge Health audit find?
+```
+
+```
+@Falcon are there any open contradictions in our docs?
+```
+
+Falcon reports findings by title, with their category (contradiction, coverage gap, redundancy, stale doc) and severity. A broad question such as “what did the audit find?” returns the currently open findings even when it matches no finding by keyword.
+
 ## Permissions
 
 Falcon respects your organization's permissions. Users only see answers based on documents and resources they have access to in Falconer.
