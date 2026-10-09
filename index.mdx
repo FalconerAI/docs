@@ -1,8 +1,493 @@
 ---
-title: "Welcome"
-description: Falconer is a self-updating knowledge platform that provides humans and agents with a long-term memory system.
+title: "Introduction"
+description: "Falconer is a self-updating knowledge platform that provides humans and agents with a long-term memory system."
 tableOfContents: false
 pagefind: false
 ---
 
-Falconer is a self-updating knowledge platform that provides humans and agents with a long-term memory system.
+<Html id="s4cbe8fi2ubuky0no7dsnyqj" class="w-full h-96">
+<div id="fb-stage" aria-hidden="true"></div>
+<style>
+  /* Canvas stage: fixed to the right edge of the window, under the header, never blocks the page. */
+  #fb-stage { position:fixed; top:var(--sl-nav-height, 3.5rem); right:0; bottom:0; width:min(42vw, 40rem); z-index:0; pointer-events:none; display:none; background:transparent; }
+  #fb-stage canvas { display:block; width:100%; height:100%; background:transparent; }
+  /* Shown on large screens only; reserve space so page content does not run under the canvas. */
+  @media (min-width:72rem) {
+    #fb-stage { display:block; }
+    body:has(#fb-stage) .main-pane { padding-inline-end:min(36vw, 34rem); }
+  }
+  /* Inside the editor preview iframe: fill the frame. */
+  #fb-stage.fb-embedded { display:block; top:0; width:100%; }
+</style>
+<script type="module">
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js';
+
+const stage = document.getElementById('fb-stage');
+if (window.self !== window.top) stage.classList.add('fb-embedded');
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// --- theme: follows Starlight's data-theme on <html>, falls back to the OS setting
+const PAL = {
+  dark:  { paper:'#1C2226', ink:'#7B97A7', acc:'#22A8CC', tint:'#003040', fg:'#E1E7EA', warn:'#F08C00', warnf:'#282216' },
+  light: { paper:'#F0F2F4', ink:'#6A7781', acc:'#006C8A', tint:'#D3EBF2', fg:'#1C2227', warn:'#F08C00', warnf:'#FBEEDB' },
+};
+const PAPER = new THREE.Color(), INK = new THREE.Color(), ACC = new THREE.Color(), TINT = new THREE.Color();
+const FG = new THREE.Color(), WARN = new THREE.Color(), WARNF = new THREE.Color();
+const themed = [];   // [material, color] pairs that follow the palette directly
+function applyTheme() {
+  const d = document.documentElement.dataset.theme;
+  const mode = d === 'light' || d === 'dark' ? d : (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+  const p = PAL[mode];
+  PAPER.set(p.paper); INK.set(p.ink); ACC.set(p.acc); TINT.set(p.tint); FG.set(p.fg); WARN.set(p.warn); WARNF.set(p.warnf);
+  themed.forEach(([m, c]) => m.color.copy(c));
+}
+applyTheme();
+new MutationObserver(applyTheme).observe(document.documentElement, { attributes:true, attributeFilter:['data-theme'] });
+matchMedia('(prefers-color-scheme: light)').addEventListener('change', applyTheme);
+
+// --- renderer: transparent so the page background shows through
+const renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setClearColor(0x000000, 0);
+stage.appendChild(renderer.domElement);
+const scene = new THREE.Scene();
+const cam = new THREE.OrthographicCamera(-1, 1, 1, -1, -400, 600);
+const ISO = new THREE.Vector3(1, 0.82, 1).normalize().multiplyScalar(100);
+
+// --- part factory. KEY names what a part is; AT is when (0-1 through its step) it lights up.
+const fills = [];
+let KEY = null, AT = 0;
+function part(group, geo, pos=[0,0,0], rot=[0,0,0], opt={}) {
+  const base = opt.accent ? [TINT, ACC] : [PAPER, INK];
+  const fill = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color:base[0].clone(), transparent:true, opacity:opt.ghost ? 0 : 1,
+    depthWrite:!opt.ghost, polygonOffset:true, polygonOffsetFactor:1, polygonOffsetUnits:1 }));
+  const line = new THREE.LineSegments(new THREE.EdgesGeometry(geo, opt.th ?? 1), opt.ghost
+    ? new THREE.LineDashedMaterial({ color:base[1].clone(), dashSize:.3, gapSize:.22, transparent:true })
+    : new THREE.LineBasicMaterial({ color:base[1].clone(), transparent:true }));
+  if (opt.ghost) line.computeLineDistances();
+  fill.userData = { base, ghost:!!opt.ghost, key: opt.key ?? KEY, at: opt.at ?? AT };
+  fill.add(line); fill.position.set(...pos); fill.rotation.set(...rot);
+  group.add(fill); fills.push(fill);
+  return fill;
+}
+const V = (x, y, z) => new THREE.Vector3(x, y, z);
+const box = (w, h, d) => new THREE.BoxGeometry(w, h, d);
+const ROUND = { th:25 };
+function rod(group, a, b, r=.1) {
+  const A = V(...a), B = V(...b);
+  const f = part(group, new THREE.CylinderGeometry(r, r, A.distanceTo(B), 6), A.clone().add(B).multiplyScalar(.5).toArray());
+  f.quaternion.setFromUnitVectors(V(0,1,0), B.clone().sub(A).normalize());
+  return f;
+}
+const sub = (parent, pos=[0,0,0], rot=[0,0,0]) => { const g = new THREE.Group(); g.position.set(...pos); g.rotation.set(...rot); parent.add(g); return g; };
+const clamp = (x, a=0, b=1) => Math.min(b, Math.max(a, x));
+const smooth = x => { x = clamp(x); return x * x * (3 - 2 * x); };
+const seg = (q, a, b) => smooth((q - a) / (b - a));
+const lerp = (a, b, t) => a + (b - a) * t;
+
+// --- six floors stacked vertically, one per step
+const STEPS = [
+  { id:'sources', lit:['github','linear','notion','slack'] },
+  { id:'scan',    lit:['read','map','link'] },
+  { id:'health',  lit:['stale','conflict','dupe','gap'], tone:'warn' },
+  { id:'update',  lit:['trigger','edit','pages'] },
+  { id:'write',   lit:['ask','draft','cite'] },
+  { id:'publish', lit:['site','search','live'] },
+];
+const FLOOR = 15;
+const groups = {}, anims = {};
+function floor(id, i) {
+  const g = new THREE.Group(); g.position.set(0, -i * FLOOR, 0); g.rotation.y = Math.PI / 4;
+  scene.add(g); groups[id] = g; KEY = null; AT = 0;
+  part(g, box(8, .5, 8), [0, .25, 0]);
+  return g;
+}
+
+// 01 Sources: a packet leaves each tool and lands in the hub
+{
+  const g = floor('sources', 0);
+  const P = [['github', -2.4, -2.4], ['linear', 2.4, -2.4], ['notion', -2.4, 2.4], ['slack', 2.4, 2.4]];
+  const gl = {};
+  P.forEach(([k, x, z], i) => { KEY = k; AT = .12 + i * .17; part(g, box(2, .5, 2), [x, .75, z]); gl[k] = sub(g, [x, 1, z]); });
+  KEY = 'github'; AT = .12; { const G = gl.github; [[-.35, .35], [-.35, 1.05], [-.35, 1.75], [.45, 1.05]].forEach(([x, y]) => part(G, new THREE.IcosahedronGeometry(.25, 0), [x, y, 0]));
+    rod(G, [-.35, .55, 0], [-.35, .85, 0], .05); rod(G, [-.35, 1.25, 0], [-.35, 1.5, 0], .05); rod(G, [-.2, .5, 0], [.3, .9, 0], .05); rod(G, [.3, 1.25, 0], [-.15, 1.6, 0], .05); }
+  KEY = 'linear'; AT = .29; [0, 1, 2].forEach(i => part(gl.linear, box(1.5, .14, 1), [-.3 + i * .3, .2 + i * .42, .1 - i * .1]));
+  KEY = 'notion'; AT = .46; part(gl.notion, box(1.3, 1.7, .12), [0, .9, 0]); [.9, .6, .8].forEach((w, i) => part(gl.notion, box(w, .1, .05), [-.45 + w/2, 1.35 - i * .32, .08]));
+  KEY = 'slack'; AT = .63; const bubble = sub(gl.slack); part(bubble, box(1.6, .95, .3), [0, 1.25, 0]); part(bubble, new THREE.ConeGeometry(.2, .45, 4), [-.45, .6, 0], [Math.PI, 0, 0]);
+  [1.1, .7].forEach((w, i) => part(bubble, box(w, .1, .05), [-.55 + w/2, 1.45 - i * .32, .18]));
+  KEY = 'hub'; AT = 0; const hub = part(g, new THREE.CylinderGeometry(.9, .9, .5, 16), [0, .75, 0], [0,0,0], { th:25, accent:true });
+  const packets = P.map(([k, x, z], i) => { KEY = k; AT = .12 + i * .17; rod(g, [x*.62, .75, z*.62], [x*.35, .75, z*.35], .06);
+    return [part(g, box(.32, .32, .32), [x * .62, .95, z * .62], [0,0,0], { accent:true }), x, z, .12 + i * .17]; });
+  anims.sources = (q, t) => {
+    packets.forEach(([p, x, z, a]) => { const k = seg(q, a, a + .2); const r = .62 - .42 * k;
+      p.position.set(x * r, .95 + Math.sin(k * Math.PI) * .9, z * r); p.rotation.y = k * Math.PI; p.userData.fade = k > 0 && k < 1 ? 1 : 0; });
+    hub.scale.setScalar(1 + .15 * Math.max(...packets.map(([, , , a]) => { const k = q - a - .2; return k > 0 && k < .06 ? 1 - k / .06 : 0; })));
+    bubble.position.y = Math.sin(t * 2) * .08;
+  };
+}
+// 02 Scan: a ring sweeps up the stack, then cross-links grow
+{
+  const g = floor('scan', 1);
+  KEY = 'map'; for (let i = 0; i < 4; i++) { AT = ((1.1 + i * 1.15) - .8) / 4.6; part(g, box(5.2 - i*.5, .22, 5.2 - i*.5), [0, 1.1 + i*1.15, 0]); }
+  KEY = 'link'; const links = [[-1.6, -1.2, 1.2, 2.3], [1.2, 1, 2.3, 3.45], [-1, 1.4, 1.2, 3.45], [1.4, -1.3, 2.3, 4.6]].map(([x, z, y0, y1], i) => { AT = .5 + i * .08; const r = rod(g, [x, y0, z], [x * .6, y1, z * .6], .06); return [r, AT]; });
+  KEY = 'read'; AT = 0; const ring = part(g, new THREE.TorusGeometry(3.6, .1, 4, 40), [0, .8, 0], [Math.PI/2, 0, 0], ROUND);
+  KEY = 'falcon'; rod(g, [0, .5, 0], [0, 5, 0], .08);
+  const eye = part(g, new THREE.OctahedronGeometry(.8), [0, 7, 0], [0,0,0], { accent:true });
+  anims.scan = (q, t) => {
+    const k = seg(q, 0, .8); ring.position.y = .8 + 4.6 * k; ring.userData.fade = q > .82 ? 1 - seg(q, .82, .95) * .7 : 1;
+    links.forEach(([r, a]) => { const s = Math.max(.001, seg(q, a, a + .1)); r.scale.y = s; r.userData.fade = s > .01 ? 1 : 0; });
+    eye.rotation.y = t * .5 + q * Math.PI * 2;
+  };
+}
+// 03 Health: issues surface one at a time
+{
+  const g = floor('health', 2);
+  const s = 2.15, T = (i, j) => [(i - 1) * s, (j - 1) * s];
+  const special = { '0,0':1, '2,1':1, '1,2':1, '0,2':1 };
+  KEY = 'grid'; AT = 9;
+  for (let i = 0; i < 3; i++) for (let j = 0; j < 3; j++) if (!special[i+','+j]) { const [x, z] = T(i, j); part(g, box(1.8, .3, 1.8), [x, .65, z]); }
+  KEY = 'conflict'; AT = .15; const [cx, cz] = T(0, 2); const ca = part(g, box(1.7, .2, 1.7), [cx, .65, cz]), cb = part(g, box(1.7, .2, 1.7), [cx, .65, cz]);
+  KEY = 'stale'; AT = .35; const [sx, sz] = T(0, 0); const stale = part(g, box(1.8, .3, 1.8), [sx, .65, sz]);
+  KEY = 'dupe'; AT = .55; const [dx, dz] = T(2, 1); part(g, box(1.8, .3, 1.8), [dx, .65, dz]); const twin = part(g, box(1.8, .3, 1.8), [dx, .65, dz]);
+  KEY = 'gap'; AT = .75; const [gx, gz] = T(1, 2); const gapSolid = part(g, box(1.8, .3, 1.8), [gx, .65, gz]); const gap = part(g, box(1.8, .3, 1.8), [gx, .65, gz], [0,0,0], { ghost:true });
+  anims.health = (q, t) => {
+    const kc = seg(q, .15, .28); ca.rotation.z = .35 * kc; cb.rotation.z = -.35 * kc; ca.position.set(cx - .25 * kc, .65 + .35 * kc, cz); cb.position.set(cx + .25 * kc, .65 + .35 * kc, cz);
+    const ks = seg(q, .35, .48); stale.position.y = .65 + 1.25 * ks + (ks > .99 ? Math.sin(t * 2) * .08 : 0); stale.rotation.set(.2 * ks, 0, -.15 * ks);
+    const kd = seg(q, .55, .68); twin.position.set(dx + .45 * kd, .65 + .55 * kd, dz - .45 * kd);
+    const kg = seg(q, .75, .86); gapSolid.userData.fade = 1 - kg; gapSolid.position.y = .65 - .6 * kg; gap.userData.fade = kg;
+  };
+}
+// 04 Auto-update: the loop turns; the affected page slides out, is rewritten, slides back
+{
+  const g = floor('update', 3);
+  KEY = 'pages'; AT = .3; [0, 1, 3].forEach(i => part(g, box(3.6, .7, 3.6), [0, .85 + i*.85, 0]));
+  KEY = 'edit'; AT = .15; const slab = part(g, box(3.6, .7, 3.6), [0, 2.55, 0], [0,0,0], { accent:true }); part(g, box(3.6, .7, 3.6), [0, 2.55, 0], [0,0,0], { ghost:true });
+  KEY = 'trigger'; AT = 0; const loop = part(g, new THREE.TorusGeometry(3.2, .09, 4, 48, Math.PI * 1.6), [0, 5, 0], [Math.PI/2, 0, 0], ROUND);
+  const a = Math.PI * 1.6; part(loop, new THREE.ConeGeometry(.32, .9, 4), [3.2 * Math.cos(a), 3.2 * Math.sin(a), 0], [0, 0, a]);
+  anims.update = q => {
+    loop.rotation.z = -q * Math.PI * 2;
+    const o = seg(q, .15, .32) - seg(q, .68, .85); slab.position.x = o * 2.4; slab.position.y = 2.55 + o * .4;
+  };
+}
+// 05 Write: the draft is written line by line, then citations link in
+{
+  const g = floor('write', 4);
+  KEY = 'draft'; AT = 0;
+  rod(g, [-1.8, .5, -.6], [-1.8, 2.4, -.6], .12); rod(g, [1.8, .5, -.6], [1.8, 2.4, -.6], .12);
+  rod(g, [-1.8, .5, 1.4], [-1.8, 1.6, 1.4], .12); rod(g, [1.8, .5, 1.4], [1.8, 1.6, 1.4], .12);
+  const desk = sub(g, [0, 2.3, .3], [.5, 0, 0]);
+  part(desk, box(5.6, .25, 4.4)); part(desk, box(4.2, .06, 3.4), [0, .16, 0]);
+  const rows = [3.2, 2.6, 3, 1.8, 2.8].map((w, i) => ({ w, z: -1.25 + i * .62, m: part(desk, box(w, .06, .2), [0, .22, -1.25 + i * .62]) }));
+  KEY = 'ask'; const pen = sub(desk, [0, 1.5, 0]); part(pen, new THREE.OctahedronGeometry(.6), [0, .4, 0], [0,0,0], { accent:true }); rod(pen, [0, -.2, 0], [0, -1.15, 0], .05);
+  KEY = 'cite'; AT = .78; [[2.4, -2.8], [3.3, -2.2], [3.3, -3.2]].forEach(([x, z]) => part(g, box(.7, .7, .7), [x, .85, z]));
+  const thread = rod(g, [2.1, 1, -2.5], [1.2, 2.2, -1.2], .05);
+  anims.write = (q, t) => {
+    const cur = clamp(q / .72) * rows.length;
+    rows.forEach((r, i) => { const s = Math.max(.001, clamp(cur - i)); r.m.scale.x = s; r.m.position.x = -1.75 + r.w * s / 2; r.m.userData.fade = s > .01 ? 1 : 0;
+      if (cur >= i && cur < i + 1) pen.position.set(-1.75 + r.w * s, 1.4 + Math.abs(Math.sin(t * 8)) * .06, r.z); });
+    if (cur >= rows.length) pen.position.set(0, 1.5 + seg(q, .72, .9) * 1.2, 0);
+    thread.scale.y = Math.max(.001, seg(q, .78, .9)); thread.userData.fade = q > .78 ? 1 : 0;
+  };
+}
+// 06 Publish: the page rises, search lights up, it goes live
+{
+  const g = floor('publish', 5);
+  KEY = 'site'; AT = 0; const page = sub(g, [-.6, .5, -.6]);
+  part(page, box(3.4, 4.6, .25), [0, 2.6, 0]);
+  [2.4, 1.8, 2.2].forEach((w, i) => part(page, box(w, .16, .06), [-1.3 + w/2, 3.6 - i*.55, .16]));
+  part(page, box(1.6, .9, .06), [-.5, 1.3, .16]);
+  KEY = 'search'; AT = .35; part(page, box(2.8, .45, .1), [0, 4.45, .2]);
+  KEY = 'live'; AT = .62; const rings = [0, 1, 2].map(() => part(g, new THREE.TorusGeometry(1, .05, 3, 40), [-.6, .55, -.6], [Math.PI/2, 0, 0], ROUND));
+  anims.publish = (q, t) => {
+    page.scale.y = .08 + .92 * seg(q, 0, .3);
+    rings.forEach((r, i) => { const k = q >= 1 && !RM ? ((t * .3 + i / 3) % 1) : clamp((q - .62) * 2.6 - i * .3); const rr = 1.8 + k * 2.4;
+      r.scale.set(rr, rr, 1); r.userData.fade = k > 0 ? 1 - k : 0; });
+  };
+}
+const ORDER = STEPS.map(s => s.id);
+for (const [id, g] of Object.entries(groups)) g.traverse(o => { if (o.isMesh) o.userData.step = id; });
+const litKeys = {}; STEPS.forEach(s => litKeys[s.id] = new Set([...s.lit, 'hub']));
+const toneOf = {}; STEPS.forEach(s => toneOf[s.id] = s.tone === 'warn' ? [WARNF, WARN] : [TINT, ACC]);
+
+// --- pipeline: dashed line down the back-left corner, with a progress thread and marker
+const corner = V(-4.8, 0, -4.8).applyAxisAngle(V(0,1,0), Math.PI / 4);
+const flowMat = new THREE.LineDashedMaterial({ color:INK.clone(), dashSize:.5, gapSize:.4, transparent:true, opacity:.35 });
+const arrowMat = new THREE.MeshBasicMaterial({ color:INK.clone(), transparent:true, opacity:.5 });
+for (let i = 0; i < 5; i++) {
+  const a = corner.clone().setY(-i * FLOOR - .2), b = corner.clone().setY(-(i + 1) * FLOOR + 1.4);
+  const l = new THREE.Line(new THREE.BufferGeometry().setFromPoints([a, b]), flowMat); l.computeLineDistances(); scene.add(l);
+  const head = new THREE.Mesh(new THREE.ConeGeometry(.3, .9, 4), arrowMat); head.position.copy(b); head.rotation.x = Math.PI; scene.add(head);
+}
+const threadGeo = new THREE.BufferGeometry().setFromPoints([corner.clone(), corner.clone()]);
+const threadMat = new THREE.LineBasicMaterial({ color:ACC.clone(), transparent:true, opacity:.9 });
+const thread = new THREE.Line(threadGeo, threadMat); scene.add(thread);
+const markerMat = new THREE.MeshBasicMaterial({ color:ACC.clone() });
+const marker = new THREE.Mesh(new THREE.OctahedronGeometry(.4), markerMat); scene.add(marker);
+const markerEdgeMat = new THREE.LineBasicMaterial({ color:ACC.clone(), transparent:true, opacity:.5 });
+const markerEdge = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.OctahedronGeometry(.8)), markerEdgeMat); marker.add(markerEdge);
+themed.push([flowMat, INK], [arrowMat, INK], [threadMat, ACC], [markerMat, ACC], [markerEdgeMat, ACC]);
+
+// --- pointer sway (the stage itself ignores pointer events, so listen on the window)
+const pointer = { x:0, y:0, in:false };
+addEventListener('pointermove', e => {
+  const r = stage.getBoundingClientRect();
+  const inside = e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
+  pointer.in = inside && e.pointerType === 'mouse';
+  if (inside) { pointer.x = (e.clientX - r.left) / r.width * 2 - 1; pointer.y = (e.clientY - r.top) / r.height * 2 - 1; }
+});
+document.addEventListener('pointerleave', () => { pointer.in = false; });
+
+// --- camera keys: overview, one per floor, overview
+let SW = 1, SH = 1, keys = [];
+const center = i => V(0, -i * FLOOR + 3.4, 0);
+function frame() {
+  SW = Math.max(1, stage.clientWidth); SH = Math.max(1, stage.clientHeight);
+  renderer.setSize(SW, SH, false);
+  const oc = V(0, -2.5 * FLOOR + 3, 0);
+  cam.position.copy(oc).add(ISO); cam.lookAt(oc); cam.updateMatrixWorld();
+  let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
+  for (const g of Object.values(groups)) { const b = new THREE.Box3().setFromObject(g);
+    for (const x of [b.min.x, b.max.x]) for (const y of [b.min.y, b.max.y]) for (const z of [b.min.z, b.max.z]) {
+      const p = V(x, y, z).applyMatrix4(cam.matrixWorldInverse); x0 = Math.min(x0, p.x); x1 = Math.max(x1, p.x); y0 = Math.min(y0, p.y); y1 = Math.max(y1, p.y); } }
+  const Wo = Math.max((x1 - x0) / .8, ((y1 - y0) / .86) * SW / SH);
+  const Wf = Math.max(17, 10.5 * SW / SH);
+  keys = [{ target:oc, W:Wo }];
+  STEPS.forEach((s, i) => keys.push({ target:center(i), W:Wf }));
+  keys.push({ target:oc, W:Wo });
+}
+new ResizeObserver(frame).observe(stage);
+frame();
+
+// --- scroll observer, driven by the page content. Sections: 0 intro, 1-6 steps, 7 outro.
+// The first six h2 headings start the six steps; a seventh h2 (if present) starts the outro.
+// Works whether the window or an inner container (e.g. the main frame) is the scrolling element:
+// a capturing scroll listener on the document catches scroll events from any element.
+const content = document.querySelector('.sl-markdown-content') || document.body;
+
+// Space the step sections apart on large screens, so each one holds the canvas for a longer scroll distance.
+// Set as inline styles so no site stylesheet or style scoping can override them.
+const wide = matchMedia('(min-width: 72rem)');
+function spaceSections() {
+  const on = wide.matches && content !== document.body;
+  const set = (el, p, v) => el.style.setProperty(p, on ? v : '', on ? 'important' : '');
+  // one short vertical dashed line, start-aligned, in the gap above each section heading
+  const dash = 'repeating-linear-gradient(to bottom, var(--docsite-color-border) 0 6px, transparent 6px 12px)';
+  content.querySelectorAll('h2').forEach(h => {
+    const el = h.closest('.sl-heading-wrapper') || h;
+    set(el, 'margin-top', '1rem');
+    set(el, 'padding-top', '26vh');
+    set(el, 'background-image', dash);
+    set(el, 'background-repeat', 'no-repeat');
+    set(el, 'background-size', '1.5px calc(26vh - 4.5rem)');
+    set(el, 'background-position', '0 2rem');
+  });
+  const last = content.lastElementChild;
+  if (last) set(last, 'margin-bottom', '16vh');
+  set(content, 'position', 'relative');
+  set(content, 'isolation', 'isolate');
+  // Align the header's tabs and search with the content column. The header grid (FalconerHeader.astro)
+  // subtracts 3 x --__toc-width from the free space and splits it in half, so a third of the space
+  // reserved for the canvas shifts its middle column by the same amount the content shifts.
+  document.documentElement.style.setProperty('--__toc-width', on ? 'calc(min(36vw, 34rem) / 3)' : '');
+}
+spaceSections();
+wide.addEventListener('change', spaceSections);
+
+// Active section: a soft primary-tinted, rounded highlight behind it.
+const hl = document.createElement('div');
+hl.setAttribute('aria-hidden', 'true');
+hl.style.cssText = 'position:absolute;left:-1.75rem;right:-1.75rem;top:0;height:0;z-index:-1;pointer-events:none;border-radius:16px;opacity:0;' +
+  'transition:top .35s ease,height .35s ease,opacity .35s ease;' +
+  'background:color-mix(in srgb, var(--docsite-color-primary) 3%, transparent);';
+if (content !== document.body) content.prepend(hl);
+let sectionEls = [], activeGroup = -1;
+function buildGroups() {
+  sectionEls = [[]];
+  for (const el of content.children) {
+    if (el === hl) continue;
+    if (el.matches('h2') || el.querySelector(':scope > h2')) sectionEls.push([]);
+    sectionEls[sectionEls.length - 1].push(el);
+  }
+}
+function paintGroups() {
+  const on = wide.matches && content !== document.body, a = sec[0];
+  activeGroup = a;
+  const g = sectionEls[a];
+  if (!on || !g || a === 0) { hl.style.opacity = '0'; return; }
+  const cr = content.getBoundingClientRect(), first = g[0], last = g[g.length - 1];
+  const pad = parseFloat(getComputedStyle(first).paddingTop) || 0;
+  const top = first.getBoundingClientRect().top - cr.top + pad - 28;
+  const bottom = last.getBoundingClientRect().bottom - cr.top + 28;
+  hl.style.top = top + 'px'; hl.style.height = (bottom - top) + 'px'; hl.style.opacity = '1';
+}
+const docScroller = document.scrollingElement || document.documentElement;
+const canScroll = el => el && el.scrollHeight > el.clientHeight + 1 && /(auto|scroll)/.test(getComputedStyle(el).overflowY);
+function findScroller() {
+  for (let el = content.parentElement; el && el !== document.body; el = el.parentElement) if (canScroll(el)) return el;
+  return docScroller;
+}
+let scroller = findScroller();
+let edges = null, sec = [0, 0];
+const isDoc = el => el === docScroller || el === document.documentElement || el === document.body;
+function measure() {
+  const st = scroller.scrollTop, base = isDoc(scroller) ? 0 : scroller.getBoundingClientRect().top;
+  const top = el => el.getBoundingClientRect().top - base + st;
+  const hs = [...content.querySelectorAll('h2')];
+  const c0 = top(content), c1 = c0 + content.getBoundingClientRect().height;
+  // each section starts well before its heading reaches the reading line, so the canvas moves on early
+  const lead = innerHeight * .5;
+  const early = el => Math.max(c0, top(el) - lead);
+  edges = hs.length >= 6 ? [c0, ...hs.slice(0, 6).map(early), hs[6] ? early(hs[6]) : c1, c1 + 1] : null;
+  edges && (edges.c0 = c0, edges.c1 = c1);
+  update();
+  buildGroups(); paintGroups();
+}
+function update() {
+  const st = scroller.scrollTop, R = scroller.scrollHeight - scroller.clientHeight;
+  // hold the overview until the reader has scrolled a little
+  const hold = Math.min(innerHeight * .15, R * .5);
+  if (R <= 0 || st <= hold) { sec = [0, 0]; return; }
+  const r = clamp((st - hold) / Math.max(1, R - hold));
+  if (!edges) { const p = r * 7.999, k = Math.floor(p); sec = [k, p - k]; return; }
+  // a reading line sweeps from the top of the content to its bottom as the page scrolls top to bottom,
+  // so every section is reached even when the last ones are shorter than the viewport
+  const y = edges.c0 + (edges.c1 - edges.c0) * r;
+  for (let k = 0; k < 8; k++) if (y < edges[k + 1]) { sec = [k, clamp((y - edges[k]) / Math.max(1, edges[k + 1] - edges[k]))]; return; }
+  sec = [7, 1];
+}
+document.addEventListener('scroll', e => {
+  const t = e.target, el = t === document ? docScroller : t;
+  if (el !== scroller && (isDoc(el) || el.contains(content))) { scroller = el; measure(); return; }
+  if (el === scroller || (isDoc(el) && isDoc(scroller))) { update(); if (sec[0] !== activeGroup) paintGroups(); }
+}, { capture:true, passive:true });
+addEventListener('resize', () => { scroller = findScroller(); measure(); });
+new ResizeObserver(measure).observe(content);
+document.fonts?.ready.then(measure);
+addEventListener('load', measure);
+measure();
+
+// --- per-frame
+const view = { p:0, sway:V(0,0,0) }, tgt = V(0,0,0), iso = V(0,0,0);
+const q = Object.fromEntries(ORDER.map(id => [id, 0]));
+function tick() {
+  requestAnimationFrame(tick);
+  if (!stage.offsetWidth) return;   // hidden on smaller screens
+  const t = RM ? 1 : performance.now() / 1000;
+
+  const [k, f] = sec;
+  const activeIdx = k >= 1 && k <= 6 ? k - 1 : -1;
+  // hold on each floor and move on near the end of its section; the first zoom from the overview
+  // eases across the whole intro section instead, so it starts gently
+  const goal = k === 7 ? 7 : k === 0 ? smooth(f) : k + smooth((f - .7) / .3);
+  view.p = RM ? goal : lerp(view.p, goal, view.p < 1 || goal < 1 ? .06 : .1);
+  const overview = Math.max(0, 1 - view.p) + Math.max(0, view.p - 6), ending = view.p > 6.2;
+
+  // each floor's 0-1: scrubbed while active; finished above the reader, not started below
+  ORDER.forEach((id, i) => {
+    const target = i === activeIdx ? clamp((f - .05) / .6) : (activeIdx >= 0 ? +(i < activeIdx) : +(view.p > 3.5));
+    q[id] = RM ? target : lerp(q[id], target, .14);
+  });
+
+  // camera with a slight sway toward the pointer
+  const i = Math.min(keys.length - 2, Math.floor(view.p)), fr = view.p - i, A = keys[i], B = keys[i + 1];
+  tgt.lerpVectors(A.target, B.target, fr);
+  const sx = RM || !pointer.in ? 0 : pointer.x, sy = RM || !pointer.in ? 0 : pointer.y;
+  view.sway.x = lerp(view.sway.x, sx, .05); view.sway.y = lerp(view.sway.y, sy, .05);
+  iso.copy(ISO).applyAxisAngle(V(0,1,0), -view.sway.x * .07); iso.y *= 1 + view.sway.y * .06;
+  const Wv = Math.exp(lerp(Math.log(A.W), Math.log(B.W), fr)), Hv = Wv * SH / SW;
+  cam.position.copy(tgt).add(iso); cam.lookAt(tgt);
+  // when zoomed onto a step, frame it about 10% higher than center
+  const lift = .1 * clamp(1 - overview);
+  Object.assign(cam, { left:-Wv / 2, right:Wv / 2, top:Hv * (.5 - lift), bottom:-Hv * (.5 + lift) });
+  cam.updateProjectionMatrix(); cam.updateMatrixWorld();
+
+  const weight = {}; ORDER.forEach((id, j) => weight[id] = Math.max(overview, 1 - Math.abs(view.p - (j + 1))));
+  ORDER.forEach(id => anims[id](q[id], t));
+
+  // closing pulse runs down the pipeline once the reader reaches the end
+  const pulse = ending && !RM ? ((t * .22) % 1) * 6.6 - .3 : -9;
+
+  for (const fl of fills) {
+    const u = fl.userData, line = fl.children[0], j = ORDER.indexOf(u.step);
+    const pulsed = Math.abs(pulse - j - .4) < .45;
+    const lit = (u.key && activeIdx === j && litKeys[u.step].has(u.key) && q[u.step] >= u.at) || (pulsed && u.key);
+    const tone = pulsed ? [TINT, ACC] : toneOf[u.step];
+    fl.material.color.lerp(lit ? tone[0] : u.base[0], .15);
+    line.material.color.lerp(lit ? tone[1] : u.base[1], .2);
+    const w = .06 + .94 * Math.min(1, weight[u.step] ?? 1);
+    line.material.opacity = w * (u.fade ?? 1);
+    if (!u.ghost) fl.material.opacity = Math.min(1, w * 1.4) * (u.fade ?? 1);
+  }
+
+  // progress thread and marker
+  const along = ending ? clamp(pulse, 0, 5.4) : clamp(view.p - 1, 0, 5);
+  const my = -along * FLOOR;
+  const pos = threadGeo.attributes.position; pos.setXYZ(0, corner.x, 0, corner.z); pos.setXYZ(1, corner.x, my, corner.z); pos.needsUpdate = true;
+  threadMat.opacity = ending ? .35 : .9;
+  marker.position.set(corner.x, my, corner.z); marker.rotation.y = t * .8;
+  markerEdge.scale.setScalar(1 + (RM ? 0 : (t * 1.2 % 1) * .6)); markerEdgeMat.opacity = RM ? .4 : .5 * (1 - (t * 1.2 % 1));
+  marker.visible = view.p > .6;
+  flowMat.opacity = .2 + .2 * overview; arrowMat.opacity = .3 + .3 * overview;
+  flowMat.dashOffset = -t;
+
+  renderer.render(scene, cam);
+}
+tick();
+</script>
+</Html>
+
+Your team's knowledge is spread across code, tickets, wikis and threads, and it starts drifting the moment it is written. Falconer brings it into one place, catches what is wrong, and keeps every doc current as your product changes.
+
+## Connect sources
+
+**Bring scattered knowledge into one place.**
+
+Connect GitHub, Linear, Notion and Slack once. Falconer indexes them continuously, so nothing has to be migrated, moved or rewritten first.
+
+Sources: [Integrations](/integrations), [Connect sources](/set-up/connect-sources)
+
+## Falconer scans
+
+**Every source, read and connected.**
+
+Falcon, Falconer's agent, reads every repo, pull request, issue, doc and thread. It builds a knowledge graph linking documents, code, people and systems, so it knows when two sources describe the same thing.
+
+Sources: [How Falconer works](/get-started/how-falconer-works/)
+
+## Health issues
+
+**See what is wrong before anyone relies on it.**
+
+Knowledge Health scores your knowledge base from 0 to 100 and shows exactly what is dragging it down: contradictions, stale docs, coverage gaps and redundancies. Each issue arrives with an owner and a fix.
+
+Sources: [Find and fix outdated docs](/update/find-and-fix-outdated-docs/)
+
+## Auto-update
+
+**Docs change when the code does.**
+
+When a pull request merges, Falcon finds every doc it affects and drafts a proposed update. Owners get a Slack notification and accept, review or reject it in a side-by-side diff.
+
+Sources: [Automatically update documents](/update/auto-update-docs/), [Keep docs in sync with PRs](/update/keep-docs-in-sync-with-prs/)
+
+## Falconer writes docs
+
+**From a prompt to a cited first draft.**
+
+Ask Falcon for a runbook, an onboarding guide, an API reference or a changelog. You get a draft grounded in your code and conversations, with a citation for every claim.
+
+Sources: [Write a doc](/write/write-a-doc/), [Generate docs automatically](/get-started/generate-docs-automatically/)
+
+## Publish docs
+
+**Customers read what actually changed.**
+
+Publish from the same verified knowledge your team works from. When the product changes, the published docs change with it.
+
+Sources: [Share a doc](/use-cases/manage-permissions/share-a-doc/)
+
+## The self-updating loop
+
+Code changes, and the docs follow. Every merged pull request and every decision in Slack flows through to the pages your team and your customers rely on.
+
+Sources: [How Falconer works](/get-started/how-falconer-works/), [Connect sources](/set-up/connect-sources/)
