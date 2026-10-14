@@ -6,301 +6,262 @@ pagefind: false
 ---
 
 <Html id="s4cbe8fi2ubuky0no7dsnyqj" class="w-full h-96">
-<div id="fb-stage" aria-hidden="true"></div>
+<div id="fb-stage" class="not-content" aria-hidden="true">
+  <svg width="0" height="0" style="position:absolute">
+    <symbol id="fb-mark" viewBox="0 0 118 112">
+      <g style="fill:var(--p-fg)">
+        <path d="M28.3296 51.9676L20.9016 59.3956V90.4471L0 111.342H10.5009L25.3211 96.5213H58.0345L65.4625 89.0933H28.3296V51.9676Z"/>
+        <path d="M43.1858 37.1116L35.7578 44.5396V81.6725H72.8907L80.3187 74.2445H43.193V37.1187L43.1858 37.1116Z"/>
+        <path d="M80.3246 59.3957H58.0334V22.2556L50.6053 29.6836V66.8094H87.7311L95.1591 59.3813H80.3174L80.3246 59.3957Z"/>
+        <path d="M95.1828 44.5399H72.8916V7.40698L65.4707 14.835V51.9679H102.596L110.017 44.5399H95.1828Z"/>
+      </g>
+      <path style="fill:var(--p-acc)" d="M80.2966 0V37.1258H117.422V0Z"/>
+    </symbol>
+  </svg>
+  <div class="fb-fit"><div class="fb-lift"><div class="fb-iso">
+    <div class="fb-base"><svg viewBox="0 0 300 380"><polygon points="22,1 299,1 299,358 278,379 1,379 1,22"/></svg></div>
+  </div></div></div>
+</div>
 <style>
-  /* Canvas stage: fixed to the right edge of the window, under the header, never blocks the page. */
-  #fb-stage { position:fixed; top:var(--sl-nav-height, 3.5rem); right:0; bottom:0; width:min(42vw, 40rem); z-index:0; pointer-events:none; display:none; background:transparent; }
-  #fb-stage canvas { display:block; width:100%; height:100%; background:transparent; }
-  /* Shown on large screens only; reserve space so page content does not run under the canvas. */
+  /* Stage: fixed to the right edge of the window, under the header, never blocks the page. */
+  #fb-stage { position:fixed; top:var(--sl-nav-height, 3.5rem); right:0; bottom:0; width:min(42vw, 40rem); z-index:0; pointer-events:none; display:none; overflow:hidden;
+    --p-paper:#232C32; --p-sunk:#1C2429; --p-edge:#12171A; --p-line:#33404A; --p-ink:#7B97A7; --p-fg:#E1E7EA; --p-acc:#22A8CC; --p-tint:#003040; --p-card:#2C3840;
+    --p-warn:#F08C00; --p-warnf:#2E2416; --p-ok:#3FB37F; --p-bad:#E5484D; }
+  :root[data-theme='light'] #fb-stage { --p-paper:#F7F9FA; --p-sunk:#EDF1F3; --p-edge:#C3CCD2; --p-line:#DDE3E7; --p-ink:#6A7781; --p-fg:#1C2227; --p-acc:#006C8A; --p-tint:#D3EBF2; --p-card:#FFFFFF; --p-warnf:#FBEEDB; }
+  /* Shown on large screens only; reserve space so page content does not run under the stage. */
   @media (min-width:72rem) {
     #fb-stage { display:block; }
     body:has(#fb-stage) .main-pane { padding-inline-end:min(36vw, 34rem); }
   }
   /* Inside the editor preview iframe: fill the frame. */
   #fb-stage.fb-embedded { display:block; top:0; width:100%; }
+
+  /* Isometric projection, orthographic (no perspective). Sheets stack along the local z axis.
+     Starlight adds margin-top to sibling elements inside .sl-markdown-content, which shifted every sheet after
+     the dashed base; reset margins for everything in the stage. */
+  #fb-stage * { margin:0 !important; }
+  #fb-stage .fb-fit { position:absolute; left:50%; top:48%; width:0; height:0; }
+  #fb-stage .fb-lift { position:absolute; transform-style:preserve-3d; }
+  #fb-stage .fb-iso { position:absolute; transform-style:preserve-3d; transform:rotateX(58deg) rotateZ(-45deg); }
+  #fb-stage .fb-sheet, #fb-stage .fb-base { position:absolute; left:-150px; top:-190px; width:300px; height:380px; transform-style:preserve-3d; }
+  #fb-stage .fb-base { transform:translateZ(-10px); }
+  #fb-stage .fb-base polygon { fill:none; stroke:var(--p-line); stroke-width:1.5; stroke-dasharray:6 6; }
+  #fb-stage .fb-face { position:absolute; inset:0;
+    clip-path:polygon(22px 0,100% 0,100% calc(100% - 22px),calc(100% - 22px) 100%,0 100%,0 22px); }
+  #fb-stage .fb-face { background:var(--p-paper); }
+  /* The sheet's content is split into items. On the active sheet each item floats at its own height (z) above the
+     paper as a flat plane; --h is that height and GSAP tweens it per item. */
+  #fb-stage .fb-holo { position:absolute; inset:0; transform-style:preserve-3d; }
+  #fb-stage .fb-bit { position:absolute; inset:0; transform:translateZ(.5px); }
+  #fb-stage .fb-col { position:absolute; inset:0; transform-style:preserve-3d; --h:0px; --b:0px; }
+  #fb-stage .fb-shadow, #fb-stage .fb-top { position:absolute; inset:0; }
+  /* each floating item casts a soft shadow on its paper; the higher it floats, the softer the shadow */
+  #fb-stage .fb-shadow { transform:translateZ(.6px); filter:brightness(0) blur(calc(.5px + var(--h) * .06)); opacity:0; }
+  /* --h is the item's resting height, --b an idle float offset added on top while its sheet is active */
+  #fb-stage .fb-top { transform:translateZ(calc(1px + var(--h) + var(--b))); }
+  #fb-stage .cd { fill:var(--p-card); stroke:var(--p-line); stroke-width:1; } #fb-stage .acd { fill:var(--p-acc); } #fb-stage .wcd { fill:var(--p-warn); }
+  /* line icons: drawn in a 24 x 24 box and scaled, with strokes that keep their width */
+  #fb-stage .gl, #fb-stage .glo { fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+  #fb-stage .gl { stroke:var(--p-fg); } #fb-stage .glo { stroke:var(--p-paper); } #fb-stage .gl *, #fb-stage .glo * { vector-effect:non-scaling-stroke; }
+  /* Every sheet has a thin outline drawn as an SVG polygon, so stacked sheets of the same color stay distinct. */
+  #fb-stage .fb-outline { position:absolute; inset:0; pointer-events:none; }
+  #fb-stage .fb-outline polygon { fill:none; stroke:var(--p-line); stroke-width:1.5; }
+  #fb-stage svg { display:block; width:100%; height:100%; }
+  #fb-stage text { font-family:var(--sl-font, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif); font-weight:700; letter-spacing:-.02em; }
+  #fb-stage .f { fill:var(--p-fg); } #fb-stage .k { fill:var(--p-ink); } #fb-stage .a { fill:var(--p-acc); } #fb-stage .t { fill:var(--p-tint); }
+  #fb-stage .w { fill:var(--p-warn); } #fb-stage .wf { fill:var(--p-warnf); } #fb-stage .sunk { fill:var(--p-sunk); } #fb-stage .on { fill:var(--p-paper); }
+  #fb-stage .ok { fill:var(--p-ok); fill-opacity:.16; } #fb-stage .bad { fill:var(--p-bad); fill-opacity:.16; }
+  #fb-stage .okt { fill:var(--p-ok); } #fb-stage .badt { fill:var(--p-bad); }
+  #fb-stage .l { fill:none; stroke:var(--p-line); stroke-width:1; } #fb-stage .l2 { fill:none; stroke:var(--p-ink); stroke-width:1.2; }
+  #fb-stage .al { fill:none; stroke:var(--p-acc); stroke-width:2; } #fb-stage .dash { stroke-dasharray:5 5; }
+  /* 3D connector between two floating items: a dashed strip from one item's center to the other's, at their live heights */
+  #fb-stage .fb-link { position:absolute; left:0; top:-1px; height:2px; transform-origin:0 50%;
+    background:repeating-linear-gradient(to right, var(--p-acc) 0 5px, transparent 5px 10px); }
 </style>
 <script type="module">
-import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js';
-
 const stage = document.getElementById('fb-stage');
 if (window.self !== window.top) stage.classList.add('fb-embedded');
-const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const iso = stage.querySelector('.fb-iso'), lift = stage.querySelector('.fb-lift'), fitEl = stage.querySelector('.fb-fit');
 
-// --- theme: follows Starlight's data-theme on <html>, falls back to the OS setting
-const PAL = {
-  dark:  { paper:'#1C2226', ink:'#7B97A7', acc:'#22A8CC', tint:'#003040', fg:'#E1E7EA', warn:'#F08C00', warnf:'#282216' },
-  light: { paper:'#F0F2F4', ink:'#6A7781', acc:'#006C8A', tint:'#D3EBF2', fg:'#1C2227', warn:'#F08C00', warnf:'#FBEEDB' },
+// --- SVG helpers. Every sheet is drawn on a 300 x 380 page. Groups with class "r" reveal while the section is read.
+const ch = (x, y, w, h, c, cls = '') => `<polygon class="${cls}" points="${x + c},${y} ${x + w},${y} ${x + w},${y + h - c} ${x + w - c},${y + h} ${x},${y + h} ${x},${y + c}"/>`;
+const tx = (x, y, s, cls = 'f', size = 11, anchor = 'start') => `<text x="${x}" y="${y}" class="${cls}" font-size="${size}" text-anchor="${anchor}">${s}</text>`;
+// Items are wrapped in g(inner, h): h is the height in px the item floats at while its sheet is active.
+// Everything outside g() is ground: it stays flat on the paper (connectors, loops).
+const g = (inner, h = 30, amp = 3, ph = 0) => `<g class="r" data-h="${h.toFixed ? h.toFixed(1) : h}" data-amp="${amp}" data-ph="${ph}">${inner}</g>`;
+const mk = (x, y, s) => `<use href="#fb-mark" x="${x}" y="${y}" width="${s * 118 / 112}" height="${s}"/>`;
+const sq = (x, y, s, cls) => `<rect x="${x}" y="${y}" width="${s}" height="${s}" class="${cls}"/>`;
+const card = (x, y, w, h, c = 10, cls = 'cd') => ch(x, y, w, h, c, cls);
+// Line icons in a 24 x 24 box; ic() scales one to `size` px, centered in a box of `box` px at (x, y).
+const ICONS = {
+  branch: '<circle cx="6" cy="4" r="3"/><circle cx="6" cy="20" r="3"/><circle cx="18" cy="8" r="3"/><path d="M6 7v10M18 11c0 6-12 4-12 8"/>',
+  merge: '<circle cx="6" cy="4" r="3"/><circle cx="6" cy="20" r="3"/><circle cx="18" cy="20" r="3"/><path d="M6 7v10M6 9c0 7 12 5 12 8"/>',
+  stack: '<path d="M3 6h18M3 12h18M3 18h12"/>',
+  page: '<path d="M5 2h10l5 5v15H5zM9 12h7M9 16h5"/>',
+  chat: '<path d="M2 4h20v12H10l-5 5v-5H2z"/>',
+  check: '<path d="M4 12l5 5L20 6"/>',
+  globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c-5 6-5 12 0 18M12 3c5 6 5 12 0 18"/>',
+  warn: '<path d="M12 3l10 18H2zM12 10v5"/>',
+  spark: '<path d="M12 2v6M12 16v6M2 12h6M16 12h6M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3"/>',
 };
-const PAPER = new THREE.Color(), INK = new THREE.Color(), ACC = new THREE.Color(), TINT = new THREE.Color();
-const FG = new THREE.Color(), WARN = new THREE.Color(), WARNF = new THREE.Color();
-const themed = [];   // [material, color] pairs that follow the palette directly
-function applyTheme() {
-  const d = document.documentElement.dataset.theme;
-  const mode = d === 'light' || d === 'dark' ? d : (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
-  const p = PAL[mode];
-  PAPER.set(p.paper); INK.set(p.ink); ACC.set(p.acc); TINT.set(p.tint); FG.set(p.fg); WARN.set(p.warn); WARNF.set(p.warnf);
-  themed.forEach(([m, c]) => m.color.copy(c));
-}
-applyTheme();
-new MutationObserver(applyTheme).observe(document.documentElement, { attributes:true, attributeFilter:['data-theme'] });
-matchMedia('(prefers-color-scheme: light)').addEventListener('change', applyTheme);
+const ic = (name, x, y, box, size, cls = 'gl') => { const o = (box - size) / 2;
+  return `<g class="${cls}" transform="translate(${x + o} ${y + o}) scale(${size / 24})">${ICONS[name]}</g>`; };
+// A square icon tile: card plus centered icon.
+const tile = (x, y, s, name, cls = 'cd', icCls = 'gl') => card(x, y, s, s, Math.round(s / 6), cls) + ic(name, x, y, s, s * .46, icCls);
 
-// --- renderer: transparent so the page background shows through
-const renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true });
-renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-renderer.setClearColor(0x000000, 0);
-stage.appendChild(renderer.domElement);
-const scene = new THREE.Scene();
-const cam = new THREE.OrthographicCamera(-1, 1, 1, -1, -400, 600);
-const ISO = new THREE.Vector3(1, 0.82, 1).normalize().multiplyScalar(100);
+const SHEETS = [
+  // 01 Connect sources: GitHub, Linear, Notion and Slack each float at their own height, Falconer highest at the center
+  (() => {
+    // Official brand marks, loaded from the Iconify "logos" set. A white plate keeps dark marks readable in dark mode.
+    const logo = name => (x, y) => `<rect x="${x + 12}" y="${y + 12}" width="48" height="48" rx="10" fill="#fff"/>` +
+      `<image href="https://api.iconify.design/logos/${name}.svg" x="${x + 18}" y="${y + 18}" width="36" height="36"/>`;
+    const LOGOS = { github: logo('github-icon'), linear: logo('linear-icon'), notion: logo('notion-icon'), slack: logo('slack-icon') };
+    const S = [['github', 30, 40, 30], ['linear', 198, 40, 56], ['notion', 30, 268, 48], ['slack', 198, 268, 22]];
+    return S.map(([n, x, y, h], i) => g(card(x, y, 72, 72, 14) + LOGOS[n](x, y), h, 4, i * .3)).join('') +
+      g(card(110, 150, 80, 80, 16) + mk(129, 170, 40), 100, 6, .2);
+  })(),
 
-// --- part factory. KEY names what a part is; AT is when (0-1 through its step) it lights up.
-const fills = [];
-let KEY = null, AT = 0;
-function part(group, geo, pos=[0,0,0], rot=[0,0,0], opt={}) {
-  const base = opt.accent ? [TINT, ACC] : [PAPER, INK];
-  const fill = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color:base[0].clone(), transparent:true, opacity:opt.ghost ? 0 : 1,
-    depthWrite:!opt.ghost, polygonOffset:true, polygonOffsetFactor:1, polygonOffsetUnits:1 }));
-  const line = new THREE.LineSegments(new THREE.EdgesGeometry(geo, opt.th ?? 1), opt.ghost
-    ? new THREE.LineDashedMaterial({ color:base[1].clone(), dashSize:.3, gapSize:.22, transparent:true })
-    : new THREE.LineBasicMaterial({ color:base[1].clone(), transparent:true }));
-  if (opt.ghost) line.computeLineDistances();
-  fill.userData = { base, ghost:!!opt.ghost, key: opt.key ?? KEY, at: opt.at ?? AT };
-  fill.add(line); fill.position.set(...pos); fill.rotation.set(...rot);
-  group.add(fill); fills.push(fill);
-  return fill;
-}
-const V = (x, y, z) => new THREE.Vector3(x, y, z);
-const box = (w, h, d) => new THREE.BoxGeometry(w, h, d);
-const ROUND = { th:25 };
-function rod(group, a, b, r=.1) {
-  const A = V(...a), B = V(...b);
-  const f = part(group, new THREE.CylinderGeometry(r, r, A.distanceTo(B), 6), A.clone().add(B).multiplyScalar(.5).toArray());
-  f.quaternion.setFromUnitVectors(V(0,1,0), B.clone().sub(A).normalize());
-  return f;
-}
-const sub = (parent, pos=[0,0,0], rot=[0,0,0]) => { const g = new THREE.Group(); g.position.set(...pos); g.rotation.set(...rot); parent.add(g); return g; };
-const clamp = (x, a=0, b=1) => Math.min(b, Math.max(a, x));
-const smooth = x => { x = clamp(x); return x * x * (3 - 2 * x); };
-const seg = (q, a, b) => smooth((q - a) / (b - a));
-const lerp = (a, b, t) => a + (b - a) * t;
+  // 02 Falconer scans: a green laser sweeps back and forth over a document
+  g(card(40, 60, 220, 260, 20) + '<rect x="64" y="92" width="124" height="14" class="f"/>' +
+    [150, 172, 120, 160, 100].map((w, i) => `<rect x="64" y="${136 + i * 32}" width="${w}" height="8" class="${i === 2 ? 'a' : 'k'}" fill-opacity="${i === 2 ? .8 : .4}"/>`).join(''), 16, 2, 0) +
+  g('<g><animateTransform attributeName="transform" type="translate" values="0 0;0 236;0 0" dur="3.2s" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1" repeatCount="indefinite"/>' +
+    '<rect x="40" y="66" width="220" height="12" fill="#3FB37F" opacity=".18"/>' +
+    '<line x1="40" y1="72" x2="260" y2="72" stroke="#3FB37F" stroke-width="2.5" stroke-linecap="round"/></g>', 34, 0, 0),
 
-// --- six floors stacked vertically, one per step
-const STEPS = [
-  { id:'sources', lit:['github','linear','notion','slack'] },
-  { id:'scan',    lit:['read','map','link'] },
-  { id:'health',  lit:['stale','conflict','dupe','gap'], tone:'warn' },
-  { id:'update',  lit:['trigger','edit','pages'] },
-  { id:'write',   lit:['ask','draft','cite'] },
-  { id:'publish', lit:['site','search','live'] },
-];
-const FLOOR = 15;
-const groups = {}, anims = {};
-function floor(id, i) {
-  const g = new THREE.Group(); g.position.set(0, -i * FLOOR, 0); g.rotation.y = Math.PI / 4;
-  scene.add(g); groups[id] = g; KEY = null; AT = 0;
-  part(g, box(8, .5, 8), [0, .25, 0]);
-  return g;
-}
+  // 03 Health issues: one big score gauge floats high; the single issue pulling it down hovers low
+  g(card(50, 40, 200, 200, 26) + '<circle cx="150" cy="140" r="66" fill="none" stroke="var(--p-sunk)" stroke-width="16"/>' +
+    '<circle cx="150" cy="140" r="66" fill="none" stroke="var(--p-acc)" stroke-width="16" stroke-dasharray="299 415" transform="rotate(-90 150 140)"/>' +
+    tx(150, 156, '72', 'f', 48, 'middle'), 90, 5, 0) +
+  g(tile(116, 270, 68, 'warn', 'wcd', 'glo'), 18, 3, .5),
 
-// 01 Sources: a packet leaves each tool and lands in the hub
-{
-  const g = floor('sources', 0);
-  const P = [['github', -2.4, -2.4], ['linear', 2.4, -2.4], ['notion', -2.4, 2.4], ['slack', 2.4, 2.4]];
-  const gl = {};
-  P.forEach(([k, x, z], i) => { KEY = k; AT = .12 + i * .17; part(g, box(2, .5, 2), [x, .75, z]); gl[k] = sub(g, [x, 1, z]); });
-  KEY = 'github'; AT = .12; { const G = gl.github; [[-.35, .35], [-.35, 1.05], [-.35, 1.75], [.45, 1.05]].forEach(([x, y]) => part(G, new THREE.IcosahedronGeometry(.25, 0), [x, y, 0]));
-    rod(G, [-.35, .55, 0], [-.35, .85, 0], .05); rod(G, [-.35, 1.25, 0], [-.35, 1.5, 0], .05); rod(G, [-.2, .5, 0], [.3, .9, 0], .05); rod(G, [.3, 1.25, 0], [-.15, 1.6, 0], .05); }
-  KEY = 'linear'; AT = .29; [0, 1, 2].forEach(i => part(gl.linear, box(1.5, .14, 1), [-.3 + i * .3, .2 + i * .42, .1 - i * .1]));
-  KEY = 'notion'; AT = .46; part(gl.notion, box(1.3, 1.7, .12), [0, .9, 0]); [.9, .6, .8].forEach((w, i) => part(gl.notion, box(w, .1, .05), [-.45 + w/2, 1.35 - i * .32, .08]));
-  KEY = 'slack'; AT = .63; const bubble = sub(gl.slack); part(bubble, box(1.6, .95, .3), [0, 1.25, 0]); part(bubble, new THREE.ConeGeometry(.2, .45, 4), [-.45, .6, 0], [Math.PI, 0, 0]);
-  [1.1, .7].forEach((w, i) => part(bubble, box(w, .1, .05), [-.55 + w/2, 1.45 - i * .32, .18]));
-  KEY = 'hub'; AT = 0; const hub = part(g, new THREE.CylinderGeometry(.9, .9, .5, 16), [0, .75, 0], [0,0,0], { th:25, accent:true });
-  const packets = P.map(([k, x, z], i) => { KEY = k; AT = .12 + i * .17; rod(g, [x*.62, .75, z*.62], [x*.35, .75, z*.35], .06);
-    return [part(g, box(.32, .32, .32), [x * .62, .95, z * .62], [0,0,0], { accent:true }), x, z, .12 + i * .17]; });
-  anims.sources = (q, t) => {
-    packets.forEach(([p, x, z, a]) => { const k = seg(q, a, a + .2); const r = .62 - .42 * k;
-      p.position.set(x * r, .95 + Math.sin(k * Math.PI) * .9, z * r); p.rotation.y = k * Math.PI; p.userData.fade = k > 0 && k < 1 ? 1 : 0; });
-    hub.scale.setScalar(1 + .15 * Math.max(...packets.map(([, , , a]) => { const k = q - a - .2; return k > 0 && k < .06 ? 1 - k / .06 : 0; })));
-    bubble.position.y = Math.sin(t * 2) * .08;
-  };
-}
-// 02 Scan: a ring sweeps up the stack, then cross-links grow
-{
-  const g = floor('scan', 1);
-  KEY = 'map'; for (let i = 0; i < 4; i++) { AT = ((1.1 + i * 1.15) - .8) / 4.6; part(g, box(5.2 - i*.5, .22, 5.2 - i*.5), [0, 1.1 + i*1.15, 0]); }
-  KEY = 'link'; const links = [[-1.6, -1.2, 1.2, 2.3], [1.2, 1, 2.3, 3.45], [-1, 1.4, 1.2, 3.45], [1.4, -1.3, 2.3, 4.6]].map(([x, z, y0, y1], i) => { AT = .5 + i * .08; const r = rod(g, [x, y0, z], [x * .6, y1, z * .6], .06); return [r, AT]; });
-  KEY = 'read'; AT = 0; const ring = part(g, new THREE.TorusGeometry(3.6, .1, 4, 40), [0, .8, 0], [Math.PI/2, 0, 0], ROUND);
-  KEY = 'falcon'; rod(g, [0, .5, 0], [0, 5, 0], .08);
-  const eye = part(g, new THREE.OctahedronGeometry(.8), [0, 7, 0], [0,0,0], { accent:true });
-  anims.scan = (q, t) => {
-    const k = seg(q, 0, .8); ring.position.y = .8 + 4.6 * k; ring.userData.fade = q > .82 ? 1 - seg(q, .82, .95) * .7 : 1;
-    links.forEach(([r, a]) => { const s = Math.max(.001, seg(q, a, a + .1)); r.scale.y = s; r.userData.fade = s > .01 ? 1 : 0; });
-    eye.rotation.y = t * .5 + q * Math.PI * 2;
-  };
-}
-// 03 Health: issues surface one at a time
-{
-  const g = floor('health', 2);
-  const s = 2.15, T = (i, j) => [(i - 1) * s, (j - 1) * s];
-  const special = { '0,0':1, '2,1':1, '1,2':1, '0,2':1 };
-  KEY = 'grid'; AT = 9;
-  for (let i = 0; i < 3; i++) for (let j = 0; j < 3; j++) if (!special[i+','+j]) { const [x, z] = T(i, j); part(g, box(1.8, .3, 1.8), [x, .65, z]); }
-  KEY = 'conflict'; AT = .15; const [cx, cz] = T(0, 2); const ca = part(g, box(1.7, .2, 1.7), [cx, .65, cz]), cb = part(g, box(1.7, .2, 1.7), [cx, .65, cz]);
-  KEY = 'stale'; AT = .35; const [sx, sz] = T(0, 0); const stale = part(g, box(1.8, .3, 1.8), [sx, .65, sz]);
-  KEY = 'dupe'; AT = .55; const [dx, dz] = T(2, 1); part(g, box(1.8, .3, 1.8), [dx, .65, dz]); const twin = part(g, box(1.8, .3, 1.8), [dx, .65, dz]);
-  KEY = 'gap'; AT = .75; const [gx, gz] = T(1, 2); const gapSolid = part(g, box(1.8, .3, 1.8), [gx, .65, gz]); const gap = part(g, box(1.8, .3, 1.8), [gx, .65, gz], [0,0,0], { ghost:true });
-  anims.health = (q, t) => {
-    const kc = seg(q, .15, .28); ca.rotation.z = .35 * kc; cb.rotation.z = -.35 * kc; ca.position.set(cx - .25 * kc, .65 + .35 * kc, cz); cb.position.set(cx + .25 * kc, .65 + .35 * kc, cz);
-    const ks = seg(q, .35, .48); stale.position.y = .65 + 1.25 * ks + (ks > .99 ? Math.sin(t * 2) * .08 : 0); stale.rotation.set(.2 * ks, 0, -.15 * ks);
-    const kd = seg(q, .55, .68); twin.position.set(dx + .45 * kd, .65 + .55 * kd, dz - .45 * kd);
-    const kg = seg(q, .75, .86); gapSolid.userData.fade = 1 - kg; gapSolid.position.y = .65 - .6 * kg; gap.userData.fade = kg;
-  };
-}
-// 04 Auto-update: the loop turns; the affected page slides out, is rewritten, slides back
-{
-  const g = floor('update', 3);
-  KEY = 'pages'; AT = .3; [0, 1, 3].forEach(i => part(g, box(3.6, .7, 3.6), [0, .85 + i*.85, 0]));
-  KEY = 'edit'; AT = .15; const slab = part(g, box(3.6, .7, 3.6), [0, 2.55, 0], [0,0,0], { accent:true }); part(g, box(3.6, .7, 3.6), [0, 2.55, 0], [0,0,0], { ghost:true });
-  KEY = 'trigger'; AT = 0; const loop = part(g, new THREE.TorusGeometry(3.2, .09, 4, 48, Math.PI * 1.6), [0, 5, 0], [Math.PI/2, 0, 0], ROUND);
-  const a = Math.PI * 1.6; part(loop, new THREE.ConeGeometry(.32, .9, 4), [3.2 * Math.cos(a), 3.2 * Math.sin(a), 0], [0, 0, a]);
-  anims.update = q => {
-    loop.rotation.z = -q * Math.PI * 2;
-    const o = seg(q, .15, .32) - seg(q, .68, .85); slab.position.x = o * 2.4; slab.position.y = 2.55 + o * .4;
-  };
-}
-// 05 Write: the draft is written line by line, then citations link in
-{
-  const g = floor('write', 4);
-  KEY = 'draft'; AT = 0;
-  rod(g, [-1.8, .5, -.6], [-1.8, 2.4, -.6], .12); rod(g, [1.8, .5, -.6], [1.8, 2.4, -.6], .12);
-  rod(g, [-1.8, .5, 1.4], [-1.8, 1.6, 1.4], .12); rod(g, [1.8, .5, 1.4], [1.8, 1.6, 1.4], .12);
-  const desk = sub(g, [0, 2.3, .3], [.5, 0, 0]);
-  part(desk, box(5.6, .25, 4.4)); part(desk, box(4.2, .06, 3.4), [0, .16, 0]);
-  const rows = [3.2, 2.6, 3, 1.8, 2.8].map((w, i) => ({ w, z: -1.25 + i * .62, m: part(desk, box(w, .06, .2), [0, .22, -1.25 + i * .62]) }));
-  KEY = 'ask'; const pen = sub(desk, [0, 1.5, 0]); part(pen, new THREE.OctahedronGeometry(.6), [0, .4, 0], [0,0,0], { accent:true }); rod(pen, [0, -.2, 0], [0, -1.15, 0], .05);
-  KEY = 'cite'; AT = .78; [[2.4, -2.8], [3.3, -2.2], [3.3, -3.2]].forEach(([x, z]) => part(g, box(.7, .7, .7), [x, .85, z]));
-  const thread = rod(g, [2.1, 1, -2.5], [1.2, 2.2, -1.2], .05);
-  anims.write = (q, t) => {
-    const cur = clamp(q / .72) * rows.length;
-    rows.forEach((r, i) => { const s = Math.max(.001, clamp(cur - i)); r.m.scale.x = s; r.m.position.x = -1.75 + r.w * s / 2; r.m.userData.fade = s > .01 ? 1 : 0;
-      if (cur >= i && cur < i + 1) pen.position.set(-1.75 + r.w * s, 1.4 + Math.abs(Math.sin(t * 8)) * .06, r.z); });
-    if (cur >= rows.length) pen.position.set(0, 1.5 + seg(q, .72, .9) * 1.2, 0);
-    thread.scale.y = Math.max(.001, seg(q, .78, .9)); thread.userData.fade = q > .78 ? 1 : 0;
-  };
-}
-// 06 Publish: the page rises, search lights up, it goes live
-{
-  const g = floor('publish', 5);
-  KEY = 'site'; AT = 0; const page = sub(g, [-.6, .5, -.6]);
-  part(page, box(3.4, 4.6, .25), [0, 2.6, 0]);
-  [2.4, 1.8, 2.2].forEach((w, i) => part(page, box(w, .16, .06), [-1.3 + w/2, 3.6 - i*.55, .16]));
-  part(page, box(1.6, .9, .06), [-.5, 1.3, .16]);
-  KEY = 'search'; AT = .35; part(page, box(2.8, .45, .1), [0, 4.45, .2]);
-  KEY = 'live'; AT = .62; const rings = [0, 1, 2].map(() => part(g, new THREE.TorusGeometry(1, .05, 3, 40), [-.6, .55, -.6], [Math.PI/2, 0, 0], ROUND));
-  anims.publish = (q, t) => {
-    page.scale.y = .08 + .92 * seg(q, 0, .3);
-    rings.forEach((r, i) => { const k = q >= 1 && !RM ? ((t * .3 + i / 3) % 1) : clamp((q - .62) * 2.6 - i * .3); const rr = 1.8 + k * 2.4;
-      r.scale.set(rr, rr, 1); r.userData.fade = k > 0 ? 1 - k : 0; });
-  };
-}
-const ORDER = STEPS.map(s => s.id);
-for (const [id, g] of Object.entries(groups)) g.traverse(o => { if (o.isMesh) o.userData.step = id; });
-const litKeys = {}; STEPS.forEach(s => litKeys[s.id] = new Set([...s.lit, 'hub']));
-const toneOf = {}; STEPS.forEach(s => toneOf[s.id] = s.tone === 'warn' ? [WARNF, WARN] : [TINT, ACC]);
+  // 04 Auto-update: the outdated doc on the paper, its rewritten version lifted above it, and the code change that caused it floating highest
+  g(card(60, 90, 180, 230, 18) + [130, 100, 140, 90, 120, 80].map((w, i) =>
+    `<rect x="84" y="${130 + i * 26}" width="${w}" height="8" class="k" fill-opacity=".4"/>`).join(''), 8, 1, 0) +
+  g(card(60, 90, 180, 230, 18) + '<rect x="84" y="114" width="100" height="12" class="f"/>' +
+    [[132, 'okt'], [100, 'k'], [132, 'okt'], [90, 'k'], [132, 'okt']].map(([w, c], i) =>
+      `<rect x="84" y="${142 + i * 30}" width="${w}" height="${c === 'k' ? 8 : 14}" class="${c}" fill-opacity="${c === 'k' ? .5 : .85}"/>`).join(''), 86, 4, .4) +
+  // the code change, as one source file the same size and position as the docs, with indented, syntax-colored lines
+  g(card(60, 90, 180, 230, 18) + '<rect x="76" y="114" width="3" height="186" class="k" fill-opacity=".2"/>' +
+    [[0, 44, 'a'], [0, 92, 'k'], [16, 60, 'w'], [16, 40, 'k'], [32, 84, 'okt'], [32, 56, 'k'], [16, 70, 'a'], [0, 20, 'k'], [0, 76, 'a'], [16, 100, 'okt'], [0, 20, 'k']].map(([ind, w, c], i) =>
+      `<rect x="${90 + ind}" y="${116 + i * 17}" width="${w}" height="7" rx="3.5" class="${c}" fill-opacity="${c === 'k' ? .5 : .9}"/>`).join(''), 164, 6, .8),
 
-// --- pipeline: dashed line down the back-left corner, with a progress thread and marker
-const corner = V(-4.8, 0, -4.8).applyAxisAngle(V(0,1,0), Math.PI / 4);
-const flowMat = new THREE.LineDashedMaterial({ color:INK.clone(), dashSize:.5, gapSize:.4, transparent:true, opacity:.35 });
-const arrowMat = new THREE.MeshBasicMaterial({ color:INK.clone(), transparent:true, opacity:.5 });
-for (let i = 0; i < 5; i++) {
-  const a = corner.clone().setY(-i * FLOOR - .2), b = corner.clone().setY(-(i + 1) * FLOOR + 1.4);
-  const l = new THREE.Line(new THREE.BufferGeometry().setFromPoints([a, b]), flowMat); l.computeLineDistances(); scene.add(l);
-  const head = new THREE.Mesh(new THREE.ConeGeometry(.3, .9, 4), arrowMat); head.position.copy(b); head.rotation.x = Math.PI; scene.add(head);
-}
-const threadGeo = new THREE.BufferGeometry().setFromPoints([corner.clone(), corner.clone()]);
-const threadMat = new THREE.LineBasicMaterial({ color:ACC.clone(), transparent:true, opacity:.9 });
-const thread = new THREE.Line(threadGeo, threadMat); scene.add(thread);
-const markerMat = new THREE.MeshBasicMaterial({ color:ACC.clone() });
-const marker = new THREE.Mesh(new THREE.OctahedronGeometry(.4), markerMat); scene.add(marker);
-const markerEdgeMat = new THREE.LineBasicMaterial({ color:ACC.clone(), transparent:true, opacity:.5 });
-const markerEdge = new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.OctahedronGeometry(.8)), markerEdgeMat); marker.add(markerEdge);
-themed.push([flowMat, INK], [arrowMat, INK], [threadMat, ACC], [markerMat, ACC], [markerEdgeMat, ACC]);
+  // 05 Falconer writes docs: the draft on the paper, Falcon hovering high above it as it writes
+  g(card(50, 120, 200, 220, 18) + '<rect x="74" y="146" width="110" height="14" class="f"/>' +
+    [150, 120, 140, 90].map((w, i) => `<rect x="74" y="${180 + i * 30}" width="${w}" height="10" class="${i === 2 ? 'a' : 'k'}"${i === 2 ? '' : ' fill-opacity=".45"'}/>`).join(''), 14, 2, 0) +
+  g(tile(110, 30, 80, 'spark', 'acd', 'glo'), 110, 7, .3),
 
-// --- pointer sway (the stage itself ignores pointer events, so listen on the window)
-const pointer = { x:0, y:0, in:false };
-addEventListener('pointermove', e => {
-  const r = stage.getBoundingClientRect();
-  const inside = e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
-  pointer.in = inside && e.pointerType === 'mouse';
-  if (inside) { pointer.x = (e.clientX - r.left) / r.width * 2 - 1; pointer.y = (e.clientY - r.top) / r.height * 2 - 1; }
+  // 06 Publish docs: the site frame on the paper, its hero lifted out, the live badge floating highest
+  card(30, 50, 240, 290, 18) + [0, 1, 2].map(i => sq(50 + i * 13, 70, 8, 'k')).join('') + ch(96, 64, 156, 20, 6, 'sunk') +
+    [180, 140, 160].map((w, i) => `<rect x="54" y="${250 + i * 22}" width="${w}" height="8" class="k" fill-opacity=".4"/>`).join('') +
+  g(card(54, 104, 192, 120, 16, 'acd') + ic('globe', 72, 124, 80, 52, 'glo') + '<rect x="160" y="144" width="66" height="12" class="on"/><rect x="160" y="166" width="46" height="8" class="on" fill-opacity=".7"/>', 60, 4, .3) +
+  g(card(178, 266, 80, 48, 14, 'acd') + '<circle cx="202" cy="290" r="8" class="on"/><rect x="218" y="285" width="26" height="10" class="on"/>', 112, 6, .8),
+
+  // 07 The self-updating loop: a ring of updates rides a wave that travels around Falconer, endlessly
+  '<circle cx="150" cy="190" r="108" class="al dash"/>' +
+  [...Array(18)].map((_, i) => { const a = i / 18 * Math.PI * 2, x = 150 + Math.cos(a) * 108, y = 190 + Math.sin(a) * 108;
+    return g(card(x - 11, y - 11, 22, 22, 5, i % 3 ? 'cd' : 'acd'), 40 + 26 * Math.sin(a * 2), 22, i / 18 * 1.6); }).join('') +
+  g(card(110, 150, 80, 80, 16) + mk(129, 170, 40), 74, 5, 0),
+].map(svg => `<svg viewBox="0 0 300 380">${svg}</svg>`);
+
+const GAP = 8;   // vertical distance between stacked sheets
+const NS = 'http://www.w3.org/2000/svg';
+const SHADOW = .06;   // opacity of the soft shadow each floating item casts on its paper
+const mkSvg = nodes => { const s = document.createElementNS(NS, 'svg'); s.setAttribute('viewBox', '0 0 300 380'); nodes.forEach(n => s.appendChild(n)); return s; };
+// Build each sheet: the paper, a 3D container with the flat ground layer plus one floating column per item, and the outline.
+const sheets = SHEETS.map(svg => {
+  const el = document.createElement('div'); el.className = 'fb-sheet';
+  el.innerHTML = '<div class="fb-face"></div><div class="fb-holo"></div>' +
+    '<svg class="fb-outline" viewBox="0 0 300 380"><polygon points="22.3,0.75 299.25,0.75 299.25,357.7 277.7,379.25 0.75,379.25 0.75,22.3"/></svg>';
+  const holo = el.querySelector('.fb-holo'), tmp = document.createElement('div');
+  tmp.innerHTML = svg;
+  const flat = [], items = [];
+  [...tmp.firstElementChild.childNodes].forEach(n => (n.classList && n.classList.contains('r') ? items : flat).push(n));
+  const base = document.createElement('div'); base.className = 'fb-bit'; base.appendChild(mkSvg(flat)); holo.appendChild(base);
+  items.forEach(item => {
+    const col = document.createElement('div'); col.className = 'fb-col'; col.dataset.h = item.getAttribute('data-h') || 30;
+    col.dataset.amp = item.getAttribute('data-amp') || 3; col.dataset.ph = item.getAttribute('data-ph') || 0;
+    const sh = document.createElement('div'); sh.className = 'fb-shadow'; sh.appendChild(mkSvg([item.cloneNode(true)])); col.appendChild(sh);
+    const top = document.createElement('div'); top.className = 'fb-top'; top.appendChild(mkSvg([item])); col.appendChild(top);
+    holo.appendChild(col);
+  });
+  iso.appendChild(el); return el;
 });
-document.addEventListener('pointerleave', () => { pointer.in = false; });
+const baseOf = s => s.querySelector('.fb-bit');
+const colsOf = s => [...s.querySelectorAll('.fb-col')];
+const topsOf = s => [...s.querySelectorAll('.fb-top')];
+const shadowsOf = s => [...s.querySelectorAll('.fb-shadow')];
+const colH = c => c.dataset.h + 'px';
 
-// --- camera keys: overview, one per floor, overview
-let SW = 1, SH = 1, keys = [];
-const center = i => V(0, -i * FLOOR + 3.4, 0);
-function frame() {
-  SW = Math.max(1, stage.clientWidth); SH = Math.max(1, stage.clientHeight);
-  renderer.setSize(SW, SH, false);
-  const oc = V(0, -2.5 * FLOOR + 3, 0);
-  cam.position.copy(oc).add(ISO); cam.lookAt(oc); cam.updateMatrixWorld();
-  let x0 = Infinity, x1 = -Infinity, y0 = Infinity, y1 = -Infinity;
-  for (const g of Object.values(groups)) { const b = new THREE.Box3().setFromObject(g);
-    for (const x of [b.min.x, b.max.x]) for (const y of [b.min.y, b.max.y]) for (const z of [b.min.z, b.max.z]) {
-      const p = V(x, y, z).applyMatrix4(cam.matrixWorldInverse); x0 = Math.min(x0, p.x); x1 = Math.max(x1, p.x); y0 = Math.min(y0, p.y); y1 = Math.max(y1, p.y); } }
-  const Wo = Math.max((x1 - x0) / .8, ((y1 - y0) / .86) * SW / SH);
-  const Wf = Math.max(17, 10.5 * SW / SH);
-  keys = [{ target:oc, W:Wo }];
-  STEPS.forEach((s, i) => keys.push({ target:center(i), W:Wf }));
-  keys.push({ target:oc, W:Wo });
+// Connectors between floating items, per sheet: [from item, from x, y, to item, to x, y].
+// Each one joins the facing corners of two cards (the middle of the chamfer where a corner is cut) with a dashed strip in 3D,
+// whose ends follow both items' live heights, so it stays attached while they rise and drift.
+const LINKS = { 0: [[0, 95, 105, 4, 118, 158], [1, 198, 112, 4, 190, 150], [2, 102, 268, 4, 110, 230], [3, 205, 275, 4, 182, 222]] };
+const links = [];
+Object.entries(LINKS).forEach(([si, pairs]) => { const s = sheets[si], holo = s.querySelector('.fb-holo'), cols = colsOf(s);
+  pairs.forEach(([a, ax, ay, b, bx, by]) => { const el = document.createElement('div'); el.className = 'fb-link'; holo.appendChild(el);
+    links.push({ el, a:cols[a], b:cols[b], ax, ay, bx, by, top:topsOf(s)[0] }); }); });
+const zOf = c => 1 + (parseFloat(c.style.getPropertyValue('--h')) || 0) + (parseFloat(c.style.getPropertyValue('--b')) || 0);
+function updateLinks() {
+  links.forEach(l => { const dx = l.bx - l.ax, dy = l.by - l.ay, d = Math.hypot(dx, dy), za = zOf(l.a), dz = zOf(l.b) - za;
+    l.el.style.width = Math.hypot(d, dz) + 'px';
+    l.el.style.transform = `translate3d(${l.ax}px, ${l.ay}px, ${za}px) rotateZ(${Math.atan2(dy, dx)}rad) rotateY(${-Math.atan2(dz, d)}rad)`;
+    l.el.style.opacity = l.top.style.opacity || 1; });
 }
-new ResizeObserver(frame).observe(stage);
-frame();
 
-// --- scroll observer, driven by the page content. Sections: 0 intro, 1-6 steps, 7 outro.
-// The first six h2 headings start the six steps; a seventh h2 (if present) starts the outro.
-// Works whether the window or an inner container (e.g. the main frame) is the scrolling element:
-// a capturing scroll listener on the document catches scroll events from any element.
+// Scale the scene to the stage so the full stack always fits.
+function fit() { const s = Math.min(1, stage.clientWidth / 560, stage.clientHeight / 720); fitEl.style.transform = `scale(${s})`; }
+new ResizeObserver(fit).observe(stage); fit();
+
+// Static state for the editor preview and small screens: the finished stack.
+function staticStack() {
+  sheets.forEach((el, i) => { const top = i === sheets.length - 1;
+    el.style.transform = `translateZ(${i * GAP}px)`; el.style.opacity = 1;
+    [baseOf(el), ...topsOf(el)].forEach(f => f.style.opacity = top ? 1 : .35);
+    shadowsOf(el).forEach(sh => sh.style.opacity = top ? SHADOW : 0);
+    colsOf(el).forEach(c => c.style.setProperty('--h', top ? colH(c) : '0px')); });
+  sheets.at(-1).classList.add('on');
+}
+
+// --- page sections: the first seven h2 headings each place one sheet.
 const content = document.querySelector('.sl-markdown-content') || document.body;
+const inSite = content !== document.body;
+let active = 0, anchored = false;
 
-// Space the step sections apart on large screens, so each one holds the canvas for a longer scroll distance.
+// Compact spacing on large screens; GSAP anchors each heading instead of long scroll gaps.
 // Set as inline styles so no site stylesheet or style scoping can override them.
-const wide = matchMedia('(min-width: 72rem)');
-function spaceSections() {
-  const on = wide.matches && content !== document.body;
+function spaceSections(on) {
   const set = (el, p, v) => el.style.setProperty(p, on ? v : '', on ? 'important' : '');
   // one short vertical dashed line, start-aligned, in the gap above each section heading
   const dash = 'repeating-linear-gradient(to bottom, var(--docsite-color-border) 0 6px, transparent 6px 12px)';
   content.querySelectorAll('h2').forEach(h => {
     const el = h.closest('.sl-heading-wrapper') || h;
     set(el, 'margin-top', '1rem');
-    set(el, 'padding-top', '26vh');
+    set(el, 'padding-top', '10vh');
     set(el, 'background-image', dash);
     set(el, 'background-repeat', 'no-repeat');
-    set(el, 'background-size', '1.5px calc(26vh - 4.5rem)');
-    set(el, 'background-position', '0 2rem');
+    set(el, 'background-size', '1.5px calc(10vh - 2.5rem)');
+    set(el, 'background-position', '0 1.25rem');
   });
+  // a little room at the end; the last anchor is limited to the page's scroll range
   const last = content.lastElementChild;
-  if (last) set(last, 'margin-bottom', '16vh');
+  if (last) set(last, 'margin-bottom', '12vh');
   set(content, 'position', 'relative');
   set(content, 'isolation', 'isolate');
   // Align the header's tabs and search with the content column. The header grid (FalconerHeader.astro)
   // subtracts 3 x --__toc-width from the free space and splits it in half, so a third of the space
-  // reserved for the canvas shifts its middle column by the same amount the content shifts.
+  // reserved for the stage shifts its middle column by the same amount the content shifts.
   document.documentElement.style.setProperty('--__toc-width', on ? 'calc(min(36vw, 34rem) / 3)' : '');
 }
-spaceSections();
-wide.addEventListener('change', spaceSections);
 
-// Active section: a soft primary-tinted, rounded highlight behind it.
+// Active section: a soft primary-tinted, chamfered highlight behind it.
 const hl = document.createElement('div');
 hl.setAttribute('aria-hidden', 'true');
-hl.style.cssText = 'position:absolute;left:-1.75rem;right:-1.75rem;top:0;height:0;z-index:-1;pointer-events:none;border-radius:16px;opacity:0;' +
+hl.style.cssText = 'position:absolute;left:-1.75rem;right:-1.75rem;top:0;height:0;z-index:-1;pointer-events:none;opacity:0;' +
+  'clip-path:polygon(18px 0,100% 0,100% calc(100% - 18px),calc(100% - 18px) 100%,0 100%,0 18px);' +
   'transition:top .35s ease,height .35s ease,opacity .35s ease;' +
-  'background:color-mix(in srgb, var(--docsite-color-primary) 3%, transparent);';
-if (content !== document.body) content.prepend(hl);
-let sectionEls = [], activeGroup = -1;
+  'background:color-mix(in srgb, var(--docsite-color-primary) 4%, transparent);';
+if (inSite) content.prepend(hl);
+let sectionEls = [];
 function buildGroups() {
   sectionEls = [[]];
   for (const el of content.children) {
@@ -310,129 +271,173 @@ function buildGroups() {
   }
 }
 function paintGroups() {
-  const on = wide.matches && content !== document.body, a = sec[0];
-  activeGroup = a;
-  const g = sectionEls[a];
-  if (!on || !g || a === 0) { hl.style.opacity = '0'; return; }
+  const g = sectionEls[active];
+  if (!anchored || !g || active === 0) { hl.style.opacity = '0'; return; }
   const cr = content.getBoundingClientRect(), first = g[0], last = g[g.length - 1];
   const pad = parseFloat(getComputedStyle(first).paddingTop) || 0;
   const top = first.getBoundingClientRect().top - cr.top + pad - 28;
   const bottom = last.getBoundingClientRect().bottom - cr.top + 28;
   hl.style.top = top + 'px'; hl.style.height = (bottom - top) + 'px'; hl.style.opacity = '1';
 }
+let onActive = null;   // set while the animated stack is running; renders the stack for the active section
+function setActive(k) {
+  const prev = active;
+  active = k;
+  sheets.forEach((el, i) => el.classList.toggle('on', i === k - 1));
+  paintGroups();
+  if (onActive && k !== prev) onActive(k, prev);
+}
+
 const docScroller = document.scrollingElement || document.documentElement;
+const isDoc = el => el === docScroller || el === document.documentElement || el === document.body;
 const canScroll = el => el && el.scrollHeight > el.clientHeight + 1 && /(auto|scroll)/.test(getComputedStyle(el).overflowY);
 function findScroller() {
   for (let el = content.parentElement; el && el !== document.body; el = el.parentElement) if (canScroll(el)) return el;
   return docScroller;
 }
-let scroller = findScroller();
-let edges = null, sec = [0, 0];
-const isDoc = el => el === docScroller || el === document.documentElement || el === document.body;
-function measure() {
-  const st = scroller.scrollTop, base = isDoc(scroller) ? 0 : scroller.getBoundingClientRect().top;
-  const top = el => el.getBoundingClientRect().top - base + st;
-  const hs = [...content.querySelectorAll('h2')];
-  const c0 = top(content), c1 = c0 + content.getBoundingClientRect().height;
-  // each section starts well before its heading reaches the reading line, so the canvas moves on early
-  const lead = innerHeight * .5;
-  const early = el => Math.max(c0, top(el) - lead);
-  edges = hs.length >= 6 ? [c0, ...hs.slice(0, 6).map(early), hs[6] ? early(hs[6]) : c1, c1 + 1] : null;
-  edges && (edges.c0 = c0, edges.c1 = c1);
-  update();
-  buildGroups(); paintGroups();
-}
-function update() {
-  const st = scroller.scrollTop, R = scroller.scrollHeight - scroller.clientHeight;
-  // hold the overview until the reader has scrolled a little
-  const hold = Math.min(innerHeight * .15, R * .5);
-  if (R <= 0 || st <= hold) { sec = [0, 0]; return; }
-  const r = clamp((st - hold) / Math.max(1, R - hold));
-  if (!edges) { const p = r * 7.999, k = Math.floor(p); sec = [k, p - k]; return; }
-  // a reading line sweeps from the top of the content to its bottom as the page scrolls top to bottom,
-  // so every section is reached even when the last ones are shorter than the viewport
-  const y = edges.c0 + (edges.c1 - edges.c0) * r;
-  for (let k = 0; k < 8; k++) if (y < edges[k + 1]) { sec = [k, clamp((y - edges[k]) / Math.max(1, edges[k + 1] - edges[k]))]; return; }
-  sec = [7, 1];
-}
-document.addEventListener('scroll', e => {
-  const t = e.target, el = t === document ? docScroller : t;
-  if (el !== scroller && (isDoc(el) || el.contains(content))) { scroller = el; measure(); return; }
-  if (el === scroller || (isDoc(el) && isDoc(scroller))) { update(); if (sec[0] !== activeGroup) paintGroups(); }
-}, { capture:true, passive:true });
-addEventListener('resize', () => { scroller = findScroller(); measure(); });
-new ResizeObserver(measure).observe(content);
-document.fonts?.ready.then(measure);
-addEventListener('load', measure);
-measure();
 
-// --- per-frame
-const view = { p:0, sway:V(0,0,0) }, tgt = V(0,0,0), iso = V(0,0,0);
-const q = Object.fromEntries(ORDER.map(id => [id, 0]));
-function tick() {
-  requestAnimationFrame(tick);
-  if (!stage.offsetWidth) return;   // hidden on smaller screens
-  const t = RM ? 1 : performance.now() / 1000;
-
-  const [k, f] = sec;
-  const activeIdx = k >= 1 && k <= 6 ? k - 1 : -1;
-  // hold on each floor and move on near the end of its section; the first zoom from the overview
-  // eases across the whole intro section instead, so it starts gently
-  const goal = k === 7 ? 7 : k === 0 ? smooth(f) : k + smooth((f - .7) / .3);
-  view.p = RM ? goal : lerp(view.p, goal, view.p < 1 || goal < 1 ? .06 : .1);
-  const overview = Math.max(0, 1 - view.p) + Math.max(0, view.p - 6), ending = view.p > 6.2;
-
-  // each floor's 0-1: scrubbed while active; finished above the reader, not started below
-  ORDER.forEach((id, i) => {
-    const target = i === activeIdx ? clamp((f - .05) / .6) : (activeIdx >= 0 ? +(i < activeIdx) : +(view.p > 3.5));
-    q[id] = RM ? target : lerp(q[id], target, .14);
+if (!inSite) { staticStack(); updateLinks(); }
+else {
+  const [{ gsap }, { ScrollTrigger }, { ScrollToPlugin }] = await Promise.all([
+    import('https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js'),
+    import('https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTrigger.js'),
+    import('https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollToPlugin.js'),
+  ]);
+  gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const ANCHOR = 'top 8%';
+  const mm = gsap.matchMedia();
+  mm.add('(min-width: 72rem)', () => {
+    const el = findScroller(), scroller = isDoc(el) ? window : el;
+    spaceSections(true); buildGroups(); anchored = true;
+    const heads = sectionEls.slice(1).map(g => g[0]).slice(0, sheets.length);
+    const starts = [];
+    // Each section's anchor is the scroll position that puts the middle of its content block
+    // (heading text to last paragraph) at the middle of the viewport.
+    const pos = () => scroller === window ? scrollY : scroller.scrollTop;
+    const vh = () => scroller === window ? innerHeight : scroller.clientHeight;
+    const absY = y => y - (scroller === window ? 0 : scroller.getBoundingClientRect().top) + pos();
+    const center = i => {
+      const grp = sectionEls[i + 1], first = grp[0], last = grp[grp.length - 1];
+      const pad = parseFloat(getComputedStyle(first).paddingTop) || 0;
+      const top = absY(first.getBoundingClientRect().top) + pad, bottom = absY(last.getBoundingClientRect().bottom);
+      return Math.round(clampN((top + bottom) / 2 - vh() / 2, 0, ScrollTrigger.maxScroll(scroller)));
+    };
+    const clampN = (x, a, b) => Math.min(b, Math.max(a, x));
+    // The visible stack follows the active section, not the scroll position: section k shows sheets 1..k.
+    // Sheets that join the stack drop in on a timed tween; sheets above the active section lift away.
+    sheets.forEach((s, i) => { gsap.set(s, { z:i * GAP + 260, x:-40, y:40, autoAlpha:0, force3D:true });
+      gsap.set([baseOf(s), ...topsOf(s)], { opacity:1 }); gsap.set(shadowsOf(s), { opacity:0 }); gsap.set(colsOf(s), { '--h':'0px' }); });
+    const T = d => RM ? 0 : d;
+    const FLATTEN = .6;   // time for the previous sheet's items to settle before the next sheet drops
+    const RISE = 1.1;     // time for an item to float up to its height; the idle drift starts after it
+    // Items float up off the paper, easing in and out, one after another; their shadows fade in below them.
+    // Once up, every item keeps drifting gently on its own phase, so the active sheet never sits still.
+    const raise = (s, at) => {
+      gsap.to([baseOf(s), ...topsOf(s)], { opacity:1, duration:T(.3), delay:at, overwrite:'auto' });
+      gsap.to(shadowsOf(s), { opacity:SHADOW, duration:T(.6), stagger:T(.05), delay:at, overwrite:'auto' });
+      gsap.to(colsOf(s), { '--h':(j, c) => colH(c), duration:T(RISE), stagger:T(.05), delay:at, ease:'power2.inOut', overwrite:'auto' });
+      if (!RM) colsOf(s).forEach((c, j) => { gsap.killTweensOf(c, '--b');
+        gsap.to(c, { '--b':c.dataset.amp + 'px', duration:1.6, ease:'sine.inOut', yoyo:true, repeat:-1, immediateRender:false, delay:at + RISE + j * .05 + (+c.dataset.ph) }); });
+    };
+    // Items settle back onto the paper, their shadows fade, and the drawing dims to `dim`.
+    const flatten = (s, at, dim, d = .45) => {
+      // cancel any rise still waiting on its delay, or it would lift items again after they settle
+      gsap.killTweensOf([...colsOf(s), ...shadowsOf(s), baseOf(s), ...topsOf(s)]);
+      gsap.to(colsOf(s), { '--b':'0px', '--h':'0px', duration:T(d), stagger:{ each:T(.015), from:'end' }, delay:at, ease:'power2.in', overwrite:'auto' });
+      gsap.to(shadowsOf(s), { opacity:0, duration:T(d), delay:at, overwrite:'auto' });
+      gsap.to([baseOf(s), ...topsOf(s)], { opacity:dim, duration:T(.35), delay:at + T(d * .5), overwrite:'auto' });
+    };
+    const land = (s, i, at) => gsap.to(s, { z:i * GAP, x:0, y:0, autoAlpha:1, force3D:true, duration:T(.6), delay:at, ease:'power3.out', overwrite:'auto' });
+    // Order on every change: the old content flattens first, then the new sheet drops, then its items rise to their heights.
+    onActive = (k, prev) => {
+      const after = prev > 0 && k > prev ? T(FLATTEN) : 0;
+      sheets.forEach((s, i) => {
+        if (i < k) {
+          const arriving = i >= prev, at = after + T(Math.max(0, i - prev) * .08);
+          if (arriving) land(s, i, at);
+          if (i === k - 1) raise(s, arriving ? at + T(.25) : T(.15));
+          // every other sheet in the stack lies flat and dimmed, whatever state a fast scroll left it in
+          else flatten(s, arriving ? at : 0, .35);
+        } else {
+          // leaving the stack: blocks sink quickly, then the sheet lifts away
+          flatten(s, 0, 1, .25);
+          gsap.to(s, { z:i * GAP + 260, x:-40, y:40, autoAlpha:0, force3D:true, duration:T(.4), delay:T(.2 + (sheets.length - 1 - i) * .03), ease:'power2.in', overwrite:'auto' });
+        }
+      });
+    };
+    heads.forEach((h, i) => {
+      const next = heads[i + 1];
+      // Active range: halfway from the previous anchor to halfway to the next one, so the centered section is the active one.
+      // The introduction is not a section: the first range starts at the top of the page.
+      starts.push(ScrollTrigger.create({ scroller,
+        start:() => i === 0 ? -1 : (center(i - 1) + center(i)) / 2,
+        end:() => next ? (center(i) + center(i + 1)) / 2 : ScrollTrigger.maxScroll(scroller) + 1,
+        onToggle:s => s.isActive && setActive(i + 1) }));
+      starts[i].anchor = () => center(i);
+    });
+    // --- custom scrolling: one wheel gesture, key press or swipe moves exactly one anchor.
+    // Anchors are the top of the page, every heading's anchor position, and the end of the page.
+    // Inside a section taller than the viewport, scrolling stays native until the next anchor is in reach.
+    // Anchors are the sections' centered positions only; the introduction has none.
+    const anchors = () => [...new Set(starts.map(t => t.anchor()))].sort((a, b) => a - b);
+    let busy = false, acc = 0, accTimer = 0;
+    const COOLDOWN = 700;   // ms after a section change during which scrolling is ignored (swallows trackpad and wheel momentum)
+    function step(dir, force = false) {
+      const A = anchors(), y = pos();
+      const target = dir > 0 ? A.find(a => a > y + 2) : [...A].reverse().find(a => a < y - 2);
+      if (target === undefined) return false;
+      // long section: let the reader scroll through it natively until the anchor is within a viewport
+      if (!force && Math.abs(target - y) > vh() * 1.1) return false;
+      busy = true;
+      gsap.to(scroller, { scrollTo:{ y:target, autoKill:false }, duration:RM ? .01 : .55, ease:'power2.out', overwrite:true,
+        onComplete:() => setTimeout(() => { busy = false; acc = 0; }, RM ? 0 : COOLDOWN) });   // ignore further scrolling for a moment, so one gesture moves one section
+      return true;
+    }
+    const onWheel = e => {
+      if (e.ctrlKey || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;   // pinch zoom and horizontal scroll stay native
+      if (busy) { e.preventDefault(); return; }
+      acc += e.deltaY; clearTimeout(accTimer); accTimer = setTimeout(() => acc = 0, 160);
+      if (Math.abs(acc) < 24) { e.preventDefault(); return; }
+      if (step(Math.sign(acc))) e.preventDefault();
+      acc = 0;
+    };
+    const KEYS = { ArrowDown:1, PageDown:1, ' ':1, ArrowUp:-1, PageUp:-1 };
+    const onKey = e => {
+      const t = e.target; if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
+      let dir = KEYS[e.key]; if (!dir || e.altKey || e.metaKey || e.ctrlKey) return;
+      if (e.key === ' ' && e.shiftKey) dir = -1;
+      if (busy || step(dir)) e.preventDefault();
+    };
+    let ty = null;
+    const onTouchStart = e => { ty = e.touches[0].clientY; };
+    const onTouchMove = e => { if (busy) e.preventDefault(); };
+    const onTouchEnd = e => { if (ty === null || busy) return; const d = ty - e.changedTouches[0].clientY; ty = null; if (Math.abs(d) > 40) step(Math.sign(d)); };
+    const target = scroller === window ? window : scroller;
+    target.addEventListener('wheel', onWheel, { passive:false });
+    target.addEventListener('touchstart', onTouchStart, { passive:true });
+    target.addEventListener('touchmove', onTouchMove, { passive:false });
+    target.addEventListener('touchend', onTouchEnd, { passive:true });
+    addEventListener('keydown', onKey);
+    const ro = new ResizeObserver(() => { ScrollTrigger.refresh(); paintGroups(); });
+    ro.observe(content);
+    gsap.ticker.add(updateLinks);   // keep connectors attached every frame
+    ScrollTrigger.refresh();
+    // Start on the first section, so the stack never shows an empty state.
+    if (heads.length && active === 0) setActive(1);
+    return () => {
+      target.removeEventListener('wheel', onWheel); target.removeEventListener('touchstart', onTouchStart);
+      target.removeEventListener('touchmove', onTouchMove); target.removeEventListener('touchend', onTouchEnd);
+      removeEventListener('keydown', onKey);
+      ro.disconnect(); anchored = false; onActive = null;
+      sheets.forEach(s => { const t = [s, baseOf(s), ...colsOf(s), ...topsOf(s), ...shadowsOf(s)]; gsap.killTweensOf(t); gsap.set(t, { clearProps:'all' }); });
+      gsap.ticker.remove(updateLinks);
+      spaceSections(false); setActive(0); staticStack(); updateLinks();
+    };
   });
-
-  // camera with a slight sway toward the pointer
-  const i = Math.min(keys.length - 2, Math.floor(view.p)), fr = view.p - i, A = keys[i], B = keys[i + 1];
-  tgt.lerpVectors(A.target, B.target, fr);
-  const sx = RM || !pointer.in ? 0 : pointer.x, sy = RM || !pointer.in ? 0 : pointer.y;
-  view.sway.x = lerp(view.sway.x, sx, .05); view.sway.y = lerp(view.sway.y, sy, .05);
-  iso.copy(ISO).applyAxisAngle(V(0,1,0), -view.sway.x * .07); iso.y *= 1 + view.sway.y * .06;
-  const Wv = Math.exp(lerp(Math.log(A.W), Math.log(B.W), fr)), Hv = Wv * SH / SW;
-  cam.position.copy(tgt).add(iso); cam.lookAt(tgt);
-  // when zoomed onto a step, frame it about 10% higher than center
-  const lift = .1 * clamp(1 - overview);
-  Object.assign(cam, { left:-Wv / 2, right:Wv / 2, top:Hv * (.5 - lift), bottom:-Hv * (.5 + lift) });
-  cam.updateProjectionMatrix(); cam.updateMatrixWorld();
-
-  const weight = {}; ORDER.forEach((id, j) => weight[id] = Math.max(overview, 1 - Math.abs(view.p - (j + 1))));
-  ORDER.forEach(id => anims[id](q[id], t));
-
-  // closing pulse runs down the pipeline once the reader reaches the end
-  const pulse = ending && !RM ? ((t * .22) % 1) * 6.6 - .3 : -9;
-
-  for (const fl of fills) {
-    const u = fl.userData, line = fl.children[0], j = ORDER.indexOf(u.step);
-    const pulsed = Math.abs(pulse - j - .4) < .45;
-    const lit = (u.key && activeIdx === j && litKeys[u.step].has(u.key) && q[u.step] >= u.at) || (pulsed && u.key);
-    const tone = pulsed ? [TINT, ACC] : toneOf[u.step];
-    fl.material.color.lerp(lit ? tone[0] : u.base[0], .15);
-    line.material.color.lerp(lit ? tone[1] : u.base[1], .2);
-    const w = .06 + .94 * Math.min(1, weight[u.step] ?? 1);
-    line.material.opacity = w * (u.fade ?? 1);
-    if (!u.ghost) fl.material.opacity = Math.min(1, w * 1.4) * (u.fade ?? 1);
-  }
-
-  // progress thread and marker
-  const along = ending ? clamp(pulse, 0, 5.4) : clamp(view.p - 1, 0, 5);
-  const my = -along * FLOOR;
-  const pos = threadGeo.attributes.position; pos.setXYZ(0, corner.x, 0, corner.z); pos.setXYZ(1, corner.x, my, corner.z); pos.needsUpdate = true;
-  threadMat.opacity = ending ? .35 : .9;
-  marker.position.set(corner.x, my, corner.z); marker.rotation.y = t * .8;
-  markerEdge.scale.setScalar(1 + (RM ? 0 : (t * 1.2 % 1) * .6)); markerEdgeMat.opacity = RM ? .4 : .5 * (1 - (t * 1.2 % 1));
-  marker.visible = view.p > .6;
-  flowMat.opacity = .2 + .2 * overview; arrowMat.opacity = .3 + .3 * overview;
-  flowMat.dashOffset = -t;
-
-  renderer.render(scene, cam);
+  addEventListener('load', () => ScrollTrigger.refresh());
+  document.fonts?.ready.then(() => ScrollTrigger.refresh());
 }
-tick();
 </script>
 </Html>
 
