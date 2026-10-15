@@ -11,6 +11,26 @@
       "primary": "#006C8A",
       "primaryDark": "#2BB5CA"
     },
+    "navbar": {
+      "links": [
+        {
+          "label": "Get a demo",
+          "href": "https://falconer.com/demo"
+        }
+      ],
+      "primary": {
+        "label": "Get started",
+        "href": "https://falconer.com/auth/signin"
+      }
+    },
+    "contextual": {
+      "options": [
+        "copy",
+        "assistant",
+        "chatgpt",
+        "claude"
+      ]
+    },
     "seo": {
       "indexable": true
     },
@@ -23,7 +43,54 @@
         "icon": "linkedin",
         "href": "https://www.linkedin.com/company/falconer-ai-company"
       }
-    ]
+    ],
+    "footer": {
+      "links": [
+        {
+          "header": "Company",
+          "items": [
+            {
+              "label": "About",
+              "href": "https://falconer.com/about"
+            },
+            {
+              "label": "Careers",
+              "href": "https://falconer.com/careers"
+            }
+          ]
+        },
+        {
+          "header": "Platform",
+          "items": [
+            {
+              "label": "Use cases",
+              "href": "https://falconer.com/use-cases"
+            },
+            {
+              "label": "Integrations",
+              "href": "https://falconer.com/about/integrations"
+            }
+          ]
+        },
+        {
+          "header": "Resources",
+          "items": [
+            {
+              "label": "Customer stories",
+              "href": "https://falconer.com/customers"
+            },
+            {
+              "label": "Notes",
+              "href": "https://falconer.com/notes"
+            },
+            {
+              "label": "Guides",
+              "href": "https://falconer.com/guides"
+            }
+          ]
+        }
+      ]
+    }
   },
   "navigation": {
     "redirects": [],
@@ -62,13 +129,13 @@
           {
             "anchor": "Integrations",
             "pages": [
+              "integrations/index.mdx",
               "integrations/confluence.mdx",
               "integrations/github.mdx",
               "integrations/gmail.mdx",
               "integrations/google-drive.mdx",
               "integrations/google-workspace.mdx",
               "integrations/granola.mdx",
-              "integrations/index.mdx",
               "integrations/linear.mdx",
               "integrations/notion.mdx",
               "integrations/slack.mdx",
