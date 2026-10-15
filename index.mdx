@@ -5,494 +5,179 @@ tableOfContents: false
 pagefind: false
 ---
 
-<Html id="s4cbe8fi2ubuky0no7dsnyqj" class="w-full h-96">
-<div id="fb-stage" class="not-content" aria-hidden="true">
-  <svg width="0" height="0" style="position:absolute">
-    <symbol id="fb-mark" viewBox="0 0 118 112">
-      <g style="fill:var(--p-fg)">
-        <path d="M28.3296 51.9676L20.9016 59.3956V90.4471L0 111.342H10.5009L25.3211 96.5213H58.0345L65.4625 89.0933H28.3296V51.9676Z"/>
-        <path d="M43.1858 37.1116L35.7578 44.5396V81.6725H72.8907L80.3187 74.2445H43.193V37.1187L43.1858 37.1116Z"/>
-        <path d="M80.3246 59.3957H58.0334V22.2556L50.6053 29.6836V66.8094H87.7311L95.1591 59.3813H80.3174L80.3246 59.3957Z"/>
-        <path d="M95.1828 44.5399H72.8916V7.40698L65.4707 14.835V51.9679H102.596L110.017 44.5399H95.1828Z"/>
-      </g>
-      <path style="fill:var(--p-acc)" d="M80.2966 0V37.1258H117.422V0Z"/>
-    </symbol>
-  </svg>
-  <div class="fb-fit"><div class="fb-lift"><div class="fb-iso">
-    <div class="fb-base"><svg viewBox="0 0 300 380"><polygon points="22,1 299,1 299,358 278,379 1,379 1,22"/></svg></div>
-  </div></div></div>
-</div>
+A new engineer reads the architecture doc in their first week and trusts it. A week later they learn half of it is out of date, and by then it has already shaped their decisions. Agents make the same mistake faster, because they never stop to ask in standup.
+
+Falconer is built to stop that drift. It reads your code, tickets, wikis and threads, finds where they disagree, and keeps docs current as the product changes.
+
+<Card icon="plug" href="/set-up/connect-sources" cta="Connect sources">
+  ## Connect sources
+
+  **Start with the tools you already use.**
+
+  Connect GitHub for code and pull requests, Linear for issues, Slack for conversations, and Notion, Google Docs or Confluence for existing docs. Falconer indexes synced sources continuously and reads live sources on demand, so nothing has to be migrated first.
+</Card>
+
+<Card icon="scan" href="/get-started/how-falconer-works/" cta="How Falconer works">
+  ## Falconer scans
+
+  **Three ways to read, one answer.**
+
+  Semantic search finds content by meaning, full-text search finds exact names and error strings, and a knowledge graph maps how docs, code, people and systems relate. Together they let Falcon answer a question like *"Who owns the payment service?"* by reasoning across sources instead of matching one page.
+</Card>
+
+<Card icon="heart-rate-monitor" href="/update/find-and-fix-outdated-docs/" cta="Find outdated docs">
+  ## Health issues
+
+  **A last-updated date cannot tell you a doc is wrong.**
+
+  Knowledge Health reads the content itself and scores your docs from 0 to 100 on coherence, coverage, freshness and density. It catches docs that contradict each other, topics never written down, docs that fell behind the code, and duplicates. Each problem becomes a finding you can fix, hand to Falcon or dismiss.
+</Card>
+
+<Card icon="refresh" href="/update/auto-update-docs/" cta="Set up auto-update">
+  ## Auto-update
+
+  **Merge the code, and the docs catch up.**
+
+  Every merged pull request starts a run: Falcon finds the affected docs, drafts edits, and notifies each owner in Slack. Full self-driving mode applies changes right away, and review mode waits for approval. Auto-update works on org-wide and public docs, not private ones.
+</Card>
+
+<Card icon="pencil" href="/write/write-a-doc/" cta="Write a doc">
+  ## Falconer writes docs
+
+  **From a prompt to a cited first draft.**
+
+  Ask Falcon in chat, with `/` in the editor, or with `@Falcon` in Slack for a runbook, onboarding guide, API reference or changelog. Every claim cites your code, tasks or docs, so you can check the source before you trust it.
+</Card>
+
+<Card icon="world" href="/use-cases/manage-permissions/share-a-doc/" cta="Share a doc">
+  ## Publish docs
+
+  **Customers read what actually changed.**
+
+  Publish docs straight from the same knowledge base your team works in, with no separate site to keep in sync. When an update is accepted, the published page reflects it too, so readers always see the current version.
+</Card>
+
+<Card icon="infinity" href="/get-started/how-falconer-works/" cta="See the full loop">
+  ## The self-updating loop
+
+  **Docs that keep up on their own.**
+
+  Code changes, Falcon drafts the fix, and the owner accepts it in one click. Knowledge Health catches whatever slips through, so your team, customers and agents can trust the docs without anyone remembering to update them.
+</Card>
+
+<br />
+
+<Html id="i27js4g93ep246z0wgcyvv29" class="w-full h-4">
+<!doctype html>
+<html lang="en">
+<head>
 <style>
-  /* Stage: fixed to the right edge of the window, under the header, never blocks the page. */
-  #fb-stage { position:fixed; top:var(--sl-nav-height, 3.5rem); right:0; bottom:0; width:min(42vw, 40rem); z-index:0; pointer-events:none; display:none; overflow:hidden;
-    --p-paper:#232C32; --p-sunk:#1C2429; --p-edge:#12171A; --p-line:#33404A; --p-ink:#7B97A7; --p-fg:#E1E7EA; --p-acc:#22A8CC; --p-tint:#003040; --p-card:#2C3840;
-    --p-warn:#F08C00; --p-warnf:#2E2416; --p-ok:#3FB37F; --p-bad:#E5484D; }
-  :root[data-theme='light'] #fb-stage { --p-paper:#F7F9FA; --p-sunk:#EDF1F3; --p-edge:#C3CCD2; --p-line:#DDE3E7; --p-ink:#6A7781; --p-fg:#1C2227; --p-acc:#006C8A; --p-tint:#D3EBF2; --p-card:#FFFFFF; --p-warnf:#FBEEDB; }
-  /* Shown on large screens only; reserve space so page content does not run under the stage. */
-  @media (min-width:72rem) {
-    #fb-stage { display:block; }
-    body:has(#fb-stage) .main-pane { padding-inline-end:min(36vw, 34rem); }
-  }
-  /* Inside the editor preview iframe: fill the frame. */
-  #fb-stage.fb-embedded { display:block; top:0; width:100%; }
-
-  /* Isometric projection, orthographic (no perspective). Sheets stack along the local z axis.
-     Starlight adds margin-top to sibling elements inside .sl-markdown-content, which shifted every sheet after
-     the dashed base; reset margins for everything in the stage. */
-  #fb-stage * { margin:0 !important; }
-  #fb-stage .fb-fit { position:absolute; left:50%; top:48%; width:0; height:0; }
-  #fb-stage .fb-lift { position:absolute; transform-style:preserve-3d; }
-  #fb-stage .fb-iso { position:absolute; transform-style:preserve-3d; transform:rotateX(58deg) rotateZ(-45deg); }
-  #fb-stage .fb-sheet, #fb-stage .fb-base { position:absolute; left:-150px; top:-190px; width:300px; height:380px; transform-style:preserve-3d; }
-  #fb-stage .fb-base { transform:translateZ(-10px); }
-  #fb-stage .fb-base polygon { fill:none; stroke:var(--p-line); stroke-width:1.5; stroke-dasharray:6 6; }
-  #fb-stage .fb-face { position:absolute; inset:0;
-    clip-path:polygon(22px 0,100% 0,100% calc(100% - 22px),calc(100% - 22px) 100%,0 100%,0 22px); }
-  #fb-stage .fb-face { background:var(--p-paper); }
-  /* The sheet's content is split into items. On the active sheet each item floats at its own height (z) above the
-     paper as a flat plane; --h is that height and GSAP tweens it per item. */
-  #fb-stage .fb-holo { position:absolute; inset:0; transform-style:preserve-3d; }
-  #fb-stage .fb-bit { position:absolute; inset:0; transform:translateZ(.5px); }
-  #fb-stage .fb-col { position:absolute; inset:0; transform-style:preserve-3d; --h:0px; --b:0px; }
-  #fb-stage .fb-shadow, #fb-stage .fb-top { position:absolute; inset:0; }
-  /* each floating item casts a soft shadow on its paper; the higher it floats, the softer the shadow */
-  #fb-stage .fb-shadow { transform:translateZ(.6px); filter:brightness(0) blur(calc(.5px + var(--h) * .06)); opacity:0; }
-  /* --h is the item's resting height, --b an idle float offset added on top while its sheet is active */
-  #fb-stage .fb-top { transform:translateZ(calc(1px + var(--h) + var(--b))); }
-  #fb-stage .cd { fill:var(--p-card); stroke:var(--p-line); stroke-width:1; } #fb-stage .acd { fill:var(--p-acc); } #fb-stage .wcd { fill:var(--p-warn); }
-  /* line icons: drawn in a 24 x 24 box and scaled, with strokes that keep their width */
-  #fb-stage .gl, #fb-stage .glo { fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
-  #fb-stage .gl { stroke:var(--p-fg); } #fb-stage .glo { stroke:var(--p-paper); } #fb-stage .gl *, #fb-stage .glo * { vector-effect:non-scaling-stroke; }
-  /* Every sheet has a thin outline drawn as an SVG polygon, so stacked sheets of the same color stay distinct. */
-  #fb-stage .fb-outline { position:absolute; inset:0; pointer-events:none; }
-  #fb-stage .fb-outline polygon { fill:none; stroke:var(--p-line); stroke-width:1.5; }
-  #fb-stage svg { display:block; width:100%; height:100%; }
-  #fb-stage text { font-family:var(--sl-font, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif); font-weight:700; letter-spacing:-.02em; }
-  #fb-stage .f { fill:var(--p-fg); } #fb-stage .k { fill:var(--p-ink); } #fb-stage .a { fill:var(--p-acc); } #fb-stage .t { fill:var(--p-tint); }
-  #fb-stage .w { fill:var(--p-warn); } #fb-stage .wf { fill:var(--p-warnf); } #fb-stage .sunk { fill:var(--p-sunk); } #fb-stage .on { fill:var(--p-paper); }
-  #fb-stage .ok { fill:var(--p-ok); fill-opacity:.16; } #fb-stage .bad { fill:var(--p-bad); fill-opacity:.16; }
-  #fb-stage .okt { fill:var(--p-ok); } #fb-stage .badt { fill:var(--p-bad); }
-  #fb-stage .l { fill:none; stroke:var(--p-line); stroke-width:1; } #fb-stage .l2 { fill:none; stroke:var(--p-ink); stroke-width:1.2; }
-  #fb-stage .al { fill:none; stroke:var(--p-acc); stroke-width:2; } #fb-stage .dash { stroke-dasharray:5 5; }
-  /* 3D connector between two floating items: a dashed strip from one item's center to the other's, at their live heights */
-  #fb-stage .fb-link { position:absolute; left:0; top:-1px; height:2px; transform-origin:0 50%;
-    background:repeating-linear-gradient(to right, var(--p-acc) 0 5px, transparent 5px 10px); }
+:root{--fx-accent:hsl(192 100% 30%);--fx-accent-2:hsl(190 60% 59%);--fx-accent-3:hsl(188 64% 79%)}
+:root[data-theme="dark"]{--fx-accent:hsl(193 71% 48%);--fx-accent-2:hsl(189 76% 71%);--fx-accent-3:hsl(194 100% 32%)}
+.fx-track{--fx-border:var(--docsite-color-border,rgba(255,255,255,.18));position:relative;margin-top:2.5rem;padding-left:2.25rem;display:grid;gap:1.25rem}
+.fx-track>.docsite-card{margin:0!important}
+.fx-spine{position:absolute;left:.6rem;top:.5rem;bottom:.5rem;width:2px;background:var(--fx-border);border-radius:2px;overflow:hidden}
+.fx-spine::after{content:"";position:absolute;inset:0;transform-origin:top;transform:scaleY(var(--fx-progress,0));background:linear-gradient(var(--fx-accent),var(--fx-accent-2),var(--fx-accent-3))}
+.fx-track .docsite-card{--mx:50%;--my:50%;--rx:0deg;--ry:0deg;position:relative;isolation:isolate;border-radius:16px;transform:perspective(900px) rotateX(var(--rx)) rotateY(var(--ry)) translateY(16px) scale(.99);opacity:0;filter:blur(3px);transition:opacity .4s cubic-bezier(.2,.7,.2,1),filter .4s,transform .4s cubic-bezier(.2,.7,.2,1);transition-delay:var(--fx-delay,0s)}
+.fx-track .docsite-card.is-in{opacity:1;filter:none;transform:perspective(900px) rotateX(var(--rx)) rotateY(var(--ry)) translateY(0) scale(1)}
+.fx-track .docsite-card.is-in.is-tilting{transition:transform .12s ease-out}
+.fx-dot{position:absolute;left:-1.95rem;top:1.9rem;width:12px;height:12px;border-radius:50%;background:var(--sl-color-bg,#13171b);border:2px solid var(--fx-border);transition:all .3s}
+.docsite-card.is-in .fx-dot{border-color:var(--fx-accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--fx-accent) 20%,transparent),0 0 18px var(--fx-accent)}
+.fx-glow{position:absolute;inset:0;border-radius:inherit;z-index:-1;opacity:0;transition:opacity .4s;pointer-events:none;background:radial-gradient(420px circle at var(--mx) var(--my),color-mix(in srgb,var(--fx-accent) 7%,transparent),transparent 60%)}
+.fx-track .docsite-card:hover .fx-glow{opacity:1}
+@property --fx-angle{syntax:"<angle>";initial-value:0deg;inherits:false}
+.fx-track .docsite-card::after{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;opacity:0;transition:opacity .4s;pointer-events:none;background:conic-gradient(from var(--fx-angle),var(--fx-accent),var(--fx-accent-2),var(--fx-accent-3),var(--fx-accent));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:fx-spin 4s linear infinite}
+.fx-track .docsite-card:hover::after,.fx-track .docsite-card:focus-within::after{opacity:1}
+@keyframes fx-spin{to{--fx-angle:360deg}}
+.fx-track [data-card-icon]{border-radius:12px;border:1px solid var(--fx-border);background:linear-gradient(135deg,color-mix(in srgb,var(--fx-accent) 25%,transparent),color-mix(in srgb,var(--fx-accent-2) 15%,transparent));animation:fx-float 5s ease-in-out infinite;animation-delay:var(--fx-delay,0s)}
+.fx-track [data-card-icon] svg{width:24px;height:24px}
+@keyframes fx-float{50%{transform:translateY(-4px)}}
+.fx-track .docsite-card:last-child{background:linear-gradient(135deg,color-mix(in srgb,var(--fx-accent) 5%,transparent),color-mix(in srgb,var(--fx-accent-3) 3%,transparent))}
+.fx-track [data-card-icon] svg{transform-origin:center;transform-box:fill-box}
+.fx-track .icon-in [data-card-icon="plug"] svg{animation:fx-plug 3s ease-in-out infinite .2s}
+.fx-track .icon-in [data-card-icon="scan"] path:first-child{animation:fx-scan 2.4s ease-in-out infinite .2s}
+.fx-track .icon-in [data-card-icon="heart-rate-monitor"] path:last-child{stroke-dasharray:.35 .65;animation:fx-pulse 1.6s linear infinite .1s}
+.fx-track .icon-in [data-card-icon="refresh"] svg{animation:fx-turn 4s cubic-bezier(.6,0,.4,1) infinite .2s}
+.fx-track .icon-in [data-card-icon="pencil"] svg{animation:fx-write 2.6s ease-in-out infinite .2s}
+.fx-track .icon-in [data-card-icon="world"] svg{animation:fx-globe 6s ease-in-out infinite .2s}
+.fx-track [data-card-icon="infinity"] path.fx-comet{stroke:var(--fx-accent-2);stroke-width:2.25;stroke-dasharray:.18 .82;stroke-dashoffset:0;opacity:0;transition:opacity .4s .1s}
+.fx-track .icon-in [data-card-icon="infinity"] path.fx-comet{opacity:1;animation:fx-loop 2.4s linear infinite .1s}
+@keyframes fx-draw{to{stroke-dashoffset:0}}
+@keyframes fx-loop{from{stroke-dashoffset:0}to{stroke-dashoffset:-1}}
+@keyframes fx-pulse{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes fx-plug{0%,30%,100%{transform:translate(0,0)}10%{transform:translate(2px,-2px)}20%{transform:translate(-1px,1px)}}
+@keyframes fx-scan{0%,100%{transform:translateY(-5px)}50%{transform:translateY(5px)}}
+@keyframes fx-turn{0%{transform:rotate(0)}40%,100%{transform:rotate(360deg)}}
+@keyframes fx-write{0%,100%{transform:rotate(0) translate(0,0)}25%{transform:rotate(-8deg) translate(-1px,1px)}50%{transform:rotate(4deg) translate(1px,0)}75%{transform:rotate(-4deg) translate(0,1px)}}
+@keyframes fx-globe{0%,100%{transform:rotateY(0)}50%{transform:rotateY(180deg)}}
+@media (max-width:50em){.fx-track{padding-left:0}.fx-spine,.fx-dot{display:none}}
+@media (prefers-reduced-motion:reduce){.fx-track *,.fx-track *::after{animation:none!important;transition:none!important}.fx-track .docsite-card{opacity:1;filter:none;transform:none}.fx-track path.fx-comet{display:none}}
 </style>
-<script type="module">
-const stage = document.getElementById('fb-stage');
-if (window.self !== window.top) stage.classList.add('fb-embedded');
-const iso = stage.querySelector('.fb-iso'), lift = stage.querySelector('.fb-lift'), fitEl = stage.querySelector('.fb-fit');
-
-// --- SVG helpers. Every sheet is drawn on a 300 x 380 page. Groups with class "r" reveal while the section is read.
-const ch = (x, y, w, h, c, cls = '') => `<polygon class="${cls}" points="${x + c},${y} ${x + w},${y} ${x + w},${y + h - c} ${x + w - c},${y + h} ${x},${y + h} ${x},${y + c}"/>`;
-const tx = (x, y, s, cls = 'f', size = 11, anchor = 'start') => `<text x="${x}" y="${y}" class="${cls}" font-size="${size}" text-anchor="${anchor}">${s}</text>`;
-// Items are wrapped in g(inner, h): h is the height in px the item floats at while its sheet is active.
-// Everything outside g() is ground: it stays flat on the paper (connectors, loops).
-const g = (inner, h = 30, amp = 3, ph = 0) => `<g class="r" data-h="${h.toFixed ? h.toFixed(1) : h}" data-amp="${amp}" data-ph="${ph}">${inner}</g>`;
-const mk = (x, y, s) => `<use href="#fb-mark" x="${x}" y="${y}" width="${s * 118 / 112}" height="${s}"/>`;
-const sq = (x, y, s, cls) => `<rect x="${x}" y="${y}" width="${s}" height="${s}" class="${cls}"/>`;
-const card = (x, y, w, h, c = 10, cls = 'cd') => ch(x, y, w, h, c, cls);
-// Line icons in a 24 x 24 box; ic() scales one to `size` px, centered in a box of `box` px at (x, y).
-const ICONS = {
-  branch: '<circle cx="6" cy="4" r="3"/><circle cx="6" cy="20" r="3"/><circle cx="18" cy="8" r="3"/><path d="M6 7v10M18 11c0 6-12 4-12 8"/>',
-  merge: '<circle cx="6" cy="4" r="3"/><circle cx="6" cy="20" r="3"/><circle cx="18" cy="20" r="3"/><path d="M6 7v10M6 9c0 7 12 5 12 8"/>',
-  stack: '<path d="M3 6h18M3 12h18M3 18h12"/>',
-  page: '<path d="M5 2h10l5 5v15H5zM9 12h7M9 16h5"/>',
-  chat: '<path d="M2 4h20v12H10l-5 5v-5H2z"/>',
-  check: '<path d="M4 12l5 5L20 6"/>',
-  globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c-5 6-5 12 0 18M12 3c5 6 5 12 0 18"/>',
-  warn: '<path d="M12 3l10 18H2zM12 10v5"/>',
-  spark: '<path d="M12 2v6M12 16v6M2 12h6M16 12h6M5 5l3 3M16 16l3 3M19 5l-3 3M8 16l-3 3"/>',
-};
-const ic = (name, x, y, box, size, cls = 'gl') => { const o = (box - size) / 2;
-  return `<g class="${cls}" transform="translate(${x + o} ${y + o}) scale(${size / 24})">${ICONS[name]}</g>`; };
-// A square icon tile: card plus centered icon.
-const tile = (x, y, s, name, cls = 'cd', icCls = 'gl') => card(x, y, s, s, Math.round(s / 6), cls) + ic(name, x, y, s, s * .46, icCls);
-
-const SHEETS = [
-  // 01 Connect sources: GitHub, Linear, Notion and Slack each float at their own height, Falconer highest at the center
-  (() => {
-    // Official brand marks, loaded from the Iconify "logos" set. A white plate keeps dark marks readable in dark mode.
-    const logo = name => (x, y) => `<rect x="${x + 12}" y="${y + 12}" width="48" height="48" rx="10" fill="#fff"/>` +
-      `<image href="https://api.iconify.design/logos/${name}.svg" x="${x + 18}" y="${y + 18}" width="36" height="36"/>`;
-    const LOGOS = { github: logo('github-icon'), linear: logo('linear-icon'), notion: logo('notion-icon'), slack: logo('slack-icon') };
-    const S = [['github', 30, 40, 30], ['linear', 198, 40, 56], ['notion', 30, 268, 48], ['slack', 198, 268, 22]];
-    return S.map(([n, x, y, h], i) => g(card(x, y, 72, 72, 14) + LOGOS[n](x, y), h, 4, i * .3)).join('') +
-      g(card(110, 150, 80, 80, 16) + mk(129, 170, 40), 100, 6, .2);
-  })(),
-
-  // 02 Falconer scans: a green laser sweeps back and forth over a document
-  g(card(40, 60, 220, 260, 20) + '<rect x="64" y="92" width="124" height="14" class="f"/>' +
-    [150, 172, 120, 160, 100].map((w, i) => `<rect x="64" y="${136 + i * 32}" width="${w}" height="8" class="${i === 2 ? 'a' : 'k'}" fill-opacity="${i === 2 ? .8 : .4}"/>`).join(''), 16, 2, 0) +
-  g('<g><animateTransform attributeName="transform" type="translate" values="0 0;0 236;0 0" dur="3.2s" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1" repeatCount="indefinite"/>' +
-    '<rect x="40" y="66" width="220" height="12" fill="#3FB37F" opacity=".18"/>' +
-    '<line x1="40" y1="72" x2="260" y2="72" stroke="#3FB37F" stroke-width="2.5" stroke-linecap="round"/></g>', 34, 0, 0),
-
-  // 03 Health issues: one big score gauge floats high; the single issue pulling it down hovers low
-  g(card(50, 40, 200, 200, 26) + '<circle cx="150" cy="140" r="66" fill="none" stroke="var(--p-sunk)" stroke-width="16"/>' +
-    '<circle cx="150" cy="140" r="66" fill="none" stroke="var(--p-acc)" stroke-width="16" stroke-dasharray="299 415" transform="rotate(-90 150 140)"/>' +
-    tx(150, 156, '72', 'f', 48, 'middle'), 90, 5, 0) +
-  g(tile(116, 270, 68, 'warn', 'wcd', 'glo'), 18, 3, .5),
-
-  // 04 Auto-update: the outdated doc on the paper, its rewritten version lifted above it, and the code change that caused it floating highest
-  g(card(60, 90, 180, 230, 18) + [130, 100, 140, 90, 120, 80].map((w, i) =>
-    `<rect x="84" y="${130 + i * 26}" width="${w}" height="8" class="k" fill-opacity=".4"/>`).join(''), 8, 1, 0) +
-  g(card(60, 90, 180, 230, 18) + '<rect x="84" y="114" width="100" height="12" class="f"/>' +
-    [[132, 'okt'], [100, 'k'], [132, 'okt'], [90, 'k'], [132, 'okt']].map(([w, c], i) =>
-      `<rect x="84" y="${142 + i * 30}" width="${w}" height="${c === 'k' ? 8 : 14}" class="${c}" fill-opacity="${c === 'k' ? .5 : .85}"/>`).join(''), 86, 4, .4) +
-  // the code change, as one source file the same size and position as the docs, with indented, syntax-colored lines
-  g(card(60, 90, 180, 230, 18) + '<rect x="76" y="114" width="3" height="186" class="k" fill-opacity=".2"/>' +
-    [[0, 44, 'a'], [0, 92, 'k'], [16, 60, 'w'], [16, 40, 'k'], [32, 84, 'okt'], [32, 56, 'k'], [16, 70, 'a'], [0, 20, 'k'], [0, 76, 'a'], [16, 100, 'okt'], [0, 20, 'k']].map(([ind, w, c], i) =>
-      `<rect x="${90 + ind}" y="${116 + i * 17}" width="${w}" height="7" rx="3.5" class="${c}" fill-opacity="${c === 'k' ? .5 : .9}"/>`).join(''), 164, 6, .8),
-
-  // 05 Falconer writes docs: the draft on the paper, Falcon hovering high above it as it writes
-  g(card(50, 120, 200, 220, 18) + '<rect x="74" y="146" width="110" height="14" class="f"/>' +
-    [150, 120, 140, 90].map((w, i) => `<rect x="74" y="${180 + i * 30}" width="${w}" height="10" class="${i === 2 ? 'a' : 'k'}"${i === 2 ? '' : ' fill-opacity=".45"'}/>`).join(''), 14, 2, 0) +
-  g(tile(110, 30, 80, 'spark', 'acd', 'glo'), 110, 7, .3),
-
-  // 06 Publish docs: the site frame on the paper, its hero lifted out, the live badge floating highest
-  card(30, 50, 240, 290, 18) + [0, 1, 2].map(i => sq(50 + i * 13, 70, 8, 'k')).join('') + ch(96, 64, 156, 20, 6, 'sunk') +
-    [180, 140, 160].map((w, i) => `<rect x="54" y="${250 + i * 22}" width="${w}" height="8" class="k" fill-opacity=".4"/>`).join('') +
-  g(card(54, 104, 192, 120, 16, 'acd') + ic('globe', 72, 124, 80, 52, 'glo') + '<rect x="160" y="144" width="66" height="12" class="on"/><rect x="160" y="166" width="46" height="8" class="on" fill-opacity=".7"/>', 60, 4, .3) +
-  g(card(178, 266, 80, 48, 14, 'acd') + '<circle cx="202" cy="290" r="8" class="on"/><rect x="218" y="285" width="26" height="10" class="on"/>', 112, 6, .8),
-
-  // 07 The self-updating loop: a ring of updates rides a wave that travels around Falconer, endlessly
-  '<circle cx="150" cy="190" r="108" class="al dash"/>' +
-  [...Array(18)].map((_, i) => { const a = i / 18 * Math.PI * 2, x = 150 + Math.cos(a) * 108, y = 190 + Math.sin(a) * 108;
-    return g(card(x - 11, y - 11, 22, 22, 5, i % 3 ? 'cd' : 'acd'), 40 + 26 * Math.sin(a * 2), 22, i / 18 * 1.6); }).join('') +
-  g(card(110, 150, 80, 80, 16) + mk(129, 170, 40), 74, 5, 0),
-].map(svg => `<svg viewBox="0 0 300 380">${svg}</svg>`);
-
-const GAP = 8;   // vertical distance between stacked sheets
-const NS = 'http://www.w3.org/2000/svg';
-const SHADOW = .06;   // opacity of the soft shadow each floating item casts on its paper
-const mkSvg = nodes => { const s = document.createElementNS(NS, 'svg'); s.setAttribute('viewBox', '0 0 300 380'); nodes.forEach(n => s.appendChild(n)); return s; };
-// Build each sheet: the paper, a 3D container with the flat ground layer plus one floating column per item, and the outline.
-const sheets = SHEETS.map(svg => {
-  const el = document.createElement('div'); el.className = 'fb-sheet';
-  el.innerHTML = '<div class="fb-face"></div><div class="fb-holo"></div>' +
-    '<svg class="fb-outline" viewBox="0 0 300 380"><polygon points="22.3,0.75 299.25,0.75 299.25,357.7 277.7,379.25 0.75,379.25 0.75,22.3"/></svg>';
-  const holo = el.querySelector('.fb-holo'), tmp = document.createElement('div');
-  tmp.innerHTML = svg;
-  const flat = [], items = [];
-  [...tmp.firstElementChild.childNodes].forEach(n => (n.classList && n.classList.contains('r') ? items : flat).push(n));
-  const base = document.createElement('div'); base.className = 'fb-bit'; base.appendChild(mkSvg(flat)); holo.appendChild(base);
-  items.forEach(item => {
-    const col = document.createElement('div'); col.className = 'fb-col'; col.dataset.h = item.getAttribute('data-h') || 30;
-    col.dataset.amp = item.getAttribute('data-amp') || 3; col.dataset.ph = item.getAttribute('data-ph') || 0;
-    const sh = document.createElement('div'); sh.className = 'fb-shadow'; sh.appendChild(mkSvg([item.cloneNode(true)])); col.appendChild(sh);
-    const top = document.createElement('div'); top.className = 'fb-top'; top.appendChild(mkSvg([item])); col.appendChild(top);
-    holo.appendChild(col);
-  });
-  iso.appendChild(el); return el;
-});
-const baseOf = s => s.querySelector('.fb-bit');
-const colsOf = s => [...s.querySelectorAll('.fb-col')];
-const topsOf = s => [...s.querySelectorAll('.fb-top')];
-const shadowsOf = s => [...s.querySelectorAll('.fb-shadow')];
-const colH = c => c.dataset.h + 'px';
-
-// Connectors between floating items, per sheet: [from item, from x, y, to item, to x, y].
-// Each one joins the facing corners of two cards (the middle of the chamfer where a corner is cut) with a dashed strip in 3D,
-// whose ends follow both items' live heights, so it stays attached while they rise and drift.
-const LINKS = { 0: [[0, 95, 105, 4, 118, 158], [1, 198, 112, 4, 190, 150], [2, 102, 268, 4, 110, 230], [3, 205, 275, 4, 182, 222]] };
-const links = [];
-Object.entries(LINKS).forEach(([si, pairs]) => { const s = sheets[si], holo = s.querySelector('.fb-holo'), cols = colsOf(s);
-  pairs.forEach(([a, ax, ay, b, bx, by]) => { const el = document.createElement('div'); el.className = 'fb-link'; holo.appendChild(el);
-    links.push({ el, a:cols[a], b:cols[b], ax, ay, bx, by, top:topsOf(s)[0] }); }); });
-const zOf = c => 1 + (parseFloat(c.style.getPropertyValue('--h')) || 0) + (parseFloat(c.style.getPropertyValue('--b')) || 0);
-function updateLinks() {
-  links.forEach(l => { const dx = l.bx - l.ax, dy = l.by - l.ay, d = Math.hypot(dx, dy), za = zOf(l.a), dz = zOf(l.b) - za;
-    l.el.style.width = Math.hypot(d, dz) + 'px';
-    l.el.style.transform = `translate3d(${l.ax}px, ${l.ay}px, ${za}px) rotateZ(${Math.atan2(dy, dx)}rad) rotateY(${-Math.atan2(dz, d)}rad)`;
-    l.el.style.opacity = l.top.style.opacity || 1; });
-}
-
-// Scale the scene to the stage so the full stack always fits.
-function fit() { const s = Math.min(1, stage.clientWidth / 560, stage.clientHeight / 720); fitEl.style.transform = `scale(${s})`; }
-new ResizeObserver(fit).observe(stage); fit();
-
-// Static state for the editor preview and small screens: the finished stack.
-function staticStack() {
-  sheets.forEach((el, i) => { const top = i === sheets.length - 1;
-    el.style.transform = `translateZ(${i * GAP}px)`; el.style.opacity = 1;
-    [baseOf(el), ...topsOf(el)].forEach(f => f.style.opacity = top ? 1 : .35);
-    shadowsOf(el).forEach(sh => sh.style.opacity = top ? SHADOW : 0);
-    colsOf(el).forEach(c => c.style.setProperty('--h', top ? colH(c) : '0px')); });
-  sheets.at(-1).classList.add('on');
-}
-
-// --- page sections: the first seven h2 headings each place one sheet.
-const content = document.querySelector('.sl-markdown-content') || document.body;
-const inSite = content !== document.body;
-let active = 0, anchored = false;
-
-// Compact spacing on large screens; GSAP anchors each heading instead of long scroll gaps.
-// Set as inline styles so no site stylesheet or style scoping can override them.
-function spaceSections(on) {
-  const set = (el, p, v) => el.style.setProperty(p, on ? v : '', on ? 'important' : '');
-  // one short vertical dashed line, start-aligned, in the gap above each section heading
-  const dash = 'repeating-linear-gradient(to bottom, var(--docsite-color-border) 0 6px, transparent 6px 12px)';
-  content.querySelectorAll('h2').forEach(h => {
-    const el = h.closest('.sl-heading-wrapper') || h;
-    set(el, 'margin-top', '1rem');
-    set(el, 'padding-top', '10vh');
-    set(el, 'background-image', dash);
-    set(el, 'background-repeat', 'no-repeat');
-    set(el, 'background-size', '1.5px calc(10vh - 2.5rem)');
-    set(el, 'background-position', '0 1.25rem');
-  });
-  // a little room at the end; the last anchor is limited to the page's scroll range
-  const last = content.lastElementChild;
-  if (last) set(last, 'margin-bottom', '12vh');
-  set(content, 'position', 'relative');
-  set(content, 'isolation', 'isolate');
-  // Align the header's tabs and search with the content column. The header grid (FalconerHeader.astro)
-  // subtracts 3 x --__toc-width from the free space and splits it in half, so a third of the space
-  // reserved for the stage shifts its middle column by the same amount the content shifts.
-  document.documentElement.style.setProperty('--__toc-width', on ? 'calc(min(36vw, 34rem) / 3)' : '');
-}
-
-// Active section: a soft primary-tinted, chamfered highlight behind it.
-const hl = document.createElement('div');
-hl.setAttribute('aria-hidden', 'true');
-hl.style.cssText = 'position:absolute;left:-1.75rem;right:-1.75rem;top:0;height:0;z-index:-1;pointer-events:none;opacity:0;' +
-  'clip-path:polygon(18px 0,100% 0,100% calc(100% - 18px),calc(100% - 18px) 100%,0 100%,0 18px);' +
-  'transition:top .35s ease,height .35s ease,opacity .35s ease;' +
-  'background:color-mix(in srgb, var(--docsite-color-primary) 4%, transparent);';
-if (inSite) content.prepend(hl);
-let sectionEls = [];
-function buildGroups() {
-  sectionEls = [[]];
-  for (const el of content.children) {
-    if (el === hl) continue;
-    if (el.matches('h2') || el.querySelector(':scope > h2')) sectionEls.push([]);
-    sectionEls[sectionEls.length - 1].push(el);
-  }
-}
-function paintGroups() {
-  const g = sectionEls[active];
-  if (!anchored || !g || active === 0) { hl.style.opacity = '0'; return; }
-  const cr = content.getBoundingClientRect(), first = g[0], last = g[g.length - 1];
-  const pad = parseFloat(getComputedStyle(first).paddingTop) || 0;
-  const top = first.getBoundingClientRect().top - cr.top + pad - 28;
-  const bottom = last.getBoundingClientRect().bottom - cr.top + 28;
-  hl.style.top = top + 'px'; hl.style.height = (bottom - top) + 'px'; hl.style.opacity = '1';
-}
-let onActive = null;   // set while the animated stack is running; renders the stack for the active section
-function setActive(k) {
-  const prev = active;
-  active = k;
-  sheets.forEach((el, i) => el.classList.toggle('on', i === k - 1));
-  paintGroups();
-  if (onActive && k !== prev) onActive(k, prev);
-}
-
-const docScroller = document.scrollingElement || document.documentElement;
-const isDoc = el => el === docScroller || el === document.documentElement || el === document.body;
-const canScroll = el => el && el.scrollHeight > el.clientHeight + 1 && /(auto|scroll)/.test(getComputedStyle(el).overflowY);
-function findScroller() {
-  for (let el = content.parentElement; el && el !== document.body; el = el.parentElement) if (canScroll(el)) return el;
-  return docScroller;
-}
-
-if (!inSite) { staticStack(); updateLinks(); }
-else {
-  const [{ gsap }, { ScrollTrigger }, { ScrollToPlugin }] = await Promise.all([
-    import('https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js'),
-    import('https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTrigger.js'),
-    import('https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollToPlugin.js'),
-  ]);
-  gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const ANCHOR = 'top 8%';
-  const mm = gsap.matchMedia();
-  mm.add('(min-width: 72rem)', () => {
-    const el = findScroller(), scroller = isDoc(el) ? window : el;
-    spaceSections(true); buildGroups(); anchored = true;
-    const heads = sectionEls.slice(1).map(g => g[0]).slice(0, sheets.length);
-    const starts = [];
-    // Each section's anchor is the scroll position that puts the middle of its content block
-    // (heading text to last paragraph) at the middle of the viewport.
-    const pos = () => scroller === window ? scrollY : scroller.scrollTop;
-    const vh = () => scroller === window ? innerHeight : scroller.clientHeight;
-    const absY = y => y - (scroller === window ? 0 : scroller.getBoundingClientRect().top) + pos();
-    const center = i => {
-      const grp = sectionEls[i + 1], first = grp[0], last = grp[grp.length - 1];
-      const pad = parseFloat(getComputedStyle(first).paddingTop) || 0;
-      const top = absY(first.getBoundingClientRect().top) + pad, bottom = absY(last.getBoundingClientRect().bottom);
-      return Math.round(clampN((top + bottom) / 2 - vh() / 2, 0, ScrollTrigger.maxScroll(scroller)));
-    };
-    const clampN = (x, a, b) => Math.min(b, Math.max(a, x));
-    // The visible stack follows the active section, not the scroll position: section k shows sheets 1..k.
-    // Sheets that join the stack drop in on a timed tween; sheets above the active section lift away.
-    sheets.forEach((s, i) => { gsap.set(s, { z:i * GAP + 260, x:-40, y:40, autoAlpha:0, force3D:true });
-      gsap.set([baseOf(s), ...topsOf(s)], { opacity:1 }); gsap.set(shadowsOf(s), { opacity:0 }); gsap.set(colsOf(s), { '--h':'0px' }); });
-    const T = d => RM ? 0 : d;
-    const FLATTEN = .6;   // time for the previous sheet's items to settle before the next sheet drops
-    const RISE = 1.1;     // time for an item to float up to its height; the idle drift starts after it
-    // Items float up off the paper, easing in and out, one after another; their shadows fade in below them.
-    // Once up, every item keeps drifting gently on its own phase, so the active sheet never sits still.
-    const raise = (s, at) => {
-      gsap.to([baseOf(s), ...topsOf(s)], { opacity:1, duration:T(.3), delay:at, overwrite:'auto' });
-      gsap.to(shadowsOf(s), { opacity:SHADOW, duration:T(.6), stagger:T(.05), delay:at, overwrite:'auto' });
-      gsap.to(colsOf(s), { '--h':(j, c) => colH(c), duration:T(RISE), stagger:T(.05), delay:at, ease:'power2.inOut', overwrite:'auto' });
-      if (!RM) colsOf(s).forEach((c, j) => { gsap.killTweensOf(c, '--b');
-        gsap.to(c, { '--b':c.dataset.amp + 'px', duration:1.6, ease:'sine.inOut', yoyo:true, repeat:-1, immediateRender:false, delay:at + RISE + j * .05 + (+c.dataset.ph) }); });
-    };
-    // Items settle back onto the paper, their shadows fade, and the drawing dims to `dim`.
-    const flatten = (s, at, dim, d = .45) => {
-      // cancel any rise still waiting on its delay, or it would lift items again after they settle
-      gsap.killTweensOf([...colsOf(s), ...shadowsOf(s), baseOf(s), ...topsOf(s)]);
-      gsap.to(colsOf(s), { '--b':'0px', '--h':'0px', duration:T(d), stagger:{ each:T(.015), from:'end' }, delay:at, ease:'power2.in', overwrite:'auto' });
-      gsap.to(shadowsOf(s), { opacity:0, duration:T(d), delay:at, overwrite:'auto' });
-      gsap.to([baseOf(s), ...topsOf(s)], { opacity:dim, duration:T(.35), delay:at + T(d * .5), overwrite:'auto' });
-    };
-    const land = (s, i, at) => gsap.to(s, { z:i * GAP, x:0, y:0, autoAlpha:1, force3D:true, duration:T(.6), delay:at, ease:'power3.out', overwrite:'auto' });
-    // Order on every change: the old content flattens first, then the new sheet drops, then its items rise to their heights.
-    onActive = (k, prev) => {
-      const after = prev > 0 && k > prev ? T(FLATTEN) : 0;
-      sheets.forEach((s, i) => {
-        if (i < k) {
-          const arriving = i >= prev, at = after + T(Math.max(0, i - prev) * .08);
-          if (arriving) land(s, i, at);
-          if (i === k - 1) raise(s, arriving ? at + T(.25) : T(.15));
-          // every other sheet in the stack lies flat and dimmed, whatever state a fast scroll left it in
-          else flatten(s, arriving ? at : 0, .35);
-        } else {
-          // leaving the stack: blocks sink quickly, then the sheet lifts away
-          flatten(s, 0, 1, .25);
-          gsap.to(s, { z:i * GAP + 260, x:-40, y:40, autoAlpha:0, force3D:true, duration:T(.4), delay:T(.2 + (sheets.length - 1 - i) * .03), ease:'power2.in', overwrite:'auto' });
-        }
-      });
-    };
-    heads.forEach((h, i) => {
-      const next = heads[i + 1];
-      // Active range: halfway from the previous anchor to halfway to the next one, so the centered section is the active one.
-      // The introduction is not a section: the first range starts at the top of the page.
-      starts.push(ScrollTrigger.create({ scroller,
-        start:() => i === 0 ? -1 : (center(i - 1) + center(i)) / 2,
-        end:() => next ? (center(i) + center(i + 1)) / 2 : ScrollTrigger.maxScroll(scroller) + 1,
-        onToggle:s => s.isActive && setActive(i + 1) }));
-      starts[i].anchor = () => center(i);
+</head>
+<body>
+<script>
+(() => {
+  const init = () => {
+    const cards = [...document.querySelectorAll('.sl-markdown-content .docsite-card')];
+    if (!cards.length || document.querySelector('.fx-track')) return;
+    const track = document.createElement('div');
+    track.className = 'fx-track';
+    const spine = document.createElement('div');
+    spine.className = 'fx-spine';
+    spine.setAttribute('aria-hidden', 'true');
+    cards[0].before(track);
+    track.append(spine, ...cards);
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const fine = matchMedia('(hover: hover) and (pointer: fine) and (min-width: 50em)').matches;
+    cards.forEach((c, i) => {
+      c.style.setProperty('--fx-delay', `${(i % 3) * 0.04}s`);
+      c.querySelectorAll('[data-card-icon] path').forEach(p => p.setAttribute('pathLength', '1'));
+      const inf = c.querySelector('[data-card-icon="infinity"] path');
+      if (inf) { const comet = inf.cloneNode(); comet.classList.add('fx-comet'); inf.after(comet); }
+      c.insertAdjacentHTML('afterbegin', '<span class="fx-glow" aria-hidden="true"></span><span class="fx-dot" aria-hidden="true"></span>');
     });
-    // --- custom scrolling: one wheel gesture, key press or swipe moves exactly one anchor.
-    // Anchors are the top of the page, every heading's anchor position, and the end of the page.
-    // Inside a section taller than the viewport, scrolling stays native until the next anchor is in reach.
-    // Anchors are the sections' centered positions only; the introduction has none.
-    const anchors = () => [...new Set(starts.map(t => t.anchor()))].sort((a, b) => a - b);
-    let busy = false, acc = 0, accTimer = 0;
-    const COOLDOWN = 700;   // ms after a section change during which scrolling is ignored (swallows trackpad and wheel momentum)
-    function step(dir, force = false) {
-      const A = anchors(), y = pos();
-      const target = dir > 0 ? A.find(a => a > y + 2) : [...A].reverse().find(a => a < y - 2);
-      if (target === undefined) return false;
-      // long section: let the reader scroll through it natively until the anchor is within a viewport
-      if (!force && Math.abs(target - y) > vh() * 1.1) return false;
-      busy = true;
-      gsap.to(scroller, { scrollTo:{ y:target, autoKill:false }, duration:RM ? .01 : .55, ease:'power2.out', overwrite:true,
-        onComplete:() => setTimeout(() => { busy = false; acc = 0; }, RM ? 0 : COOLDOWN) });   // ignore further scrolling for a moment, so one gesture moves one section
-      return true;
+    if (reduce || !('IntersectionObserver' in window)) {
+      cards.forEach(c => c.classList.add('is-in', 'icon-in'));
+    } else {
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
+      }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
+      cards.forEach(c => io.observe(c));
+      const iconIo = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.closest('.docsite-card').classList.add('icon-in'); iconIo.unobserve(e.target); } });
+      }, { rootMargin: '0px 0px -35% 0px' });
+      cards.forEach(c => { const icon = c.querySelector('[data-card-icon]'); if (icon) iconIo.observe(icon); });
     }
-    const onWheel = e => {
-      if (e.ctrlKey || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;   // pinch zoom and horizontal scroll stay native
-      if (busy) { e.preventDefault(); return; }
-      acc += e.deltaY; clearTimeout(accTimer); accTimer = setTimeout(() => acc = 0, 160);
-      if (Math.abs(acc) < 24) { e.preventDefault(); return; }
-      if (step(Math.sign(acc))) e.preventDefault();
-      acc = 0;
+    let ticking = false;
+    const update = () => {
+      const r = track.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, (innerHeight * 0.6 - r.top) / r.height));
+      track.style.setProperty('--fx-progress', p.toFixed(3));
+      ticking = false;
     };
-    const KEYS = { ArrowDown:1, PageDown:1, ' ':1, ArrowUp:-1, PageUp:-1 };
-    const onKey = e => {
-      const t = e.target; if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
-      let dir = KEYS[e.key]; if (!dir || e.altKey || e.metaKey || e.ctrlKey) return;
-      if (e.key === ' ' && e.shiftKey) dir = -1;
-      if (busy || step(dir)) e.preventDefault();
-    };
-    let ty = null;
-    const onTouchStart = e => { ty = e.touches[0].clientY; };
-    const onTouchMove = e => { if (busy) e.preventDefault(); };
-    const onTouchEnd = e => { if (ty === null || busy) return; const d = ty - e.changedTouches[0].clientY; ty = null; if (Math.abs(d) > 40) step(Math.sign(d)); };
-    const target = scroller === window ? window : scroller;
-    target.addEventListener('wheel', onWheel, { passive:false });
-    target.addEventListener('touchstart', onTouchStart, { passive:true });
-    target.addEventListener('touchmove', onTouchMove, { passive:false });
-    target.addEventListener('touchend', onTouchEnd, { passive:true });
-    addEventListener('keydown', onKey);
-    const ro = new ResizeObserver(() => { ScrollTrigger.refresh(); paintGroups(); });
-    ro.observe(content);
-    gsap.ticker.add(updateLinks);   // keep connectors attached every frame
-    ScrollTrigger.refresh();
-    // Start on the first section, so the stack never shows an empty state.
-    if (heads.length && active === 0) setActive(1);
-    return () => {
-      target.removeEventListener('wheel', onWheel); target.removeEventListener('touchstart', onTouchStart);
-      target.removeEventListener('touchmove', onTouchMove); target.removeEventListener('touchend', onTouchEnd);
-      removeEventListener('keydown', onKey);
-      ro.disconnect(); anchored = false; onActive = null;
-      sheets.forEach(s => { const t = [s, baseOf(s), ...colsOf(s), ...topsOf(s), ...shadowsOf(s)]; gsap.killTweensOf(t); gsap.set(t, { clearProps:'all' }); });
-      gsap.ticker.remove(updateLinks);
-      spaceSections(false); setActive(0); staticStack(); updateLinks();
-    };
-  });
-  addEventListener('load', () => ScrollTrigger.refresh());
-  document.fonts?.ready.then(() => ScrollTrigger.refresh());
-}
+    addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    update();
+    if (!fine || reduce) return;
+    cards.forEach(card => {
+      card.addEventListener('pointermove', e => {
+        const r = card.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+        card.classList.add('is-tilting');
+        card.style.setProperty('--mx', `${x * 100}%`);
+        card.style.setProperty('--my', `${y * 100}%`);
+        card.style.setProperty('--ry', `${(x - 0.5) * 6}deg`);
+        card.style.setProperty('--rx', `${(0.5 - y) * 6}deg`);
+      });
+      card.addEventListener('pointerleave', () => {
+        card.classList.remove('is-tilting');
+        card.style.setProperty('--rx', '0deg');
+        card.style.setProperty('--ry', '0deg');
+      });
+    });
+  };
+  document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', init) : init();
+})();
 </script>
+</body>
+</html>
 </Html>
-
-Your team's knowledge is spread across code, tickets, wikis and threads, and it starts drifting the moment it is written. Falconer brings it into one place, catches what is wrong, and keeps every doc current as your product changes.
-
-## Connect sources
-
-**Bring scattered knowledge into one place.**
-
-Connect GitHub, Linear, Notion and Slack once. Falconer indexes them continuously, so nothing has to be migrated, moved or rewritten first.
-
-Sources: [Integrations](/integrations), [Connect sources](/set-up/connect-sources)
-
-## Falconer scans
-
-**Every source, read and connected.**
-
-Falcon, Falconer's agent, reads every repo, pull request, issue, doc and thread. It builds a knowledge graph linking documents, code, people and systems, so it knows when two sources describe the same thing.
-
-Sources: [How Falconer works](/get-started/how-falconer-works/)
-
-## Health issues
-
-**See what is wrong before anyone relies on it.**
-
-Knowledge Health scores your knowledge base from 0 to 100 and shows exactly what is dragging it down: contradictions, stale docs, coverage gaps and redundancies. Each issue arrives with an owner and a fix.
-
-Sources: [Find and fix outdated docs](/update/find-and-fix-outdated-docs/)
-
-## Auto-update
-
-**Docs change when the code does.**
-
-When a pull request merges, Falcon finds every doc it affects and drafts a proposed update. Owners get a Slack notification and accept, review or reject it in a side-by-side diff.
-
-Sources: [Automatically update documents](/update/auto-update-docs/), [Keep docs in sync with PRs](/update/keep-docs-in-sync-with-prs/)
-
-## Falconer writes docs
-
-**From a prompt to a cited first draft.**
-
-Ask Falcon for a runbook, an onboarding guide, an API reference or a changelog. You get a draft grounded in your code and conversations, with a citation for every claim.
-
-Sources: [Write a doc](/write/write-a-doc/), [Generate docs automatically](/get-started/generate-docs-automatically/)
-
-## Publish docs
-
-**Customers read what actually changed.**
-
-Publish from the same verified knowledge your team works from. When the product changes, the published docs change with it.
-
-Sources: [Share a doc](/use-cases/manage-permissions/share-a-doc/)
-
-## The self-updating loop
-
-Code changes, and the docs follow. Every merged pull request and every decision in Slack flows through to the pages your team and your customers rely on.
-
-Sources: [How Falconer works](/get-started/how-falconer-works/), [Connect sources](/set-up/connect-sources/)
