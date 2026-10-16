@@ -1,0 +1,42 @@
+---
+title: Supported Markdown and limits
+description: Which Markdown and MDX features sync with Falconer, and what to know before you sync.
+sidebar:
+  order: 9
+---
+
+Which Markdown and MDX features sync with Falconer, and what to know before you sync.
+
+## Markdown
+
+Standard Markdown, including headings, lists, tables, code blocks, links, and images, is supported in `.md` and `.mdx` files.
+
+New documents you create in Falconer are saved as `.mdx` files.
+
+GitHub alert syntax such as `> [!NOTE]` and `> [!WARNING]` becomes a callout.
+
+## MDX components
+
+In `.mdx` files, these components render as rich blocks in Falconer:
+
+| Component | Tags |
+| --- | --- |
+| Accordions | `Accordion`, `AccordionGroup` |
+| Steps | `Steps`, `Step` |
+| Cards | `Card`, `CardGroup` |
+| Columns | `Columns`, `Column` |
+| Tabs | `Tabs`, `Tab` |
+| Code groups | `CodeGroup` |
+| Frames | `Frame` |
+| Callouts | `Note`, `Tip`, `Info`, `Check`, `Warning`, `Callout` |
+| Updates | `Update` |
+
+Other components, and listed components that use props Falconer doesn't support, appear in Falconer as MDX code blocks.
+Components in `.md` files are treated as plain Markdown.
+
+## Limits
+
+- Markdown inside `node_modules`, `vendor`, and build output directories such as `dist`, `build`, `target`, and `.next` isn't imported as documents.
+  Every tracked file still appears in the **Files** tab.
+- Text files you can edit in Falconer are limited to 5 MB, other files to 100 MB, and the synced path's total text, not counting Markdown, to 64 MB.
+  See [Images and other files](/two-way-sync/images-and-files#size-limits).

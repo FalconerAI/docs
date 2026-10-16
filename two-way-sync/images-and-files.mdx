@@ -1,0 +1,46 @@
+---
+title: Images and other files
+description: How images, assets, and other non-Markdown files sync with the repository.
+sidebar:
+  order: 7
+---
+
+How images, assets, and other non-Markdown files sync with the repository.
+
+## Images
+
+Images stored in the repository show up as images in Falconer.
+GitHub attachment links show up as images too, as long as the repository is public.
+
+Images you add in Falconer go into an `images` folder at the top of the synced path, keeping their original file names.
+They appear in the **Files** tab and are pushed to the repository with your next push, and the Markdown links to them with relative paths.
+
+## The Files tab
+
+A synced space has two tabs at the top of the left nav:
+
+- **Docs:** your documents, organized in folders.
+- **Files:** every file in the synced path of the repository, including images, configuration, and code.
+
+Filter the **Files** tab with **All files**, **Docs and assets**, or **Docs only**.
+
+From the **Files** tab you can:
+
+- Create a new Markdown file or folder.
+- Upload, replace, download, rename, or delete a file.
+- Edit text and code files directly in Falconer.
+- Choose **Link into Docs** to show a Markdown file in the **Docs** tab.
+
+Changes in the **Files** tab are pushed to GitHub like any other change.
+
+## Size limits
+
+| Limit | Size |
+| --- | --- |
+| Text or code file you can edit in Falconer | 5 MB |
+| Any other single file | 100 MB |
+| Total text and code across the synced path, not counting Markdown | 64 MB |
+
+Larger text files are stored as files you can download but not edit.
+If the synced path goes over the total limit, the import fails.
+Sync a smaller base path instead.

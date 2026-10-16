@@ -1,0 +1,66 @@
+---
+title: Understand sync status
+description: Read sync status labels and use the GitHub sync drawer to see what needs attention.
+sidebar:
+  order: 3
+---
+
+Read sync status labels and use the GitHub sync drawer to see what needs attention.
+
+## Where sync status appears
+
+- **Top of the document:** when a document needs attention, its sync status takes the place of the sharing status, next to the **Editing** / **Suggesting** toggle.
+  If you can edit the document, click it to push or resolve.
+  A document that matches GitHub keeps showing its sharing status.
+- **Document cards:** documents that need attention show their status.
+- **Space header:** shows the space's overall status and repository.
+  If you can edit the space, click it to open the GitHub sync drawer.
+  Otherwise, it links to the repository on GitHub.
+- **Left nav:** synced folders show a GitHub icon.
+
+## Status labels
+
+| Status | What it means | What to do |
+| --- | --- | --- |
+| **Out of sync** | The document has edits in Falconer that aren't on GitHub yet. | [Push it](/two-way-sync/push-changes) when you're ready. |
+| **Moved** | The document was moved in Falconer, or its file was renamed in the **Files** tab. | Push to move the file on GitHub. |
+| **Pending delete** | The document is marked for deletion. Shown on document cards and in the GitHub sync drawer. | Push to delete the file on GitHub, or keep it. |
+| **Open PR** | The changes are waiting in an open GitHub pull request. | Merge the pull request on GitHub. |
+| **Conflicts** | The document changed both in Falconer and on GitHub. | [Resolve the conflict](/two-way-sync/pull-changes-from-github#resolve-conflicts). |
+| **Deleted** | The file was deleted on GitHub. | [Keep it or delete it](/two-way-sync/pull-changes-from-github#files-deleted-on-github) in Falconer. |
+| **Import failed** | The first import didn't finish. Shown in the space header. | Open the GitHub sync drawer and click **Retry import** in the **Issues** tab. |
+
+In the space header, **Synced** means every document matches GitHub.
+When documents in the space need different kinds of attention, the header shows **Out of sync**, unless one of them has **Conflicts**.
+You may briefly see **Checking sync** while Falconer loads the status.
+**Sync unavailable** means Falconer can't determine the status right now.
+
+## The GitHub sync drawer
+
+Click the status in a synced space's header to open the **GitHub sync** drawer.
+You need edit access to the space.
+It has three tabs:
+
+- **Issues:** everything that needs attention, one card per change.
+- **Settings:** the sync configuration.
+  See [Manage or disconnect sync](/two-way-sync/manage-sync).
+- **Details:** when the space was first synced and the recent commits pulled from GitHub.
+
+### Issues cards
+
+Each card describes one change and offers the next step.
+
+| Card | Button |
+| --- | --- |
+| Edited in Falconer, not pushed yet | **Push** |
+| Moved in Falconer | **Push** |
+| Marked for deletion | **Push**, then **Keep file** in the push dialog if you want to cancel |
+| Edited since an open pull request | **Push** to update the pull request |
+| Conflict with GitHub | **Resolve** |
+
+With the **Pull request** merge strategy, the drawer also lists **Open pull requests**.
+
+To push everything at once, use the button at the bottom of the drawer.
+With **Direct commit** it reads **Push all changes**.
+With **Pull request** you choose which documents to include, and it reads **Create pull request** or **Push changes**.
+See [Push everything at once](/two-way-sync/push-changes#push-everything-at-once).

@@ -1,0 +1,72 @@
+---
+title: Set up two-way sync
+description: Connect a space to a GitHub repository and import its docs.
+sidebar:
+  order: 2
+---
+
+Connect a space to a GitHub repository and import its docs.
+
+## Prerequisites
+
+- **The GitHub App is connected to your organization.**
+  An organization admin connects it from **Integrations**.
+  See [GitHub](/integrations/github).
+  Repositories added as public repositories, without the GitHub App, are read-only and can't be synced.
+- **You've connected your personal GitHub account.**
+  Falconer uses it to author your commits and pull requests.
+  Connect it from **Settings > Personal > Connected accounts**, or click **Connect GitHub** when Falconer asks.
+- **You have edit access to the space.**
+
+## Which spaces can sync
+
+Two-way sync is set up on a [space](/organize/spaces), not on a regular folder.
+
+A space can't be synced if it contains a synced space or sits inside one.
+
+## Connect a space
+
+1. Open the space and choose **Sync with GitHub** from its **More actions** menu.
+
+   You can also turn on **Sync with GitHub** when you create a new space, or click **Sync with GitHub** in an empty space.
+
+2. Pick a repository from **Connected repositories**.
+3. Choose where to sync:
+   - **Base path:** the directory in the repository that holds your docs.
+     Leave it at the repository root to sync everything.
+   - **Branch:** the branch to sync with.
+     To start from a new branch, type its name and choose **Create branch**.
+   - **Merge strategy:** how your pushes reach GitHub.
+     See [Choose a merge strategy](#choose-a-merge-strategy).
+4. Review the summary and click **Start sync**.
+
+The import runs in the background.
+When it finishes, click **View documents** to open the synced space.
+
+## Choose a merge strategy
+
+| Merge strategy | What a push does |
+| --- | --- |
+| **Direct commit** | Commits straight to the synced branch. |
+| **Pull request** | Opens a GitHub pull request against the synced branch, or updates an open one. |
+
+You can change the merge strategy later from the space's sync settings.
+See [Manage or disconnect sync](/two-way-sync/manage-sync).
+
+## What gets imported
+
+- `.md` and `.mdx` files become documents, and directories become folders.
+- Images and other files are listed in the **Files** tab.
+  See [Images and other files](/two-way-sync/images-and-files).
+- Markdown inside `node_modules` and build output directories such as `dist`, `build`, and `.next` isn't imported as documents.
+  Every tracked file still appears in the **Files** tab and counts toward the [size limits](/two-way-sync/images-and-files#size-limits), so if your repository commits generated output, choose a narrower base path.
+
+If the import doesn't finish, the space header shows **Import failed**.
+Open the GitHub sync drawer and click **Retry import** in the **Issues** tab.
+
+## Sync several branches or paths of one repository
+
+More than one space can sync the same repository.
+Each space needs its own branch, or a path on the same branch that doesn't overlap another space's.
+
+Branches that would overlap an existing sync are disabled in the branch picker and show which space they're synced to.

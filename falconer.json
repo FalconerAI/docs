@@ -115,6 +115,7 @@
           {
             "anchor": "Ask",
             "pages": [
+              "ask/chat-history.mdx",
               "ask/ask-questions-in-slack.mdx",
               "ask/capture-decisions-in-slack.mdx",
               "ask/falconer-vs-ai-chatbots.mdx",
@@ -144,7 +145,11 @@
               "integrations/linear.mdx",
               "integrations/notion.mdx",
               "integrations/slack.mdx",
-              "integrations/zendesk.mdx"
+              "integrations/zendesk.mdx",
+              "integrations/bitbucket.mdx",
+              "integrations/slab.mdx",
+              "integrations/jira.mdx",
+              "integrations/asana.mdx"
             ]
           },
           {
@@ -162,7 +167,8 @@
             "anchor": "Write",
             "pages": [
               "write/write-a-doc-from-slack.mdx",
-              "write/write-a-doc.mdx"
+              "write/write-a-doc.mdx",
+              "write/comment-on-a-doc.mdx"
             ]
           },
           {
@@ -180,6 +186,20 @@
               "update/find-and-fix-outdated-docs.mdx",
               "update/keep-docs-in-sync-with-prs.mdx",
               "update/update-docs-from-slack.mdx"
+            ]
+          },
+          {
+            "anchor": "Two-way sync",
+            "pages": [
+              "two-way-sync/overview.mdx",
+              "two-way-sync/set-up-two-way-sync.mdx",
+              "two-way-sync/sync-status.mdx",
+              "two-way-sync/push-changes.mdx",
+              "two-way-sync/pull-changes-from-github.mdx",
+              "two-way-sync/move-rename-delete.mdx",
+              "two-way-sync/images-and-files.mdx",
+              "two-way-sync/manage-sync.mdx",
+              "two-way-sync/supported-markdown.mdx"
             ]
           },
           {

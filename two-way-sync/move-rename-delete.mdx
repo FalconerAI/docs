@@ -1,0 +1,41 @@
+---
+title: Move, rename, and delete
+description: How moving, renaming, and deleting documents carries over to the repository.
+sidebar:
+  order: 6
+---
+
+How moving, renaming, and deleting documents carries over to the repository.
+
+Like edits, structural changes in Falconer wait for your next push.
+
+## Move a document or rename its file
+
+Moving a document in a synced space, or renaming its file in the **Files** tab, marks it **Moved**.
+When you push, Falconer moves or renames the file in the repository to match.
+
+Changing a document's title doesn't rename its file.
+To rename the file, use **Rename** in the **Files** tab.
+
+## Delete a document
+
+1. Archive the document.
+2. If the document is already on GitHub, Falconer asks **Mark for deletion on GitHub?**
+   Click **Mark for deletion**.
+
+The document shows **Pending delete** on its card and in the GitHub sync drawer.
+The file is deleted from the repository on your next push, and the document is archived once the deletion reaches GitHub.
+With the **Pull request** merge strategy, select the deletion in the drawer to include it, and the document stays in Falconer until the pull request merges.
+
+Changed your mind? Click **Push** on its card in the GitHub sync drawer, then **Keep file** in the push dialog.
+
+## Delete a file
+
+Deleting a file from the **Files** tab also waits for the next push.
+Until then, the file shows **Pending delete**.
+
+## Changes made on GitHub
+
+Moves made on GitHub come into Falconer on their own.
+Deletes don't: the document shows **Deleted** so you can choose whether to delete it in Falconer.
+See [Get changes from GitHub](/two-way-sync/pull-changes-from-github#files-deleted-on-github).

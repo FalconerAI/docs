@@ -1,0 +1,46 @@
+---
+title: Get changes from GitHub
+description: How commits on GitHub reach Falconer, and how to resolve conflicts.
+sidebar:
+  order: 5
+---
+
+How commits on GitHub reach Falconer, and how to resolve conflicts.
+
+## How changes arrive
+
+When someone commits to the synced branch, Falconer pulls the changed files into the space automatically.
+You don't need to do anything.
+
+- Documents you haven't edited in Falconer update in place.
+- New files appear in the space.
+- Moved or renamed files move their documents to match.
+
+To see which commit changed a document, open its version history.
+Versions pulled from GitHub are labeled **GitHub Updates**, and versions you pushed are labeled **Repo sync**.
+Click the label to open the commit on GitHub.
+
+## Resolve conflicts
+
+When a document has unpushed edits in Falconer and its file also changed on GitHub, Falconer merges the two automatically if they touch different parts of the document.
+A document shows **Conflicts** only when both sides changed the same part, or both renamed the title.
+
+1. Click **Conflicts** on the document, or **Resolve** on its card in the GitHub sync drawer.
+2. In the review dialog, choose for each conflict:
+   - **Keep Falconer** to keep your version.
+   - **Accept GitHub** to take the version from GitHub.
+3. Click **Apply** once every conflict has a choice.
+
+To decide the whole document at once, click **Keep all Falconer** or **Accept all GitHub** before choosing any individual conflict.
+This resolves the document immediately, with no **Apply** step.
+
+The result is saved in Falconer but not pushed.
+[Push the document](/two-way-sync/push-changes) to send the combined version to GitHub.
+
+## Files deleted on GitHub
+
+When a file is deleted on GitHub, its document shows **Deleted**.
+
+- Click **Delete in Falconer** to remove the document too.
+- Click **Keep file** to keep the document in Falconer.
+  Your next push recreates the file on GitHub.

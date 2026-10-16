@@ -1,0 +1,51 @@
+---
+title: Manage or disconnect sync
+description: Change sync settings, retry a failed sync, or disconnect a space from its repository.
+sidebar:
+  order: 8
+---
+
+Change sync settings, retry a failed sync, or disconnect a space from its repository.
+
+Open the GitHub sync drawer from the synced space's header, then choose the **Settings** tab.
+You need edit access to the space to change settings, export, retry, or disconnect.
+
+## Change the merge strategy
+
+Pick **Direct commit** or **Pull request** and click **Save changes**.
+The new strategy applies to your next push.
+
+The repository, base path, and branch can't be changed.
+To sync a different branch or path, disconnect the space and set up sync again.
+
+## Export to GitHub
+
+With the **Direct commit** merge strategy, **Export to GitHub** writes every page and file in the space to the repository as one commit.
+If files already exist at the same paths, Falconer asks you to confirm before they're replaced.
+With **Pull request** saved as the merge strategy, the button is disabled.
+
+## Retry a failed import
+
+If the import doesn't finish, the space header shows **Import failed**.
+Open the GitHub sync drawer and click **Retry import** in the **Issues** tab.
+
+If it keeps failing, Falconer may have lost access to the repository.
+Ask an organization admin to check the GitHub App's repository access in **Integrations**.
+
+## See sync history
+
+The **Details** tab shows when the space was first synced and the recent commits pulled from GitHub.
+
+## Disconnect a repository
+
+1. In **Settings**, click **Disconnect**.
+2. Confirm.
+
+After you disconnect:
+
+- Documents keep their content and stay in the space.
+- Their link to files in the repository is removed.
+- Nothing is deleted on GitHub.
+- Anything waiting to be pushed or resolved is discarded, including unpushed moves and deletions, conflicts, and deletions from GitHub you haven't decided on.
+
+Reconnecting later starts a fresh sync.

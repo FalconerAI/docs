@@ -1,0 +1,46 @@
+---
+title: How two-way sync works
+description: Keep a Falconer space and a GitHub repository in sync, in both directions.
+sidebar:
+  order: 1
+---
+
+Keep a Falconer space and a GitHub repository in sync, in both directions.
+
+Two-way sync is built for teams that keep their docs as Markdown in a repository.
+Engineers keep working in Git, and everyone else edits the same docs in Falconer.
+
+## How it works
+
+A synced space mirrors one path of a repository on one branch.
+
+- **From GitHub to Falconer:** commits to the synced branch are pulled into the space automatically.
+- **From Falconer to GitHub:** edits you make in Falconer are pushed as a commit or a pull request when you're ready.
+
+Nothing reaches GitHub until someone pushes it, so you can draft and edit in Falconer without touching the repository.
+
+When the same document changes on both sides, Falconer shows a conflict and lets you choose which changes to keep.
+
+## What maps to what
+
+| In the repository | In Falconer |
+| --- | --- |
+| `.md` and `.mdx` files | Documents in the **Docs** tab |
+| Directories | Folders |
+| Images and every other file | Files in the **Files** tab |
+
+## The sync loop
+
+1. [Set up two-way sync](/two-way-sync/set-up-two-way-sync) on a space and import the repository.
+2. Edit documents in Falconer. [Sync status](/two-way-sync/sync-status) shows what hasn't been pushed yet.
+3. [Push your changes](/two-way-sync/push-changes) as a commit or a pull request.
+4. [Changes made on GitHub](/two-way-sync/pull-changes-from-github) flow back into Falconer.
+
+## Learn more
+
+- [Move, rename, and delete](/two-way-sync/move-rename-delete)
+- [Images and other files](/two-way-sync/images-and-files)
+- [Manage or disconnect sync](/two-way-sync/manage-sync)
+- [Supported Markdown and limits](/two-way-sync/supported-markdown)
+
+> **Note:** Two-way sync is different from [keeping docs in sync with PRs](/update/keep-docs-in-sync-with-prs), which proposes doc updates when merged code changes affect your documentation.

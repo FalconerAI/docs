@@ -1,0 +1,61 @@
+---
+title: Push changes to GitHub
+description: Send your Falconer edits to GitHub as a commit or a pull request.
+sidebar:
+  order: 4
+---
+
+Send your Falconer edits to GitHub as a commit or a pull request.
+
+Edits stay in Falconer until you push them.
+What a push does depends on the space's [merge strategy](/two-way-sync/set-up-two-way-sync#choose-a-merge-strategy).
+
+## Review your changes
+
+Open the **Diff** tab in the document sidebar to see exactly what will change on GitHub.
+If there's nothing to push, it shows that the document matches GitHub.
+
+To review every change in the space, click **View diff** on a card in the GitHub sync drawer.
+
+## Push one document
+
+1. Open the push dialog in any of these ways:
+   - Click the document's sync status.
+   - Choose **Push to GitHub** from the document menu.
+     This option appears once the document is on GitHub.
+   - Click **Push** on the document's card in the GitHub sync drawer.
+2. Check the commit message.
+   Falconer suggests one based on your changes, and you can edit it.
+3. Click **Push to GitHub**.
+   With the **Pull request** merge strategy, click **Open pull request**, or **Update pull request** if the document already has one.
+
+When the push finishes, click **View commit** or **View pull request** in the confirmation to open it on GitHub.
+
+## Push everything at once
+
+Open the GitHub sync drawer from the space header.
+
+- **Direct commit:** click **Push all changes** at the bottom of the drawer, optionally edit the commit message, and click **Push**.
+  All changes land in a single commit.
+- **Pull request:** select the changes to include, then click **Create pull request**.
+  If there's already an open pull request, click **Push changes** and choose **Add to pull request** or **Create new pull request**.
+
+If some changes can't be pushed, Falconer pushes the rest and tells you which ones failed.
+
+## Work with pull requests
+
+With the **Pull request** merge strategy, each push opens a GitHub pull request against the synced branch.
+
+- Documents waiting in a pull request show **Open PR**.
+- If you edit a document after opening its pull request, push again to update the same pull request, or choose **Create new PR** to open a separate one.
+  If someone else opened that pull request, pushing opens a new one.
+- The GitHub sync drawer lists the **Open pull requests** Falconer opened for the space.
+
+The changes reach the synced branch once the pull request is merged on GitHub.
+
+## If GitHub has newer changes
+
+If the file changed on GitHub since your last sync, the push stops and Falconer pulls the GitHub version.
+If the changes don't overlap, they're merged automatically and you can push again.
+If they do, the document shows **Conflicts**.
+See [Resolve conflicts](/two-way-sync/pull-changes-from-github#resolve-conflicts), then push again.

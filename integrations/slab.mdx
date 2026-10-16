@@ -1,0 +1,42 @@
+---
+title: Slab
+description: Sync posts from your Slab knowledge base.
+sidebar:
+  order: 12
+---
+
+Connect Slab so the posts in your team's knowledge base are searchable alongside the rest of your documentation.
+
+## What's synced
+
+Posts from your Slab workspace, organized by topic.
+A post that belongs to several topics appears under the first one.
+Draft and private posts are synced too, but only their owner can see them in Falconer.
+Archived posts are not synced.
+A post archived or deleted after it was synced stays in Falconer until you disconnect Slab.
+
+## What you can do
+
+- Search your Slab posts alongside the rest of your documentation.
+- Ask Falcon questions about your Slab content and get answers that cite the original posts.
+- Browse Slab content by topic when Falcon explores your sources.
+
+## Connect Slab
+
+1. In Slab, open the [Team Settings > Developer](https://slab.com/settings/developer) page and generate an API token.
+2. In Falconer, navigate to **Integrations** from the bottom-left menu.
+3. Click **Connect** next to Slab.
+4. Paste the token into **Slab API token** and click **Connect**.
+
+Falconer checks the token with Slab and begins syncing immediately.
+
+Generating a Slab API token requires a Slab Business or Enterprise plan.
+Connecting Slab requires owner permission to your Falconer organization.
+
+## Manage the connection
+
+Once connected, click **Manage** on the Slab card to see the connection status and when Slab was last synced.
+Use **Update token** to replace the API token, or **Disconnect** to remove Slab and its synced content from Falconer.
+
+If your API token expires or is revoked, the Slab card shows a warning and a **Reconnect** button.
+Click **Reconnect**, enter a new token, and click **Connect** to resume syncing.
