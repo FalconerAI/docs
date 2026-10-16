@@ -101,7 +101,7 @@
     ],
     "tabs": [
       {
-        "tab": "Basics",
+        "tab": "Documentation",
         "pages": [
           "index.mdx",
           "quickstart.mdx",
@@ -115,13 +115,13 @@
           {
             "anchor": "Ask",
             "pages": [
-              "ask/chat-history.mdx",
               "ask/ask-questions-in-slack.mdx",
               "ask/capture-decisions-in-slack.mdx",
               "ask/falconer-vs-ai-chatbots.mdx",
               "ask/find-answers-with-falconer.mdx",
               "ask/personalize-the-agent.mdx",
-              "ask/use-voice-mode.mdx"
+              "ask/use-voice-mode.mdx",
+              "collaborate-in-conversations.mdx"
             ]
           },
           {
@@ -129,7 +129,8 @@
             "pages": [
               "set-up/allowlist-a-domain.mdx",
               "set-up/invite-teammates-and-manage-permissions.mdx",
-              "set-up/connect-sources.mdx"
+              "set-up/connect-sources.mdx",
+              "connect-integrations-with-falcon.mdx"
             ]
           },
           {
@@ -146,19 +147,16 @@
               "integrations/notion.mdx",
               "integrations/slack.mdx",
               "integrations/zendesk.mdx",
-              "integrations/bitbucket.mdx",
-              "integrations/slab.mdx",
-              "integrations/jira.mdx",
-              "integrations/asana.mdx"
+              "connect-a-database.mdx"
             ]
           },
           {
             "anchor": "MCP and CLI",
             "pages": [
+              "mcp-and-cli/quickstart.mdx",
               "mcp-and-cli/cli.mdx",
               "mcp-and-cli/connect.mdx",
               "mcp-and-cli/organization-bots.mdx",
-              "mcp-and-cli/quickstart.mdx",
               "mcp-and-cli/tools-reference.mdx",
               "mcp-and-cli/vercel-connect.mdx"
             ]
@@ -168,14 +166,17 @@
             "pages": [
               "write/write-a-doc-from-slack.mdx",
               "write/write-a-doc.mdx",
-              "write/comment-on-a-doc.mdx"
+              "create-and-work-with-media.mdx",
+              "use-structured-tables.mdx",
+              "sync-a-table-with-work.mdx"
             ]
           },
           {
             "anchor": "Organize",
             "pages": [
               "organize/organize-docs.mdx",
-              "organize/spaces.mdx"
+              "organize/spaces.mdx",
+              "manage-library-files.mdx"
             ]
           },
           {
@@ -208,6 +209,7 @@
               {
                 "group": "Automate workflows",
                 "pages": [
+                  "schedule-recurring-falcon-tasks.mdx",
                   "use-cases/automate-workflows/create-linear-issues-from-falconer.mdx",
                   "use-cases/automate-workflows/sync-granola-meeting-notes.mdx",
                   "use-cases/automate-workflows/talk-to-the-falconer-agent-like-a-teammate.mdx",

@@ -9,6 +9,20 @@ Falconer MCP exposes tools your AI client can use to find, read, create, update,
 
 ![Claude.ai connector settings showing Falconer MCP tool permissions](/images/falconer-mcp-tool-permissions.png)
 
+## Use Falconer knowledge and connected tools
+
+`ask_falcon` answers questions from your workspace with citations. For an action or a structured result, your AI client can call a named MCP tool directly. In addition to the document tools below, the hosted server exposes tools for searching connected knowledge, code, pull requests, issues, people, meetings, and the user’s connected services. Available tools depend on your permissions, connections, and organization settings.
+
+| Need | Direct tools to look for |
+| --- | --- |
+| Find connected knowledge | `document_search`, `meeting_notes_search`, `source_tree`, `people_search` |
+| Explore engineering work | `code_search`, `code_tree`, `read_file`, `git_raw`, `github_pull_request_search`, `linear_issue_search` |
+| Work with connected accounts | `list_integrations`, `gmail_search`, `calendar_list_events`, `calendar_find_free_time` |
+| Take an action | `linear_create_issue`, `calendar_create_event`, `gmail_create_draft`, or the document tools below |
+| A tool is available only when the corresponding source, account, and permission are available to you. A Gmail draft is saved for your review and is not sent. Calendar changes can invite or notify attendees, so inspect the target account and event before calling them. Not every web-chat capability runs in an MCP client: browsing a page, running a coding environment, generating media, and work that depends on a live Falconer conversation stay in the web app. |  |
+
+For example, ask your client to find a relevant document, read it, then use a targeted edit tool to update one section. For calendar changes or external actions, review the exact target and result in your client. `ask_falcon` remains a question-answering tool; it does not perform document edits on your behalf.
+
 ## Organization discovery
 
 | Tool | What it does |
@@ -74,7 +88,7 @@ Inspect navigation placement before moving documents or folders. If a document m
 | Tool | What it does |
 | --- | --- |
 | `update_document_permissions` | Updates document ACL mode, organization-wide access, public access, user access, or group access. Direct permission changes on inherited documents switch them to explicit mode automatically. |
-| `upload_media` | Uploads an image or video and returns a snippet that can be inserted into document content. |
+| `upload_media` | Uploads supported images, videos, audio, or file attachments and returns a snippet you can insert into a document. |
 
 ## Permissions
 

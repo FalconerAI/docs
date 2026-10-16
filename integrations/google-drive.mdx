@@ -1,6 +1,6 @@
 ---
 title: Google Drive
-description: Connect your personal Google Drive files.
+description: Connect Google Drive files to your Falconer organization.
 sidebar:
   order: 6
 ---
@@ -9,7 +9,7 @@ Connect Google Drive so the documents, sheets, and slides your team works in bec
 
 ## What's synced
 
-Files from your Google Drive, respecting Drive's sharing and access permissions.
+Files from your Google Drive, respecting Drive’s sharing and access permissions. Every Google Drive connection is organization-level: any file Falconer indexes becomes searchable and answerable for everyone in your Falconer organization, including files you connect with your own Google account.
 
 ## What you can do
 
@@ -21,9 +21,9 @@ Files from your Google Drive, respecting Drive's sharing and access permissions.
 
 Google Drive offers three ways to connect:
 
-1. **Personal connection** -- Connect your individual Google account. Falconer can access docs you've created or opened.
+1. **Google account connection** – Authorize an individual Google account. Falconer indexes the Drive files that account can access and adds them to your organization’s knowledge.
 2. **Workspace connection** -- A Google Workspace admin connects the entire organization. This provides broader access but requires additional configuration in Google Cloud Console. See [Google Workspace](/integrations/google-workspace).
-3. **Invite Falconer to your drive** -- Get more granular control by sharing specific files or folders with a Falconer email address.
+3. **Google Drive Service Account (targeted access)** – Share specific files or folders with your organization’s Falconer service account email. Use this when you want granular control over which files Falconer indexes instead of giving it access to everything. The service account belongs to your organization, so shared files are searchable by everyone in it.
 
 ## Connect Google Drive
 
