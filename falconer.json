@@ -93,7 +93,12 @@
     }
   },
   "navigation": {
-    "redirects": [],
+    "redirects": [
+      {
+        "from": "/use-cases/generate-documents/create-a-skill-doc",
+        "to": "/use-cases/skill-docs/create-skill-docs"
+      }
+    ],
     "tabs": [
       {
         "tab": "Basics",
