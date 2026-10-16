@@ -1,71 +1,41 @@
 ---
-title: "Introduction"
-description: "Falconer is a self-updating knowledge platform that provides humans and agents with a long-term memory system."
+title: "Falconer docs"
+description: "Falconer is a fully end-to-end knowledge platform that provides humans and agents with auto-updating documentation."
 tableOfContents: false
 pagefind: false
 ---
 
-A new engineer reads the architecture doc in their first week and trusts it. A week later they learn half of it is out of date, and by then it has already shaped their decisions. Agents make the same mistake faster, because they never stop to ask in standup.
-
-Falconer is built to stop that drift. It reads your code, tickets, wikis and threads, finds where they disagree, and keeps docs current as the product changes.
+<br />
 
 <Card icon="plug" href="/set-up/connect-sources" cta="Connect sources">
   ## Connect sources
 
-  **Start with the tools you already use.**
-
-  Connect GitHub for code and pull requests, Linear for issues, Slack for conversations, and Notion, Google Docs or Confluence for existing docs. Falconer indexes synced sources continuously and reads live sources on demand, so nothing has to be migrated first.
-</Card>
-
-<Card icon="scan" href="/get-started/how-falconer-works/" cta="How Falconer works">
-  ## Falconer scans
-
-  **Three ways to read, one answer.**
-
-  Semantic search finds content by meaning, full-text search finds exact names and error strings, and a knowledge graph maps how docs, code, people and systems relate. Together they let Falcon answer a question like *"Who owns the payment service?"* by reasoning across sources instead of matching one page.
+  Connect tools like GitHub, Linear, Jira, Slack, Notion, Google Docs, and Confluence to connect context or sync with your Falconer docs.
 </Card>
 
 <Card icon="heart-rate-monitor" href="/update/find-and-fix-outdated-docs/" cta="Find outdated docs">
-  ## Health issues
+  ## Find issues
 
-  **A last-updated date cannot tell you a doc is wrong.**
-
-  Knowledge Health reads the content itself and scores your docs from 0 to 100 on coherence, coverage, freshness and density. It catches docs that contradict each other, topics never written down, docs that fell behind the code, and duplicates. Each problem becomes a finding you can fix, hand to Falcon or dismiss.
+  Knowledge Health reads through all of your docs and connected sources to find the issues that degrade quality, like gaps, contradictions, and code drift.
 </Card>
 
 <Card icon="refresh" href="/update/auto-update-docs/" cta="Set up auto-update">
   ## Auto-update
 
-  **Merge the code, and the docs catch up.**
-
-  Every merged pull request starts a run: Falcon finds the affected docs, drafts edits, and notifies each owner in Slack. Full self-driving mode applies changes right away, and review mode waits for approval. Auto-update works on org-wide and public docs, not private ones.
+  Set your docs to auto-update whenever any related code changes impact them. Your docs listen for changes and can either make the changes automatically or ask for your review.
 </Card>
 
 <Card icon="pencil" href="/write/write-a-doc/" cta="Write a doc">
-  ## Falconer writes docs
+  ## Write docs
 
-  **From a prompt to a cited first draft.**
-
-  Ask Falcon in chat, with `/` in the editor, or with `@Falcon` in Slack for a runbook, onboarding guide, API reference or changelog. Every claim cites your code, tasks or docs, so you can check the source before you trust it.
+  With your sources connected, Falconer writes expert-level docs from a prompt in the UI, or from Claude Code, Cursor, Codex, and Slack. Draft guides, runbooks, changelogs, and diagrams with citations to the actual sources so you can verify.
 </Card>
 
-<Card icon="world" href="/use-cases/manage-permissions/share-a-doc/" cta="Share a doc">
-  ## Publish docs
+## Learn more
 
-  **Customers read what actually changed.**
-
-  Publish docs straight from the same knowledge base your team works in, with no separate site to keep in sync. When an update is accepted, the published page reflects it too, so readers always see the current version.
-</Card>
-
-<Card icon="infinity" href="/get-started/how-falconer-works/" cta="See the full loop">
-  ## The self-updating loop
-
-  **Docs that keep up on their own.**
-
-  Code changes, Falcon drafts the fix, and the owner accepts it in one click. Knowledge Health catches whatever slips through, so your team, customers and agents can trust the docs without anyone remembering to update them.
-</Card>
-
-<br />
+- [How Falconer works](/get-started/how-falconer-works/)
+- [Integrations](/docs/integrations/)
+- [MCP quickstart](/docs/mcp-and-cli/quickstart/)
 
 <Html id="i27js4g93ep246z0wgcyvv29" class="w-full h-4">
 <!doctype html>
@@ -89,34 +59,202 @@ Falconer is built to stop that drift. It reads your code, tickets, wikis and thr
 .fx-track .docsite-card::after{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;opacity:0;transition:opacity .4s;pointer-events:none;background:conic-gradient(from var(--fx-angle),var(--fx-accent),var(--fx-accent-2),var(--fx-accent-3),var(--fx-accent));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:fx-spin 4s linear infinite}
 .fx-track .docsite-card:hover::after,.fx-track .docsite-card:focus-within::after{opacity:1}
 @keyframes fx-spin{to{--fx-angle:360deg}}
-.fx-track [data-card-icon]{border-radius:12px;border:1px solid var(--fx-border);background:linear-gradient(135deg,color-mix(in srgb,var(--fx-accent) 25%,transparent),color-mix(in srgb,var(--fx-accent-2) 15%,transparent));animation:fx-float 5s ease-in-out infinite;animation-delay:var(--fx-delay,0s)}
-.fx-track [data-card-icon] svg{width:24px;height:24px}
-@keyframes fx-float{50%{transform:translateY(-4px)}}
 .fx-track .docsite-card:last-child{background:linear-gradient(135deg,color-mix(in srgb,var(--fx-accent) 5%,transparent),color-mix(in srgb,var(--fx-accent-3) 3%,transparent))}
-.fx-track [data-card-icon] svg{transform-origin:center;transform-box:fill-box}
-.fx-track .icon-in [data-card-icon="plug"] svg{animation:fx-plug 3s ease-in-out infinite .2s}
-.fx-track .icon-in [data-card-icon="scan"] path:first-child{animation:fx-scan 2.4s ease-in-out infinite .2s}
-.fx-track .icon-in [data-card-icon="heart-rate-monitor"] path:last-child{stroke-dasharray:.35 .65;animation:fx-pulse 1.6s linear infinite .1s}
-.fx-track .icon-in [data-card-icon="refresh"] svg{animation:fx-turn 4s cubic-bezier(.6,0,.4,1) infinite .2s}
-.fx-track .icon-in [data-card-icon="pencil"] svg{animation:fx-write 2.6s ease-in-out infinite .2s}
-.fx-track .icon-in [data-card-icon="world"] svg{animation:fx-globe 6s ease-in-out infinite .2s}
-.fx-track [data-card-icon="infinity"] path.fx-comet{stroke:var(--fx-accent-2);stroke-width:2.25;stroke-dasharray:.18 .82;stroke-dashoffset:0;opacity:0;transition:opacity .4s .1s}
-.fx-track .icon-in [data-card-icon="infinity"] path.fx-comet{opacity:1;animation:fx-loop 2.4s linear infinite .1s}
-@keyframes fx-draw{to{stroke-dashoffset:0}}
-@keyframes fx-loop{from{stroke-dashoffset:0}to{stroke-dashoffset:-1}}
-@keyframes fx-pulse{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
-@keyframes fx-plug{0%,30%,100%{transform:translate(0,0)}10%{transform:translate(2px,-2px)}20%{transform:translate(-1px,1px)}}
-@keyframes fx-scan{0%,100%{transform:translateY(-5px)}50%{transform:translateY(5px)}}
-@keyframes fx-turn{0%{transform:rotate(0)}40%,100%{transform:rotate(360deg)}}
-@keyframes fx-write{0%,100%{transform:rotate(0) translate(0,0)}25%{transform:rotate(-8deg) translate(-1px,1px)}50%{transform:rotate(4deg) translate(1px,0)}75%{transform:rotate(-4deg) translate(0,1px)}}
-@keyframes fx-globe{0%,100%{transform:rotateY(0)}50%{transform:rotateY(180deg)}}
-@media (max-width:50em){.fx-track{padding-left:0}.fx-spine,.fx-dot{display:none}}
-@media (prefers-reduced-motion:reduce){.fx-track *,.fx-track *::after{animation:none!important;transition:none!important}.fx-track .docsite-card{opacity:1;filter:none;transform:none}.fx-track path.fx-comet{display:none}}
+
+/* Canvas strip replaces the icon on wide screens */
+.fx-canvas{display:block;width:100%;height:96px;margin:0 0 1.5rem!important;border:1px solid var(--fx-border);border-radius:12px;background:linear-gradient(180deg,color-mix(in srgb,var(--fx-accent) 6%,transparent),color-mix(in srgb,var(--fx-accent-2) 2%,transparent))}
+.fx-track .docsite-card.has-canvas [data-card-icon]{display:none}
+@media (max-width:50em){
+  .fx-track{padding-left:0}.fx-spine,.fx-dot{display:none}
+  .fx-canvas{display:none}
+  .fx-track .docsite-card.has-canvas [data-card-icon]{display:flex}
+}
+@media (prefers-reduced-motion:reduce){.fx-track *,.fx-track *::after{animation:none!important;transition:none!important}.fx-track .docsite-card{opacity:1;filter:none;transform:none}}
 </style>
 </head>
 <body>
 <script>
 (() => {
+  // Helpers
+  const rng = (seed) => () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
+  const ease = (s) => (s = clamp(s), s < .5 ? 4 * s * s * s : 1 - Math.pow(-2 * s + 2, 3) / 2);
+  const easeOut = (s) => 1 - Math.pow(1 - clamp(s), 3);
+  const back = (s) => { s = clamp(s); const c = 1.7; return 1 + (c + 1) * Math.pow(s - 1, 3) + c * Math.pow(s - 1, 2); };
+  const bell = (d, w) => Math.exp(-(d * d) / (2 * w * w));
+  const rr = (ctx, x, y, w, h, r) => { ctx.beginPath(); ctx.roundRect ? ctx.roundRect(x, y, w, h, r) : ctx.rect(x, y, w, h); };
+  const dot = (ctx, x, y, r, color, alpha, blur = 0) => {
+    ctx.globalAlpha = alpha; ctx.fillStyle = color; ctx.shadowColor = color; ctx.shadowBlur = blur;
+    ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill(); ctx.shadowBlur = 0;
+  };
+  const FONT = '500 10px Inter, system-ui, -apple-system, "Segoe UI", sans-serif';
+  // Fully transparent version of a color. Fading to plain 'transparent' (transparent black) leaves a dark halo.
+  const clear = (c) => c.startsWith('hsl(') ? c.replace(')', ' / 0)') : c.startsWith('#') && c.length === 7 ? c + '00' : 'rgba(255,255,255,0)';
+
+  // Each scene draws one frame from time t (seconds). C holds brand colors.
+  const scenes = {
+    // Sources stream into one hub that breathes as data arrives.
+    plug(ctx, w, h, t, C) {
+      const hub = { x: w * .8, y: h / 2 }, lanes = 5, src = [];
+      for (let l = 0; l < lanes; l++) src.push({ x: 22, y: 16 + l * (h - 32) / (lanes - 1) });
+      const curve = (s, p) => { const q = 1 - p, mx = w * .48; return [q * q * s.x + 2 * q * p * mx + p * p * hub.x, q * q * s.y + 2 * q * p * s.y + p * p * hub.y]; };
+      ctx.lineWidth = 1.2;
+      src.forEach(s => {
+        ctx.globalAlpha = .28; ctx.strokeStyle = C.a3; ctx.beginPath();
+        for (let p = 0; p <= 1.001; p += .04) { const [x, y] = curve(s, p); p ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
+        ctx.stroke();
+        dot(ctx, s.x, s.y, 4, C.a2, .9, 6);
+      });
+      const n = 15; let energy = 0;
+      for (let i = 0; i < n; i++) {
+        const raw = (t * .12 + i / n) % 1, p = ease(raw), s = src[i % lanes];
+        for (let k = 4; k >= 0; k--) {
+          const [x, y] = curve(s, ease(clamp(raw - k * .012)));
+          dot(ctx, x, y, 2.4 - k * .35, k ? C.a2 : C.a, (1 - k / 5) * (.4 + p * .6), k ? 0 : 6);
+        }
+        energy += bell(raw - 1, .05) + bell(raw, .05);
+      }
+      const r = 8 + Math.sin(t * 1.2) * 1 + energy * 1.5;
+      const g = ctx.createRadialGradient(hub.x, hub.y, 0, hub.x, hub.y, r * 2.2);
+      g.addColorStop(0, C.a2); g.addColorStop(1, clear(C.a2));
+      ctx.globalAlpha = .18; ctx.fillStyle = g; ctx.beginPath(); ctx.arc(hub.x, hub.y, r * 2.2, 0, 7); ctx.fill();
+      dot(ctx, hub.x, hub.y, r, C.a, .75, 8);
+      dot(ctx, hub.x, hub.y, r * .45, C.a3, .8);
+    },
+
+    // A soft beam sweeps a field of nodes and links what it reads.
+    scan(ctx, w, h, t, C) {
+      const r = rng(7), nodes = [];
+      for (let i = 0; i < 30; i++) nodes.push({ x: 14 + r() * (w - 28), y: 12 + r() * (h - 24), ph: r() * 6 });
+      const sx = (ease((t * .09) % 1) * 1.3 - .15) * w, tail = w * .5;
+      const lit = (n) => { const d = sx - n.x; return d < -20 ? 0 : d < 0 ? easeOut(1 + d / 20) : d < tail ? Math.pow(1 - d / tail, 1.6) : 0; };
+      ctx.lineWidth = 1;
+      for (let i = 0; i < nodes.length; i++) for (let j = i + 1; j < nodes.length; j++) {
+        const a = nodes[i], b = nodes[j], dist = Math.hypot(a.x - b.x, a.y - b.y);
+        const k = Math.min(lit(a), lit(b)) * clamp(1 - dist / 80);
+        if (k > .01) { ctx.globalAlpha = k * .8; ctx.strokeStyle = C.a2; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
+      }
+      nodes.forEach(n => {
+        const k = lit(n), drift = Math.sin(t * .8 + n.ph) * 1.2;
+        dot(ctx, n.x, n.y + drift, 2 + k * 2, k > .05 ? C.a : C.a3, .35 + k * .65, k * 10);
+      });
+      const g = ctx.createLinearGradient(sx - 60, 0, sx + 12, 0);
+      g.addColorStop(0, clear(C.a2)); g.addColorStop(.83, C.a2); g.addColorStop(1, clear(C.a2));
+      ctx.globalAlpha = .22; ctx.fillStyle = g; ctx.fillRect(sx - 60, 0, 72, h);
+      ctx.globalAlpha = .8; ctx.fillStyle = C.a2; ctx.shadowColor = C.a2; ctx.shadowBlur = 10; ctx.fillRect(sx - 1, 6, 2, h - 12); ctx.shadowBlur = 0;
+    },
+
+    // A calm heartbeat; an irregular beat is gently flagged, then settles.
+    'heart-rate-monitor'(ctx, w, h, t, C) {
+      const mid = h * .56, speed = 38, period = 150;
+      const shape = (k, odd) => {
+        const a = odd ? .35 : 1;
+        return -bell(k - 52, 3.2) * 28 * a + bell(k - 58, 2.6) * 12 * a - bell(k - 92, 9) * 6 + (odd ? -bell(k - 62, 4) * 14 : 0);
+      };
+      const yAt = (x) => { const u = x + t * speed, c = Math.floor(u / period); return mid + shape(((u % period) + period) % period, c % 3 === 2) * (h / 96); };
+      ctx.lineWidth = 2; ctx.lineJoin = ctx.lineCap = 'round';
+      const g = ctx.createLinearGradient(0, 0, w, 0);
+      g.addColorStop(0, clear(C.a)); g.addColorStop(.35, C.a); g.addColorStop(1, C.a2);
+      ctx.strokeStyle = g; ctx.shadowColor = C.a2; ctx.shadowBlur = 8; ctx.globalAlpha = 1;
+      ctx.beginPath(); for (let x = 0; x <= w; x += 1.5) { const y = yAt(x); x ? ctx.lineTo(x, y) : ctx.moveTo(x, y); } ctx.stroke(); ctx.shadowBlur = 0;
+      dot(ctx, w - 6, yAt(w - 6), 3.5, C.a2, 1, 12);
+      const first = Math.floor((t * speed) / period);
+      for (let c = first; c <= first + Math.ceil(w / period) + 1; c++) {
+        if (c % 3 !== 2) continue;
+        const bx = c * period - t * speed + 60, fade = clamp(bx / 60) * clamp((w - bx) / 60);
+        if (fade <= 0) continue;
+        const rg = ctx.createRadialGradient(bx, mid, 0, bx, mid, 34);
+        rg.addColorStop(0, C.a3); rg.addColorStop(1, clear(C.a3));
+        ctx.globalAlpha = .35 * fade; ctx.fillStyle = rg; ctx.beginPath(); ctx.arc(bx, mid, 34, 0, 7); ctx.fill();
+        ctx.globalAlpha = fade; ctx.fillStyle = C.a; ctx.font = FONT; ctx.textAlign = 'center'; ctx.fillText('drift found', bx, 22); ctx.textAlign = 'left';
+      }
+    },
+
+    // A change in code glides down and refreshes the matching doc.
+    refresh(ctx, w, h, t, C) {
+      const cols = 5, gap = 14, bw = (w - gap * (cols + 1)) / cols, bh = 20, topY = 12, botY = h - 12 - bh;
+      const step = 2.8, k = Math.floor(t / step) % cols, p = (t % step) / step;
+      ctx.font = FONT;
+      for (let i = 0; i < cols; i++) {
+        const x = gap + i * (bw + gap), on = i === k;
+        const codeGlow = on ? bell(p - .15, .12) : 0, docGlow = on ? easeOut((p - .62) / .2) * (1 - easeOut((p - .88) / .12)) : 0;
+        rr(ctx, x, topY, bw, bh, 6); ctx.globalAlpha = .22 + codeGlow * .78; ctx.fillStyle = codeGlow > .05 ? C.a2 : C.a3; ctx.shadowColor = C.a2; ctx.shadowBlur = codeGlow * 14; ctx.fill(); ctx.shadowBlur = 0;
+        rr(ctx, x, botY, bw, bh, 6); ctx.globalAlpha = .22 + docGlow * .78; ctx.fillStyle = docGlow > .05 ? C.a : C.a3; ctx.shadowColor = C.a; ctx.shadowBlur = docGlow * 14; ctx.fill(); ctx.shadowBlur = 0;
+        ctx.globalAlpha = .25; ctx.strokeStyle = C.a3; ctx.lineWidth = 1; ctx.setLineDash([2, 4]);
+        ctx.beginPath(); ctx.moveTo(x + bw / 2, topY + bh + 3); ctx.lineTo(x + bw / 2, botY - 3); ctx.stroke(); ctx.setLineDash([]);
+      }
+      const q = ease((p - .22) / .42);
+      if (q > 0 && q < 1) {
+        const x = gap + k * (bw + gap) + bw / 2, y0 = topY + bh + 3, y1 = botY - 3;
+        for (let j = 5; j >= 0; j--) { const qq = clamp(q - j * .035); dot(ctx, x, y0 + qq * (y1 - y0), 3.4 - j * .45, C.a2, 1 - j / 6, j ? 0 : 12); }
+      }
+      ctx.globalAlpha = .9; ctx.fillStyle = C.a; ctx.fillText('code', gap, topY + bh + 13); ctx.fillText('docs', gap, botY - 6);
+    },
+
+    // A draft writes itself, line by line, and each line earns a citation.
+    pencil(ctx, w, h, t, C) {
+      const lines = [.84, .64, .92, .5], lh = (h - 20) / lines.length, cycle = 12, writeEnd = .72;
+      const local = (t % cycle) / cycle, prog = local / writeEnd, fadeAll = 1 - easeOut((local - .9) / .1);
+      let cx = 14, cy = 10 + lh / 2;
+      lines.forEach((len, i) => {
+        const f = ease((prog - i / lines.length) * lines.length);
+        const y = 10 + i * lh + lh / 2, full = (w - 70) * len;
+        rr(ctx, 14, y - 3.5, full, 7, 3.5); ctx.globalAlpha = .2 * fadeAll + .1; ctx.fillStyle = C.a3; ctx.fill();
+        if (f > 0) { rr(ctx, 14, y - 3.5, Math.max(7, full * f), 7, 3.5); ctx.globalAlpha = .9 * fadeAll; ctx.fillStyle = C.a; ctx.fill(); }
+        const pop = back(((prog - (i + 1) / lines.length) * lines.length) / .5);
+        if (pop > 0) {
+          const px = 14 + full + 14;
+          dot(ctx, px, y, 6 * pop, C.a2, fadeAll, 8);
+          ctx.globalAlpha = fadeAll; ctx.fillStyle = C.bg; ctx.font = '600 8px Inter, system-ui, sans-serif'; ctx.textAlign = 'center'; ctx.fillText(String(i + 1), px, y + 3); ctx.textAlign = 'left';
+        }
+        if (f > 0 && f < 1) { cx = 14 + full * f; cy = y; }
+      });
+      if (prog < 1) { ctx.globalAlpha = (.55 + .45 * Math.sin(t * 5)) * fadeAll; ctx.fillStyle = C.a2; rr(ctx, cx + 3, cy - 8, 2, 16, 1); ctx.fill(); }
+    },
+
+    // A published page sends soft waves out; readers light up as they arrive.
+    world(ctx, w, h, t, C) {
+      const cx = w * .5, cy = h / 2, r = rng(11), readers = [];
+      for (let i = 0; i < 28; i++) readers.push({ x: 12 + r() * (w - 24), y: 10 + r() * (h - 20), ph: r() * 6 });
+      const maxR = Math.hypot(w / 2, h / 2), waves = [0, 1, 2].map(i => easeOut((t * .12 + i / 3) % 1) * maxR);
+      waves.forEach(R => { ctx.lineWidth = 1.4; ctx.globalAlpha = .45 * Math.pow(1 - R / maxR, 1.5); ctx.strokeStyle = C.a2; ctx.beginPath(); ctx.arc(cx, cy, R, 0, 7); ctx.stroke(); });
+      readers.forEach(p => {
+        const d = Math.hypot(p.x - cx, p.y - cy);
+        const k = Math.max(...waves.map(R => bell(R - d, 10)));
+        dot(ctx, p.x, p.y + Math.sin(t * .7 + p.ph), 2 + k * 2, k > .2 ? C.a : C.a3, .35 + k * .65, k * 10);
+      });
+      const lift = Math.sin(t * 1.1) * 1.5;
+      rr(ctx, cx - 11, cy - 14 + lift, 22, 28, 4); ctx.globalAlpha = 1; ctx.fillStyle = C.a; ctx.shadowColor = C.a2; ctx.shadowBlur = 16; ctx.fill(); ctx.shadowBlur = 0;
+      ctx.fillStyle = C.bg; [-7, -2, 3].forEach((o, i) => { rr(ctx, cx - 6, cy + o + lift, i === 2 ? 8 : 12, 2.4, 1.2); ctx.fill(); });
+    },
+
+    // A comet travels the loop; each stop glows as it passes.
+    infinity(ctx, w, h, t, C) {
+      const cx = w / 2, cy = h / 2, A = Math.min(w * .26, h * .85);
+      const pt = (s) => { const d = 1 + Math.sin(s) ** 2; return [cx + A * Math.cos(s) / d, cy + A * Math.sin(s) * Math.cos(s) / d]; };
+      ctx.lineWidth = 2; ctx.lineCap = 'round'; ctx.globalAlpha = .3; ctx.strokeStyle = C.a3; ctx.beginPath();
+      for (let s = 0; s <= Math.PI * 2 + .05; s += .04) { const [x, y] = pt(s); s ? ctx.lineTo(x, y) : ctx.moveTo(x, y); } ctx.stroke();
+      const head = t * .75, trail = 90;
+      for (let i = trail; i >= 0; i--) {
+        const [x, y] = pt(head - i * .025), k = Math.pow(1 - i / trail, 1.8);
+        dot(ctx, x, y, .8 + k * 3, i < 8 ? C.a2 : C.a, k, i === 0 ? 16 : 0);
+      }
+      const stops = [['code', Math.PI / 4], ['draft', Math.PI * .75], ['accept', Math.PI * 1.25], ['check', Math.PI * 1.75]];
+      ctx.font = FONT;
+      stops.forEach(([txt, s]) => {
+        const [x, y] = pt(s);
+        let d = ((head - s) % (Math.PI * 2) + Math.PI * 2) % (Math.PI * 2); if (d > Math.PI) d -= Math.PI * 2;
+        const k = d > -.2 ? bell(d, .5) : 0;
+        dot(ctx, x, y, 3 + k * 2.5, C.a, .45 + k * .55, k * 14);
+        const above = y < cy;
+        ctx.textAlign = 'center';
+        ctx.globalAlpha = .55 + k * .45; ctx.fillStyle = C.a;
+        ctx.fillText(txt, x, above ? y + 15 : y - 9);
+      });
+      ctx.textAlign = 'left';
+    }
+  };
+
   const init = () => {
     const cards = [...document.querySelectorAll('.sl-markdown-content .docsite-card')];
     if (!cards.length || document.querySelector('.fx-track')) return;
@@ -129,25 +267,79 @@ Falconer is built to stop that drift. It reads your code, tickets, wikis and thr
     track.append(spine, ...cards);
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const fine = matchMedia('(hover: hover) and (pointer: fine) and (min-width: 50em)').matches;
+
+    const strips = [];
     cards.forEach((c, i) => {
       c.style.setProperty('--fx-delay', `${(i % 3) * 0.04}s`);
-      c.querySelectorAll('[data-card-icon] path').forEach(p => p.setAttribute('pathLength', '1'));
-      const inf = c.querySelector('[data-card-icon="infinity"] path');
-      if (inf) { const comet = inf.cloneNode(); comet.classList.add('fx-comet'); inf.after(comet); }
       c.insertAdjacentHTML('afterbegin', '<span class="fx-glow" aria-hidden="true"></span><span class="fx-dot" aria-hidden="true"></span>');
+      const icon = c.querySelector('[data-card-icon]');
+      const draw = icon && scenes[icon.dataset.cardIcon];
+      if (!draw) return;
+      const canvas = document.createElement('canvas');
+      canvas.className = 'fx-canvas';
+      canvas.setAttribute('aria-hidden', 'true');
+      icon.before(canvas);
+      c.classList.add('has-canvas');
+      strips.push({ canvas, ctx: canvas.getContext('2d'), draw, visible: false, offset: i * 2.3, fade: 0 });
     });
+
+    // Brand colors, refreshed when the theme changes.
+    let C = {};
+    const readColors = () => {
+      const s = getComputedStyle(document.documentElement);
+      const v = (n, f) => (s.getPropertyValue(n).trim() || f);
+      C = { a: v('--fx-accent', '#0090b3'), a2: v('--fx-accent-2', '#5ec4dc'), a3: v('--fx-accent-3', '#a8e2ee'), bg: v('--docsite-color-bg', '#13171b') };
+    };
+    readColors();
+    new MutationObserver(readColors).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+    const size = (s) => {
+      const dpr = Math.min(devicePixelRatio || 1, 2), r = s.canvas.getBoundingClientRect();
+      if (!r.width) return false;
+      const W = Math.round(r.width * dpr), H = Math.round(r.height * dpr);
+      if (s.canvas.width !== W || s.canvas.height !== H) { s.canvas.width = W; s.canvas.height = H; }
+      s.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      s.w = r.width; s.h = r.height;
+      return true;
+    };
+    const paint = (s, t, alpha = 1) => {
+      if (!size(s)) return;
+      const ctx = s.ctx;
+      ctx.clearRect(0, 0, s.w, s.h);
+      ctx.save(); ctx.globalAlpha = 1;
+      s.draw(ctx, s.w, s.h, t + s.offset, C);
+      ctx.restore();
+      if (alpha < 1) { ctx.save(); ctx.globalCompositeOperation = 'destination-in'; ctx.globalAlpha = alpha; ctx.fillRect(0, 0, s.w, s.h); ctx.restore(); }
+    };
+
     if (reduce || !('IntersectionObserver' in window)) {
-      cards.forEach(c => c.classList.add('is-in', 'icon-in'));
+      cards.forEach(c => c.classList.add('is-in'));
+      strips.forEach(s => paint(s, 3));
+      addEventListener('resize', () => strips.forEach(s => paint(s, 3)));
     } else {
       const io = new IntersectionObserver(entries => {
         entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
       }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
       cards.forEach(c => io.observe(c));
-      const iconIo = new IntersectionObserver(entries => {
-        entries.forEach(e => { if (e.isIntersecting) { e.target.closest('.docsite-card').classList.add('icon-in'); iconIo.unobserve(e.target); } });
-      }, { rootMargin: '0px 0px -35% 0px' });
-      cards.forEach(c => { const icon = c.querySelector('[data-card-icon]'); if (icon) iconIo.observe(icon); });
+
+      // Only animate strips on screen; each fades in gently the first time.
+      const vis = new IntersectionObserver(entries => {
+        entries.forEach(e => { const s = strips.find(x => x.canvas === e.target); if (s) s.visible = e.isIntersecting; });
+      });
+      strips.forEach(s => vis.observe(s.canvas));
+      let last = performance.now(), clock = 0;
+      const loop = (now) => {
+        const dt = Math.min(.05, (now - last) / 1000); last = now; clock += dt;
+        strips.forEach(s => {
+          if (!s.visible) return;
+          s.fade = Math.min(1, s.fade + dt / .8);
+          paint(s, clock, easeOut(s.fade));
+        });
+        requestAnimationFrame(loop);
+      };
+      requestAnimationFrame(loop);
     }
+
     let ticking = false;
     const update = () => {
       const r = track.getBoundingClientRect();
@@ -157,6 +349,7 @@ Falconer is built to stop that drift. It reads your code, tickets, wikis and thr
     };
     addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
     update();
+
     if (!fine || reduce) return;
     cards.forEach(card => {
       card.addEventListener('pointermove', e => {
