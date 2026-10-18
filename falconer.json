@@ -204,6 +204,16 @@
             ]
           },
           {
+            "anchor": "Plans and pricing",
+            "pages": [
+              "plans-and-pricing/plans-and-billing.mdx",
+              "plans-and-pricing/how-credits-work.mdx",
+              "plans-and-pricing/buy-credits-and-auto-reload.mdx",
+              "plans-and-pricing/usage-and-spending-limits.mdx",
+              "plans-and-pricing/knowledge-health-usage-pricing.mdx"
+            ]
+          },
+          {
             "anchor": "Use cases",
             "pages": [
               {

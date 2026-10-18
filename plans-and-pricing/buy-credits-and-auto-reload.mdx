@@ -1,0 +1,79 @@
+---
+title: Buy credits and manage auto reload
+description: Add credits to your organization and manage automatic purchases when the shared balance runs low.
+sidebar:
+  order: 3
+---
+
+Organization owners can buy credits and manage auto reload in **Settings → Organization settings → Plan and credits**.
+See [How credits work](/plans-and-pricing/how-credits-work) for shared balances, expiry and charging rules.
+
+## Buy credits
+
+1. Click **Buy credits**.
+2. Choose a pack and review the price and savings.
+3. Optionally turn on **Auto reload** and choose a threshold.
+4. Click **Continue to checkout** and complete payment in Stripe.
+
+Applicable tax is added at checkout.
+Auto reload applies the extra savings shown and authorizes future automatic card charges.
+
+After checkout, wait for payment confirmation and the updated balance in **Plan and credits**.
+**Recent purchases** shows purchase statuses and paid amounts including tax.
+
+## Enable auto reload without buying credits
+
+1. Beside **Auto reload**, click **Enable**.
+2. Choose a pack and set **Reload when balance is below**.
+3. Click **Enable auto reload**, or **Continue to Stripe** if card setup is needed.
+4. Complete card setup and return to Falconer.
+
+Card setup does not purchase credits.
+If the balance is below the threshold, Falconer asks you to **Confirm and reload** for an immediate purchase.
+At or above the threshold, enabling reload does not immediately buy credits.
+
+## Choose a threshold
+
+Auto reload buys the selected pack when the shared balance is **below** the threshold.
+An equal balance does not trigger a purchase.
+
+The default is 20% of the selected pack:
+
+| Pack            | Default threshold |
+| --------------- | ----------------- |
+| 1,000 credits   | 200 credits       |
+| 5,000 credits   | 1,000 credits     |
+| 10,000 credits  | 2,000 credits     |
+| 20,000 credits  | 4,000 credits     |
+| 100,000 credits | 20,000 credits    |
+
+Custom thresholds must be whole numbers from **100** to **one credit below the pack size**.
+Changing the pack selects its default threshold.
+The displayed reload price excludes applicable tax.
+
+## Edit or turn off auto reload
+
+Click **Edit** beside **Auto reload** to change the pack or threshold, then **Save changes**.
+Confirm an immediate reload if the new threshold is above the balance.
+Editing is unavailable while an automatic payment is processing.
+
+To stop future reloads, click **Turn off** in the dialog and confirm.
+The dialog closes and the status becomes **Off**.
+Click **Enable** to turn it on again.
+Payments already submitted may still finish.
+
+## Troubleshooting
+
+- **Payment pending:** wait, reload the page or use **Check again** before buying again.
+- **Could not open checkout:** retry with the same selection.
+  For a closed checkout, check purchase history before starting another.
+- **Wrong organization:** switch to the organization where you started checkout or card setup.
+- **Reload paused for a card issue:** click **Edit → Continue to Stripe** to update your card, then finish enabling reload.
+- **Reload paused after a refund:** [contact support](mailto:support@falconer.com) to review the refund before re-enabling reload.
+- **Settings changed:** close and reopen the dialog to load the latest settings.
+- **Payment needs review:** [contact support](mailto:support@falconer.com) before making another payment.
+
+To change reload alerts, open **Personal settings → Notifications → Billing → Automatic reload problems**.
+Change **Email** and **Inbox** independently, or confirm an unsubscribe using the link in an email.
+
+For usage and member limits, see [Track usage and set spending limits](/plans-and-pricing/usage-and-spending-limits).
