@@ -1,0 +1,54 @@
+---
+title: Supported content
+description: What renders on a published docs site, from Markdown and callouts to diagrams and API references.
+sidebar:
+  order: 9
+---
+
+What renders on a published docs site, from Markdown and callouts to diagrams and API references.
+
+Pages are the same documents you write in Falconer or sync from a repository.
+The site renders the blocks below; anything else appears as plain text or a code block.
+
+## Markdown
+
+Headings with anchor links, paragraphs, lists, tables, links, images, emoji, and code blocks with syntax highlighting.
+Links between pages resolve to their addresses on the site.
+
+## Components
+
+| Component | On the site |
+| --- | --- |
+| Callouts | **Note**, **Tip**, **Check**, **Caution**, **Danger**, and **Update** boxes |
+| Tabs and code groups | Switchable panels |
+| Steps | A numbered walkthrough |
+| Cards and columns | Linked cards laid out in a grid |
+| Accordions | Collapsible sections |
+| Video, audio, YouTube, and iframes | Embedded players and frames |
+| Math | Inline and block formulas |
+| Raw HTML | Rendered as written |
+
+These are the same components that [two-way sync](/two-way-sync/supported-markdown) reads from `.mdx` files, so a page written for Mintlify renders without changes.
+
+## Diagrams
+
+Mermaid and D2 diagrams render on the page.
+If a diagram can't be drawn in the visitor's browser, its source is shown instead.
+
+## API references
+
+A page with `openapi` or `openapi-schema` in its frontmatter renders an API reference from the OpenAPI document it points to.
+
+## Images and files
+
+Images referenced from pages are copied into the build.
+Logos, favicons, and other brand assets live in the **Files** tab and are limited to 5 MB each.
+See [Images and other files](/two-way-sync/images-and-files) for how files sync with a repository.
+
+## Search and Ask the docs
+
+Both answer from the published build's pages.
+Pages with `pagefind: false` in their frontmatter are left out of search, and private pages are never built.
+Ask the docs has fair-use limits per visitor and per site.
+
+![The site search dialog with results for a query](/images/public-docs-site-search.png)

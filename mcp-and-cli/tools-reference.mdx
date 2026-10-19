@@ -83,6 +83,20 @@ Prefer `replace_document_content`, `insert_document_content`, and `delete_docume
 
 Inspect navigation placement before moving documents or folders. If a document move or publish reports ambiguous placement, retry with the returned `sourceNavItemId`.
 
+## Public docs sites
+
+Tools for managing a space's [docs site](/public-docs/overview). Publishing, settings, passwords, and custom domains need an organization owner.
+
+| Need | Tools |
+| --- | --- |
+| Sites and builds | `list_docs_sites`, `get_docs_site`, `create_docs_site`, `set_docs_subdomain`, `trigger_docs_build`, `list_docs_builds`, `get_docs_build`, `publish_docs_build`, `unpublish_docs_site`, `cancel_docs_build`, `delete_docs_build`, `retry_docs_build_index`, `request_docs_preview`, `get_docs_preview`, `get_docs_broken_links` |
+| Settings and access | `get_docs_site_config`, `update_docs_site_config`, `get_docs_redirects`, `set_docs_redirects`, `set_docs_site_password`, `clear_docs_site_password`, `sign_out_docs_site_visitors` |
+| Custom domain | `get_docs_custom_domain`, `set_docs_custom_domain`, `check_docs_custom_domain`, `activate_docs_custom_domain`, `disable_docs_custom_domain`, `remove_docs_custom_domain` |
+| Site navigation | `get_docs_view`, `create_docs_view_page`, `create_docs_view_folder`, `update_docs_view_item`, `move_docs_view_items`, `reorder_docs_view_children`, `remove_docs_view_item` |
+| Files behind the site | `list_file_view_files`, `read_file_view_file`, `write_file_view_file`, `create_file_view_page`, `create_file_view_directory`, `move_file_view_file`, `delete_file_view_file`, `publish_file_view_page`, `upload_file_view_file`, `get_file_view_download_url` |
+
+`publish_docs_build` also rolls back when you pass an older build. `set_docs_redirects` replaces the whole list, so pass the list you read as `base` to merge your edits.
+
 ## Permissions and media
 
 | Tool | What it does |

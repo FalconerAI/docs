@@ -1,0 +1,69 @@
+---
+title: Organize site navigation
+description: Arrange pages into tabs, groups, and anchors, and decide what is published, hidden, or private.
+sidebar:
+  order: 3
+---
+
+Arrange pages into tabs, groups, and anchors, and decide what is published, hidden, or private.
+
+## Docs and Files
+
+A space with a docs site has two views in the left nav.
+
+| View | What it shows |
+| --- | --- |
+| **Docs** | The site's navigation: the pages and sections visitors see, in the order they see them. |
+| **Files** | The folder behind the site: Markdown files, images, fonts, and `falconer.json`. |
+
+Every page in **Docs** is a file in **Files**.
+A file you add in **Files** stays out of the site until you add it to **Docs**, which makes it easy to keep drafts or shared snippets next to published pages.
+Text files and uploads are limited to 5 MB each.
+
+## Sections
+
+Drag pages in the **Docs** view to reorder them, and nest them to build sections.
+Right-click a section to change what kind it is with **Convert to**.
+
+| Section | On the site |
+| --- | --- |
+| **Group** | A labeled list of pages in the sidebar |
+| **Tab** | A top-level section switched from the site header. Tabs sit directly under the site root. |
+| **Anchor** | A section header above its pages in the sidebar |
+| **Link** | An external link in the navigation, with no pages of its own |
+
+To add a section header without moving pages, right-click and choose **Add anchor**.
+To link to another website from the navigation, use **New external link tab**.
+
+## Private and hidden
+
+Right-click a page or section and open **Publishing options**.
+
+| Option | What it does |
+| --- | --- |
+| **Restrict access** | Marks the item private. It's left out of the build entirely, along with everything inside it. Choose **Open access** to publish it again. |
+| **Hide from navigation** | Builds the page but leaves it out of the site menu and search. Visitors can still open it from a direct link. Choose **Show in navigation** to list it again. |
+
+Access is inherited.
+A page inside a private section is private, even if the page itself isn't marked.
+
+## Page settings
+
+Each page's frontmatter controls how it appears on the site.
+
+| Field | What it does |
+| --- | --- |
+| `title` | The page title |
+| `description` | The summary shown in search results and link previews |
+| `sidebarTitle` | A shorter title for the sidebar |
+| `tableOfContents` | Set to `false` to hide the on-page table of contents |
+| `noindex` | Set to `true` to keep the page out of search engines and the sitemap |
+| `pagefind` | Set to `false` to leave the page out of the site's own search |
+| `hidden` | Same as **Hide from navigation** |
+| `access` | `public` or `private`, same as the publishing options above |
+
+## Moving pages
+
+When you move or rename a page, its address on the site changes.
+Falconer adds a redirect from the old address on the next build, so existing links keep working.
+See [Redirects](/public-docs/redirects).

@@ -1,0 +1,70 @@
+---
+title: Set up a docs site
+description: Turn a space into a docs site, choose where you write, and pick its address.
+sidebar:
+  order: 2
+---
+
+Turn a space into a docs site, choose where you write, and pick its address.
+
+## Prerequisites
+
+- **Public docs are enabled for your organization.**
+  Contact Falconer if the option isn't available.
+- **You're an organization owner,** or you have edit access to the space and an owner will publish.
+- **A space to publish.**
+  A docs site is set up on a [space](/organize/spaces), not on a regular folder, and each space can have one site.
+
+## Create a site with a new space
+
+1. In the space switcher, click **New space** and give the space a name.
+2. Turn on **Set up public docsite**.
+3. To write in a repository, also turn on **Sync with GitHub** and pick the repository.
+   Pages then come from the repository instead of the starter pages.
+4. Click **Create space**.
+
+## Add a site to an existing space
+
+1. Open the space and choose **Set up public docs** from its **More actions** menu.
+2. Choose where you write docs:
+
+   | Option | What it means |
+   | --- | --- |
+   | **Web editor** | Edit documents visually in Falconer. Always on. |
+   | **GitHub repository** | Also sync the space with a repository, so engineers can edit the same pages in Git. See [Set up two-way sync](/two-way-sync/set-up-two-way-sync). |
+
+3. Finish the setup.
+
+## What a new site starts with
+
+- Three starter pages: **Welcome to your docs site**, **Publish your first build**, and **Set a custom domain**.
+  They're removed automatically if you later connect a repository and haven't edited them.
+- A starter favicon and logos in the **Files** tab.
+- A default navbar button and social links that point at Falconer.
+  Replace them with your own in [Navbar](/public-docs/customize-your-site#navbar) and [Footer](/public-docs/customize-your-site#footer).
+- An address at `your-space-name.falconer.site`.
+
+The space now has two tabs in the left nav.
+**Docs** is the site's navigation, and **Files** is the folder of files behind it.
+See [Organize site navigation](/public-docs/organize-site-navigation).
+
+## Change the address
+
+The site card at the top of the space shows its address.
+Owners can change it:
+
+1. Click the pencil next to the address, labelled **Edit address**.
+2. Enter a new **Docs site path** and click **Save this address**.
+
+The address is a single label of 1 to 63 lowercase letters, numbers, and hyphens, with no hyphen at the start or end, and it has to be unique across Falconer.
+A few labels such as `www`, `app`, `api`, `docs`, and `admin` are reserved.
+
+When you change the address of a live site, the new address starts serving first and the old one is removed.
+Falconer then rebuilds and republishes so links, the sitemap, and `llms.txt` use the new address.
+Older builds show **Built for outdated subdomain** and keep the old address in their links until you build again.
+
+## Next steps
+
+- [Build, preview, and publish](/public-docs/build-and-publish)
+- [Customize the site](/public-docs/customize-your-site)
+- [Serve the site on your own domain](/public-docs/custom-domain)

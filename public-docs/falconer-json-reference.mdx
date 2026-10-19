@@ -1,0 +1,115 @@
+---
+title: falconer.json reference
+description: The site configuration file Falconer writes to a synced repository, field by field.
+sidebar:
+  order: 10
+---
+
+The site configuration file Falconer writes to a synced repository, field by field.
+
+`falconer.json` lives at the root of the space's **Files** tab, which is the root of the synced path in a repository.
+Falconer generates it from the site settings and the **Docs** navigation.
+When the space is synced with GitHub, edits made in the repository are merged back into Falconer on the next pull.
+
+The file can't be edited directly in the **Files** tab.
+Change settings in **Site configuration**, or edit the file in the repository.
+
+```json
+{
+  "version": 1,
+  "site": {
+    "name": "Acme Docs",
+    "favicon": "assets/favicon.svg",
+    "logo": { "light": "assets/logo-light.svg", "dark": "assets/logo-dark.svg" },
+    "colors": { "primary": "#006c8a", "primaryDark": "#2bb5ca" },
+    "navbar": {
+      "links": [{ "label": "Pricing", "href": "https://acme.com/pricing" }],
+      "primary": { "label": "Get started", "href": "https://app.acme.com/signup" }
+    },
+    "contextual": { "options": ["copy", "assistant", "chatgpt", "claude"] },
+    "seo": { "indexable": true, "description": "Guides and API reference" },
+    "social": [{ "icon": "github", "href": "https://github.com/acme" }],
+    "footer": {
+      "links": [{ "header": "Company", "items": [{ "label": "About", "href": "https://acme.com/about" }] }]
+    }
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "pages": [
+          "index.mdx",
+          { "group": "Get started", "pages": ["quickstart.mdx", "install.mdx"] },
+          { "anchor": "Reference", "pages": ["api/overview.mdx"] }
+        ]
+      }
+    ],
+    "redirects": [{ "from": "/getting-started", "to": "/quickstart", "permanent": true }]
+  }
+}
+```
+
+## site
+
+Paths are relative to the root of the synced path, without a leading slash.
+Empty strings count as unset.
+
+| Field | Type | What it does |
+| --- | --- | --- |
+| `name` | string, up to 200 characters | Site name in the header and browser tab. Defaults to the space name. |
+| `favicon` | path | Browser tab icon |
+| `logo.light`, `logo.dark` | path | Logo for each theme |
+| `logo.href` | `https://` URL | Where the logo links to. Defaults to the site home. |
+| `colors.primary` | hex color | Accent color in the light theme, and the fallback for dark |
+| `colors.primaryDark` | hex color | Accent color in the dark theme |
+| `navbar.links` | up to 10 of `{ label, href }` | Header links. Labels up to 40 characters, `https://` URLs. |
+| `navbar.primary` | `{ label, href }` | The header button |
+| `contextual.options` | ordered list | Page actions: `copy`, `view`, `assistant`, `chatgpt`, `claude`. The first is the button, the rest go in its menu. |
+| `seo.description` | string, up to 500 characters | Default meta description |
+| `seo.indexable` | boolean | Whether search engines may index the site. Defaults to `true`. |
+| `seo.metatags` | up to 30 of `{ name, content }` | Extra meta tags on every page |
+| `social` | up to 20 of `{ icon, href }` | Footer social icons |
+| `analytics` | up to 10 of `{ name, snippet }` | HTML added to the head of every page |
+| `footer.links` | up to 6 columns | Each column is `{ header, items }` with up to 10 `{ label, href }` items. `href` is an `https://` URL or a path on the site. |
+
+Supported `social` icons: `github`, `gitlab`, `bitbucket`, `codeberg`, `stackoverflow`, `discord`, `slack`, `matrix`, `telegram`, `whatsapp`, `signal`, `mastodon`, `bluesky`, `threads`, `twitter`, `x.com`, `linkedin`, `facebook`, `instagram`, `tiktok`, `pinterest`, `reddit`, `youtube`, `twitch`, `patreon`, `discourse`, `zulip`, `rss`, `email`, `phone`.
+
+Keys Falconer manages itself, such as the subdomain, custom domain, published build, and password, are never read from the file.
+
+## navigation
+
+The navigation is a tree of page paths and containers.
+A page is its file path as a string.
+A container is an object with one key naming its kind and label, plus `pages`.
+
+| Kind | Key | On the site |
+| --- | --- | --- |
+| Group | `"group": "Label"` | A labeled list of pages |
+| Tab | `"tab": "Label"` | A header tab. Only at the root. |
+| Anchor | `"anchor": "Label"` | A section header in the sidebar |
+| Link | `"link": "Label"` with `href` | An external link. A container with `href` can't hold pages. |
+
+Containers also accept:
+
+| Field | What it does |
+| --- | --- |
+| `icon` | An icon name |
+| `hidden` | `true` leaves the container out of the site menu and search |
+| `access` | `public` or `private`. Private content isn't built. Inherited from the parent when absent. |
+| `href` | An external URL, allowed on tabs, anchors, and links |
+
+`navigation.redirects` is a list of `{ from, to, permanent }`.
+See [Redirects](/public-docs/redirects).
+
+## Page frontmatter
+
+| Field | What it does |
+| --- | --- |
+| `title`, `description` | Page title and summary |
+| `sidebarTitle` | Shorter title for the sidebar |
+| `tableOfContents` | `false` hides the on-page table of contents |
+| `noindex` | `true` keeps the page out of search engines and the sitemap |
+| `pagefind` | `false` leaves the page out of site search |
+| `hidden` | `true` leaves the page out of the menu and search |
+| `access` | `public` or `private` |
+| `openapi`, `openapi-schema` | Render an API reference from an OpenAPI document |
