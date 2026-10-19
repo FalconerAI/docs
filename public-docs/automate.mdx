@@ -1,0 +1,82 @@
+---
+title: Automate with MCP and the API
+description: Run a docs site from an AI agent or a script: write pages, build, publish, and manage settings without opening Falconer.
+sidebar:
+  order: 13
+---
+
+Run a docs site from an AI agent or a script: write pages, build, publish, and manage settings without opening Falconer.
+
+Everything you can do from **Site configuration** is also a tool on the Falconer MCP and an endpoint on the public API.
+Connect the MCP to Claude, Cursor, or Codex and ask in plain language, or call the API from your own automation.
+The tools are listed on the [MCP tools reference](/mcp-and-cli/tools-reference#public-docs-sites); this page shows how they fit together.
+
+## Before you start
+
+- [Connect the Falconer MCP](/mcp-and-cli/connect) to your client.
+  For unattended runs, such as a CI job, use an [organization bot](/mcp-and-cli/organization-bots) instead of a personal login.
+- Publishing, settings, passwords, and custom domains need an organization owner.
+  Editing pages and starting builds need edit access to the space.
+- Every tool takes a `spaceId`.
+  Get it from `list_docs_sites`, which lists the sites you can see, or `list_spaces`.
+
+## Set up a site
+
+1. `create_docs_site` turns a space into a site, seeded with starter pages.
+   Pass `syncWithGithub` to skip the starter pages when the content comes from a repository you bind next with `bind_repository`.
+   It returns the existing site when the space already has one.
+2. `set_docs_subdomain` picks the address under `falconer.site`.
+
+## Write and arrange pages
+
+| Do this | Tool |
+| --- | --- |
+| Add a page to the site | `create_docs_view_page` creates a page in the navigation; `create_file_view_page` creates the file only |
+| Put an existing file in the navigation | `publish_file_view_page`, at the site root or under a container from `get_docs_view` |
+| Edit a page | The document tools, such as `overwrite` and `replace_document_content`, by document id |
+| Write a config or asset file | `write_file_view_file`, with the `ifMatch` etag from `read_file_view_file` so you never overwrite a newer edit |
+| Move, rename, hide, or make private | `move_docs_view_items`, `update_docs_view_item`, `reorder_docs_view_children`, `remove_docs_view_item` |
+
+Pages created through the file tools follow the same rules as pages created in the app.
+See [Docs view and Files view](/public-docs/docs-and-files-views).
+
+## Build and publish
+
+1. `trigger_docs_build` starts a build.
+   Pass `autoPublish` to publish as soon as it succeeds, which is what **Publish site** does in the app.
+2. Poll `get_docs_build` until the status is `succeeded` or `failed`.
+   Search indexing is reported separately on the build and finishes after it.
+3. `get_docs_broken_links` lists what the build found, the same list as **Issues**.
+4. `request_docs_preview` builds a private preview of the current content; poll `get_docs_preview` for the URL, which opens for signed-in owners.
+5. `publish_docs_build` makes a build live.
+   Pass an older build id to roll back, and `force` to publish before indexing has finished.
+6. `unpublish_docs_site` takes the site offline; `cancel_docs_build` and `delete_docs_build` manage the list.
+
+## Change settings
+
+- `get_docs_site_config` and `update_docs_site_config` read and change the same fields as **Site configuration**: name, logo, favicon, colors, navbar, footer, context menu, SEO, social links, and analytics.
+  Pass `null` to clear a field.
+  Logo and favicon are paths in the space's **Files** view.
+  Changes go live with the next build.
+- `get_docs_redirects` and `set_docs_redirects` manage redirects.
+  `set_docs_redirects` replaces the whole list, so pass the list you read as `base`; edits made in between are kept.
+- `set_docs_site_password`, `clear_docs_site_password`, and `sign_out_docs_site_visitors` control [password protection](/public-docs/password-protection).
+
+## Custom domain
+
+1. `set_docs_custom_domain` attaches the domain and returns the CNAME target for a subdomain, or the proxy target for a path.
+2. Add the DNS record or forwarding rule, then `check_docs_custom_domain` until it reports `ready`.
+3. `activate_docs_custom_domain` starts serving the site there.
+   This turns on the paid add-on; see [Plans and limits](/public-docs/plans-and-limits#add-ons).
+4. `disable_docs_custom_domain` stops serving and billing but keeps the setup; `remove_docs_custom_domain` deletes it.
+
+## The same operations over HTTP
+
+The public API exposes every operation above under `https://falconer.com/api/v1/docs-sites`, with the same names and permissions.
+Authenticate with an [organization bot token](/mcp-and-cli/organization-bots) or an API key.
+The full reference is the OpenAPI document at `https://falconer.com/api/v1/openapi.json`.
+
+## Example: publish after a merge
+
+For a space synced with GitHub, a merge to the synced branch is pulled into Falconer by [two-way sync](/two-way-sync/pull-changes-from-github).
+A job that runs after the merge can then trigger a build with `autoPublish`, through the MCP or `POST /docs-sites/{spaceId}/builds`, so the site follows the branch, and read the broken links to fail the job when the build found any.

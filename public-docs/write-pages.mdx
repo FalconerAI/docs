@@ -15,7 +15,7 @@ For where pages live and how they're placed in the navigation, see [Docs view an
 
 | Part | Where it comes from |
 | --- | --- |
-| **Title** | The document's title, the one you see in Falconer. A document with no title is left out of the build, and its children take its place. |
+| **Title** | The document's title, the one you see in Falconer. For a synced file that's `title` in the frontmatter, or the first heading when there's none. A document with no title is left out of the build, and its children take its place. |
 | **Address** | The file path, lower-cased and without its extension: `guides/Install.mdx` is served at `/guides/install`. A page that has no file is served under a path made from its title. |
 | **Summary** | The `description` in the frontmatter. Without one, the first 160 characters of the page's opening text, cut at a sentence or word. It's shown in search results, link previews, and `llms.txt`. |
 | **Sidebar label** | `sidebarTitle` in the frontmatter, else the title. |
@@ -28,6 +28,7 @@ These keys change how the page is built.
 
 | Key | What it does |
 | --- | --- |
+| `title` | The document's title, when the page is a synced file |
 | `description` | The summary above |
 | `sidebarTitle` | A shorter label for the sidebar |
 | `tableOfContents` | `false` hides the on-page table of contents |
@@ -67,6 +68,8 @@ The file has to be in the space's **Files** view; images on other websites are l
   Logos and favicons set in **Site configuration** are limited to 5 MB.
 - An image the build can't find, read, or recognize is left out of the page.
 - Moving an image in **Files** keeps it working; Falconer rewrites the pages that reference it.
+- In a space synced with GitHub, images you add in the editor are committed to the repository.
+  See [Images and other files](/two-way-sync/images-and-files).
 
 To let visitors download a PDF or another file, link to its path in **Files**.
 

@@ -306,7 +306,10 @@
             "anchor": "Reference",
             "pages": [
               "public-docs/components.mdx",
-              "public-docs/falconer-json-reference.mdx"
+              "public-docs/falconer-json-reference.mdx",
+              "public-docs/plans-and-limits.mdx",
+              "public-docs/troubleshooting.mdx",
+              "public-docs/automate.mdx"
             ]
           }
         ]
