@@ -261,15 +261,44 @@
         "tab": "Public docs",
         "pages": [
           "public-docs/overview.mdx",
-          "public-docs/set-up-a-docs-site.mdx",
-          "public-docs/organize-site-navigation.mdx",
-          "public-docs/build-and-publish.mdx",
-          "public-docs/customize-your-site.mdx",
-          "public-docs/custom-domain.mdx",
-          "public-docs/password-protection.mdx",
-          "public-docs/redirects.mdx",
-          "public-docs/supported-content.mdx",
-          "public-docs/falconer-json-reference.mdx"
+          {
+            "anchor": "Find answers",
+            "pages": [
+              "public-docs/site-search.mdx",
+              "public-docs/ask-the-docs.mdx"
+            ]
+          },
+          {
+            "anchor": "Discoverability",
+            "pages": [
+              "public-docs/search-engine-optimization.mdx",
+              "public-docs/agent-ready-docs.mdx"
+            ]
+          },
+          {
+            "anchor": "Get started",
+            "pages": [
+              "public-docs/set-up-a-docs-site.mdx",
+              "public-docs/organize-site-navigation.mdx",
+              "public-docs/build-and-publish.mdx"
+            ]
+          },
+          {
+            "anchor": "Customize",
+            "pages": [
+              "public-docs/customize-your-site.mdx",
+              "public-docs/custom-domain.mdx",
+              "public-docs/password-protection.mdx",
+              "public-docs/redirects.mdx"
+            ]
+          },
+          {
+            "anchor": "Reference",
+            "pages": [
+              "public-docs/supported-content.mdx",
+              "public-docs/falconer-json-reference.mdx"
+            ]
+          }
         ]
       }
     ]
