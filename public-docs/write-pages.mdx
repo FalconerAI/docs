@@ -1,0 +1,89 @@
+---
+title: Write pages
+description: How a page gets its title, address, and summary, and how links, images, and snippets work on the site.
+sidebar:
+  order: 3
+---
+
+How a page gets its title, address, and summary, and how links, images, and snippets work on the site.
+
+A page is a Falconer document: one you write in the editor, or a Markdown file synced from a repository.
+Everything on this page applies to both.
+For where pages live and how they're placed in the navigation, see [Docs view and Files view](/public-docs/docs-and-files-views).
+
+## What makes a page
+
+| Part | Where it comes from |
+| --- | --- |
+| **Title** | The document's title, the one you see in Falconer. A document with no title is left out of the build, and its children take its place. |
+| **Address** | The file path, lower-cased and without its extension: `guides/Install.mdx` is served at `/guides/install`. A page that has no file is served under a path made from its title. |
+| **Summary** | The `description` in the frontmatter. Without one, the first 160 characters of the page's opening text, cut at a sentence or word. It's shown in search results, link previews, and `llms.txt`. |
+| **Sidebar label** | `sidebarTitle` in the frontmatter, else the title. |
+| **Headings** | Every heading gets a stable anchor, so `/guides/install#requirements` links to a section. |
+
+## Page settings
+
+Frontmatter is the YAML block at the top of the page's Markdown.
+These keys change how the page is built.
+
+| Key | What it does |
+| --- | --- |
+| `description` | The summary above |
+| `sidebarTitle` | A shorter label for the sidebar |
+| `tableOfContents` | `false` hides the on-page table of contents |
+| `hidden` | `true` builds the page but leaves it out of the sidebar and marks it `noindex`. Its children move up into its place. The same as **Hide from navigation** on a section. |
+| `access` | `public` or `private`. A private page isn't built at all. Wins over the section's **Publishing options**. |
+| `noindex` | `true` keeps the page out of search engines, the sitemap, and the llms files. The page still serves. |
+| `pagefind` | `false` leaves the page out of site search and Ask the docs, which share one index. Search engines aren't affected. |
+| `openapi`, `openapi-schema` | Render an API reference from an OpenAPI document. See [API reference pages](/public-docs/components#api-reference-pages). |
+
+When `access` is absent, the Mintlify keys are read instead: `public: true` opens the page, and any `groups` value makes it private.
+
+For the settings a section carries, and how they inherit, see [Private and hidden](/public-docs/navigation-sections#private-and-hidden).
+
+## Links between pages
+
+Link to another page by its file path, and Falconer rewrites the link to the page's address when it builds the site.
+
+- A relative path, `./install.md` or `../guides/install`, is resolved from the folder of the page you're writing.
+- A root-relative path, `/guides/install`, is resolved from the root of the site's files.
+- The extension is optional: `install` finds `install.md`, `install.mdx`, or `install/index.md`.
+- Anchors and query strings are kept: `/guides/install#requirements`.
+
+A link that matches no page is left as written, and so are external links.
+A reference chip to a Falconer document only works when that document is a page on the site.
+
+Every build checks the links between pages and lists the broken ones, with the reason, under **Issues**.
+See [Issues](/public-docs/build-and-publish#issues).
+
+## Images and files
+
+Reference an image by its path, the same way as a link, or add it in the editor and Falconer stores it for you.
+The file has to be in the space's **Files** view; images on other websites are left as plain URLs.
+
+- Formats: SVG, PNG, JPEG, GIF, WebP, AVIF, BMP, and ICO.
+  SVGs are sanitized before they're served.
+- Each image can be up to 100 MB.
+  Logos and favicons set in **Site configuration** are limited to 5 MB.
+- An image the build can't find, read, or recognize is left out of the page.
+- Moving an image in **Files** keeps it working; Falconer rewrites the pages that reference it.
+
+To let visitors download a PDF or another file, link to its path in **Files**.
+
+## Reusable snippets
+
+In an `.mdx` file, import another file and place it as a component to reuse the same content on several pages.
+
+```mdx
+import Requirements from '/snippets/requirements.mdx';
+
+<Requirements />
+```
+
+- The path has to be root-relative, starting with `/`.
+- The snippet's own frontmatter is dropped, and links and images inside it are resolved from the snippet's location, not the page's.
+- A snippet that can't be found is left out and reported as a build warning.
+
+## Components
+
+Callouts, tabs, steps, cards, diagrams, and the other blocks that render on the site are listed on [Components](/public-docs/components), with the syntax for each.

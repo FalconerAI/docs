@@ -101,6 +101,10 @@
       {
         "from": "/public-docs/organize-site-navigation",
         "to": "/public-docs/navigation-sections"
+      },
+      {
+        "from": "/public-docs/supported-content",
+        "to": "/public-docs/components"
       }
     ],
     "tabs": [
@@ -284,6 +288,7 @@
             "pages": [
               "public-docs/set-up-a-docs-site.mdx",
               "public-docs/docs-and-files-views.mdx",
+              "public-docs/write-pages.mdx",
               "public-docs/navigation-sections.mdx",
               "public-docs/build-and-publish.mdx"
             ]
@@ -300,7 +305,7 @@
           {
             "anchor": "Reference",
             "pages": [
-              "public-docs/supported-content.mdx",
+              "public-docs/components.mdx",
               "public-docs/falconer-json-reference.mdx"
             ]
           }

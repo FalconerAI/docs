@@ -94,18 +94,8 @@ To publish one page inside a private section, set `access: public` in that page'
 
 ## Page settings
 
-Frontmatter on a page controls how it appears in the navigation and on the site.
-
-| Field | What it does |
-| --- | --- |
-| `title` | The page title. By default it's the page's first heading. |
-| `sidebarTitle` | A shorter label for the sidebar |
-| `description` | The summary shown in search results, link previews, and `llms.txt` |
-| `tableOfContents` | `false` hides the on-page table of contents |
-| `hidden` | `true` is the same as **Hide from navigation** for one page. Its children move up into its place. |
-| `access` | `public` or `private`, the same as **Publishing options** for one page. Wins over the section's setting. |
-| `noindex` | `true` keeps the page out of search engines, the sitemap, and the llms files. The page still serves. |
-| `pagefind` | `false` leaves the page out of site search and Ask the docs |
+A page's frontmatter can set `hidden` and `access` for that one page, and `access` on a page wins over its section's setting.
+The full list of keys is on [Write pages](/public-docs/write-pages#page-settings).
 
 A page's address comes from its file path, not from its frontmatter or its place in Docs.
 See [Docs view and Files view](/public-docs/docs-and-files-views).
