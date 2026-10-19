@@ -5,9 +5,7 @@ tableOfContents: false
 pagefind: false
 ---
 
-A new engineer reads the architecture doc in their first week and trusts it. A week later they learn half of it is out of date, and by then it has already shaped their decisions. Agents make the same mistake faster, because they never stop to ask in standup.
-
-Falconer is built to stop that drift. It reads your code, tickets, wikis and threads, finds where they disagree, and keeps docs current as the product changes.
+Falconer is a fully end-to-end knowledge platform that provides humans and agents with auto-updating documentation.
 
 <Card icon="plug" href="/set-up/connect-sources" cta="Connect sources">
   ## Connect sources
@@ -33,41 +31,44 @@ Falconer is built to stop that drift. It reads your code, tickets, wikis and thr
   With your sources connected, Falconer writes expert-level docs from a prompt in the UI, or from Claude Code, Cursor, Codex, and Slack. Draft guides, runbooks, changelogs, and diagrams with citations to the actual sources so you can verify.
 </Card>
 
-## Learn more
+<Card icon="book">
+  ## Learn more
 
-- [How Falconer works](/get-started/how-falconer-works/)
-- [Integrations](/docs/integrations/)
-- [MCP quickstart](/docs/mcp-and-cli/quickstart/)
+  - [How Falconer works](/get-started/how-falconer-works/)
+  - [Integrations](/docs/integrations/)
+  - [MCP quickstart](/docs/mcp-and-cli/quickstart/)
+</Card>
 
 <Html id="i27js4g93ep246z0wgcyvv29" class="w-full h-4">
 <!doctype html>
 <html lang="en">
 <head>
 <style>
+:root{--sl-content-width:56rem}
 :root{--fx-accent:hsl(192 100% 30%);--fx-accent-2:hsl(190 60% 59%);--fx-accent-3:hsl(188 64% 79%)}
 :root[data-theme="dark"]{--fx-accent:hsl(193 71% 48%);--fx-accent-2:hsl(189 76% 71%);--fx-accent-3:hsl(194 100% 32%)}
-.fx-track{--fx-border:var(--docsite-color-border,rgba(255,255,255,.18));position:relative;margin-top:2.5rem;padding-left:2.25rem;display:grid;gap:1.25rem}
-.fx-track>.docsite-card{margin:0!important}
-.fx-spine{position:absolute;left:.6rem;top:.5rem;bottom:.5rem;width:2px;background:var(--fx-border);border-radius:2px;overflow:hidden}
-.fx-spine::after{content:"";position:absolute;inset:0;transform-origin:top;transform:scaleY(var(--fx-progress,0));background:linear-gradient(var(--fx-accent),var(--fx-accent-2),var(--fx-accent-3))}
+.fx-track{--fx-border:var(--docsite-color-border,rgba(255,255,255,.18));position:relative;margin-top:2.5rem;display:grid;gap:1.25rem;grid-template-columns:repeat(2,minmax(0,1fr));width:100%}
+.fx-track>.docsite-card{margin:0!important;display:flex;flex-direction:column;align-items:stretch;text-align:start;border:none!important}
+.fx-center{text-align:center;max-width:44rem;margin-inline:auto!important}
+ul.fx-center,ol.fx-center{list-style:none;padding-inline:0}
+.fx-center.sl-heading-wrapper{display:flex;justify-content:center}
+.page-title-row{display:flex!important;justify-content:center!important;text-align:center;margin-top:2rem!important}
+page-context-menu{display:none!important}
 .fx-track .docsite-card{--mx:50%;--my:50%;--rx:0deg;--ry:0deg;position:relative;isolation:isolate;border-radius:16px;transform:perspective(900px) rotateX(var(--rx)) rotateY(var(--ry)) translateY(16px) scale(.99);opacity:0;filter:blur(3px);transition:opacity .4s cubic-bezier(.2,.7,.2,1),filter .4s,transform .4s cubic-bezier(.2,.7,.2,1);transition-delay:var(--fx-delay,0s)}
 .fx-track .docsite-card.is-in{opacity:1;filter:none;transform:perspective(900px) rotateX(var(--rx)) rotateY(var(--ry)) translateY(0) scale(1)}
 .fx-track .docsite-card.is-in.is-tilting{transition:transform .12s ease-out}
-.fx-dot{position:absolute;left:-1.95rem;top:1.9rem;width:12px;height:12px;border-radius:50%;background:var(--sl-color-bg,#13171b);border:2px solid var(--fx-border);transition:all .3s}
-.docsite-card.is-in .fx-dot{border-color:var(--fx-accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--fx-accent) 20%,transparent),0 0 18px var(--fx-accent)}
 .fx-glow{position:absolute;inset:0;border-radius:inherit;z-index:-1;opacity:0;transition:opacity .4s;pointer-events:none;background:radial-gradient(420px circle at var(--mx) var(--my),color-mix(in srgb,var(--fx-accent) 7%,transparent),transparent 60%)}
 .fx-track .docsite-card:hover .fx-glow{opacity:1}
 @property --fx-angle{syntax:"<angle>";initial-value:0deg;inherits:false}
 .fx-track .docsite-card::after{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;opacity:0;transition:opacity .4s;pointer-events:none;background:conic-gradient(from var(--fx-angle),var(--fx-accent),var(--fx-accent-2),var(--fx-accent-3),var(--fx-accent));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:fx-spin 4s linear infinite}
 .fx-track .docsite-card:hover::after,.fx-track .docsite-card:focus-within::after{opacity:1}
 @keyframes fx-spin{to{--fx-angle:360deg}}
-.fx-track .docsite-card:last-child{background:linear-gradient(135deg,color-mix(in srgb,var(--fx-accent) 5%,transparent),color-mix(in srgb,var(--fx-accent-3) 3%,transparent))}
 
 /* Canvas strip replaces the icon on wide screens */
 .fx-canvas{display:block;width:100%;height:96px;margin:0 0 1.5rem!important;border:1px solid var(--fx-border);border-radius:12px;background:linear-gradient(180deg,color-mix(in srgb,var(--fx-accent) 6%,transparent),color-mix(in srgb,var(--fx-accent-2) 2%,transparent))}
 .fx-track .docsite-card.has-canvas [data-card-icon]{display:none}
 @media (max-width:50em){
-  .fx-track{padding-left:0}.fx-spine,.fx-dot{display:none}
+  .fx-track{grid-template-columns:1fr}
   .fx-canvas{display:none}
   .fx-track .docsite-card.has-canvas [data-card-icon]{display:flex}
 }
@@ -92,6 +93,8 @@ Falconer is built to stop that drift. It reads your code, tickets, wikis and thr
   const FONT = '500 10px Inter, system-ui, -apple-system, "Segoe UI", sans-serif';
   // Fully transparent version of a color. Fading to plain 'transparent' (transparent black) leaves a dark halo.
   const clear = (c) => c.startsWith('hsl(') ? c.replace(')', ' / 0)') : c.startsWith('#') && c.length === 7 ? c + '00' : 'rgba(255,255,255,0)';
+  // Falconer mark (27.2 x 25.8 units), drawn as a single path.
+  const LOGO = new Path2D('M6.5616 12.0365L4.84115 13.757V20.949L0 25.7885H2.43219L5.8648 22.3559H13.4417L15.1622 20.6355H6.5616V12.0365Z M10.0041 8.5956L8.28362 10.316V18.9166H16.8842L18.6047 17.1962H10.0057V8.59726L10.0041 8.5956Z M18.6055 13.7574H13.4425V5.15511L11.722 6.87556V15.4745H20.321L22.0414 13.7541H18.6038L18.6055 13.7574Z M22.0459 10.3166H16.8829V1.71602L15.1641 3.43647V12.0371H23.7631L25.4819 10.3166H22.0459Z M18.597 0V8.599H27.1959V0H18.597Z');
 
   // Each scene draws one frame from time t (seconds). C holds brand colors.
   const scenes = {
@@ -120,8 +123,9 @@ Falconer is built to stop that drift. It reads your code, tickets, wikis and thr
       const g = ctx.createRadialGradient(hub.x, hub.y, 0, hub.x, hub.y, r * 2.2);
       g.addColorStop(0, C.a2); g.addColorStop(1, clear(C.a2));
       ctx.globalAlpha = .18; ctx.fillStyle = g; ctx.beginPath(); ctx.arc(hub.x, hub.y, r * 2.2, 0, 7); ctx.fill();
-      dot(ctx, hub.x, hub.y, r, C.a, .75, 8);
-      dot(ctx, hub.x, hub.y, r * .45, C.a3, .8);
+      const size = 26 + Math.sin(t * 1.2) * 1 + energy * 2, sc = size / 27.2;
+      ctx.save(); ctx.translate(hub.x - 13.6 * sc, hub.y - 12.9 * sc); ctx.scale(sc, sc);
+      ctx.globalAlpha = .95; ctx.fillStyle = C.a; ctx.shadowColor = C.a2; ctx.shadowBlur = 6; ctx.fill(LOGO); ctx.restore();
     },
 
     // A soft beam sweeps a field of nodes and links what it reads.
@@ -258,22 +262,20 @@ Falconer is built to stop that drift. It reads your code, tickets, wikis and thr
   };
 
   const init = () => {
-    const cards = [...document.querySelectorAll('.sl-markdown-content .docsite-card')];
+    const cards = [...document.querySelectorAll('.sl-markdown-content .docsite-card.docsite-card-linked')];
     if (!cards.length || document.querySelector('.fx-track')) return;
     const track = document.createElement('div');
     track.className = 'fx-track';
-    const spine = document.createElement('div');
-    spine.className = 'fx-spine';
-    spine.setAttribute('aria-hidden', 'true');
     cards[0].before(track);
-    track.append(spine, ...cards);
+    track.append(...cards);
+    for (let el = track.previousElementSibling; el; el = el.previousElementSibling) el.classList.add('fx-center');
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const fine = matchMedia('(hover: hover) and (pointer: fine) and (min-width: 50em)').matches;
 
     const strips = [];
     cards.forEach((c, i) => {
-      c.style.setProperty('--fx-delay', `${(i % 3) * 0.04}s`);
-      c.insertAdjacentHTML('afterbegin', '<span class="fx-glow" aria-hidden="true"></span><span class="fx-dot" aria-hidden="true"></span>');
+      c.style.setProperty('--fx-delay', `${(i % 2) * 0.04}s`);
+      c.insertAdjacentHTML('afterbegin', '<span class="fx-glow" aria-hidden="true"></span>');
       const icon = c.querySelector('[data-card-icon]');
       const draw = icon && scenes[icon.dataset.cardIcon];
       if (!draw) return;
@@ -342,15 +344,6 @@ Falconer is built to stop that drift. It reads your code, tickets, wikis and thr
       requestAnimationFrame(loop);
     }
 
-    let ticking = false;
-    const update = () => {
-      const r = track.getBoundingClientRect();
-      const p = Math.min(1, Math.max(0, (innerHeight * 0.6 - r.top) / r.height));
-      track.style.setProperty('--fx-progress', p.toFixed(3));
-      ticking = false;
-    };
-    addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
-    update();
 
     if (!fine || reduce) return;
     cards.forEach(card => {
