@@ -7,36 +7,42 @@ pagefind: false
 
 Falconer is a fully end-to-end knowledge platform that provides humans and agents with auto-updating documentation.
 
-<Card icon="plug" href="/set-up/connect-sources" cta="Connect sources">
-  ## Connect sources
+Connect your code and tools, catch docs that have drifted, and keep every page current as your product changes.
 
-  Connect tools like GitHub, Linear, Jira, Slack, Notion, Google Docs, and Confluence to connect context or sync with your Falconer docs.
+[Set up Falconer](/quickstart/)
+
+<Card icon="plug" url="/set-up/connect-sources" cta="Connect sources">
+
+## Connect sources
+
+Connect GitHub, Linear, Jira, Slack, Notion, Google Docs, and Confluence to bring context into your docs.
+
 </Card>
 
-<Card icon="heart-rate-monitor" href="/update/find-and-fix-outdated-docs/" cta="Find outdated docs">
-  ## Find issues
+<Card icon="heart-rate-monitor" url="/update/find-and-fix-outdated-docs/" cta="Find outdated docs">
 
-  Knowledge Health reads through all of your docs and connected sources to find the issues that degrade quality, like gaps, contradictions, and code drift.
+## Find issues
+
+Knowledge Health scans your docs and sources for gaps, contradictions, and code drift.
+
 </Card>
 
-<Card icon="refresh" href="/update/auto-update-docs/" cta="Set up auto-update">
-  ## Auto-update
+<Card icon="refresh" url="/update/auto-update-docs/" cta="Set up auto-update">
 
-  Set your docs to auto-update whenever any related code changes impact them. Your docs listen for changes and can either make the changes automatically or ask for your review.
-</Card>
+## Auto-update
 
-<Card icon="pencil" href="/write/write-a-doc/" cta="Write a doc">
-  ## Write docs
+Docs update when related code changes, automatically or after your review.
 
-  With your sources connected, Falconer writes expert-level docs from a prompt in the UI, or from Claude Code, Cursor, Codex, and Slack. Draft guides, runbooks, changelogs, and diagrams with citations to the actual sources so you can verify.
 </Card>
 
 <Card icon="book">
-  ## Learn more
 
-  - [How Falconer works](/get-started/how-falconer-works/)
-  - [Integrations](/docs/integrations/)
-  - [MCP quickstart](/docs/mcp-and-cli/quickstart/)
+## Learn more
+
+- [How Falconer works](/get-started/how-falconer-works/)
+- [Integrations](/docs/integrations/)
+- [MCP quickstart](/docs/mcp-and-cli/quickstart/)
+
 </Card>
 
 <Html id="i27js4g93ep246z0wgcyvv29" class="w-full h-4">
@@ -44,307 +50,133 @@ Falconer is a fully end-to-end knowledge platform that provides humans and agent
 <html lang="en">
 <head>
 <style>
-:root{--sl-content-width:56rem}
+:root{--sl-content-width:78rem}
+main:has(.fx-hero) .content-panel:has(.page-title-row){display:none}
+main:has(.fx-hero) .content-panel+.content-panel{border-top:0}
+page-context-menu{display:none!important}
+
+/* Hero: copy on the left, the Falconer mark drawn as a blueprint on the right */
+.fx-hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:3rem;align-items:center;padding-block:.5rem 0}
+.fx-hero-copy>*+*{margin-top:1.25rem}
+.fx-hero h1{margin:0 0 .75rem;padding-bottom:.25rem;font-size:clamp(2.5rem,1.5rem + 3.2vw,4.25rem);line-height:1.04;letter-spacing:-.015em;font-weight:600;color:var(--docsite-color-foreground)}
+.fx-hero-copy p{max-width:36rem;font-size:1.125rem;line-height:1.6;color:var(--docsite-color-foreground-muted)}
+.fx-hero-copy p:first-of-type{color:var(--docsite-color-foreground)}
+.fx-art{width:100%;max-width:22rem;justify-self:end;align-self:start;color:var(--docsite-color-primary)}
+.fx-art svg{display:block;width:100%;height:auto;overflow:visible}
+
+/* Logo fills once, step by step from the bottom up, and stays filled */
+.fx-art .fx-step{fill-opacity:1;animation:fx-step 1.4s ease-in-out both;animation-delay:calc(.3s + var(--i) * .35s)}
+@keyframes fx-step{from{fill-opacity:.06}to{fill-opacity:1}}
+@media (prefers-reduced-motion:reduce){.fx-art .fx-step{animation:none}}
+
+/* Quickstart CTA */
+.fx-hero-copy .fx-cta{margin-top:2rem}
+.fx-cta a{display:inline-flex;align-items:center;gap:.6rem;padding:.7rem 1.15rem;border-radius:.5rem;background:var(--docsite-color-primary);color:var(--docsite-color-on-primary);font-weight:600;font-size:1rem;line-height:1;text-decoration:none}
+.fx-cta a::after{content:"→";font-weight:500}
+.fx-cta a:hover{background:var(--docsite-color-primary-hover);color:var(--docsite-color-on-primary)}
+.fx-cta a:focus-visible{outline:2px solid var(--docsite-color-primary-ring);outline-offset:3px}
+
+/* Cards: one bordered strip, cells split by hairlines */
+.sl-markdown-content .fx-track{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:3.5rem;border:1px solid var(--docsite-color-border);border-radius:.75rem;overflow:hidden}
+.fx-track>.docsite-card{margin:0!important;padding:2rem 2rem 2.25rem;border:0!important;border-radius:0;display:flex;flex-direction:column;align-items:flex-start;text-align:start;transition:none;background:transparent}
+.fx-track>.docsite-card+.docsite-card{border-left:1px solid var(--docsite-color-border)!important}
+.fx-track>.docsite-card:hover{background:transparent}
+
+/* Hover: cursor-following glow, spinning gradient border, and a gentle tilt */
 :root{--fx-accent:hsl(192 100% 30%);--fx-accent-2:hsl(190 60% 59%);--fx-accent-3:hsl(188 64% 79%)}
 :root[data-theme="dark"]{--fx-accent:hsl(193 71% 48%);--fx-accent-2:hsl(189 76% 71%);--fx-accent-3:hsl(194 100% 32%)}
-.fx-track{--fx-border:var(--docsite-color-border,rgba(255,255,255,.18));position:relative;margin-top:2.5rem;display:grid;gap:1.25rem;grid-template-columns:repeat(2,minmax(0,1fr));width:100%}
-.fx-track>.docsite-card{margin:0!important;display:flex;flex-direction:column;align-items:stretch;text-align:start;border:none!important}
-.fx-center{text-align:center;max-width:44rem;margin-inline:auto!important}
-ul.fx-center,ol.fx-center{list-style:none;padding-inline:0}
-.fx-center.sl-heading-wrapper{display:flex;justify-content:center}
-.page-title-row{display:flex!important;justify-content:center!important;text-align:center;margin-top:2rem!important}
-page-context-menu{display:none!important}
-.fx-track .docsite-card{--mx:50%;--my:50%;--rx:0deg;--ry:0deg;position:relative;isolation:isolate;border-radius:16px;transform:perspective(900px) rotateX(var(--rx)) rotateY(var(--ry)) translateY(16px) scale(.99);opacity:0;filter:blur(3px);transition:opacity .4s cubic-bezier(.2,.7,.2,1),filter .4s,transform .4s cubic-bezier(.2,.7,.2,1);transition-delay:var(--fx-delay,0s)}
-.fx-track .docsite-card.is-in{opacity:1;filter:none;transform:perspective(900px) rotateX(var(--rx)) rotateY(var(--ry)) translateY(0) scale(1)}
-.fx-track .docsite-card.is-in.is-tilting{transition:transform .12s ease-out}
+.fx-track>.docsite-card{--mx:50%;--my:50%;--rx:0deg;--ry:0deg;position:relative;isolation:isolate;transform:perspective(900px) rotateX(var(--rx)) rotateY(var(--ry));transition:transform .4s cubic-bezier(.2,.7,.2,1)}
+.fx-track>.docsite-card.is-tilting{transition:transform .12s ease-out}
 .fx-glow{position:absolute;inset:0;border-radius:inherit;z-index:-1;opacity:0;transition:opacity .4s;pointer-events:none;background:radial-gradient(420px circle at var(--mx) var(--my),color-mix(in srgb,var(--fx-accent) 7%,transparent),transparent 60%)}
-.fx-track .docsite-card:hover .fx-glow{opacity:1}
+.fx-track>.docsite-card:hover .fx-glow{opacity:1}
 @property --fx-angle{syntax:"<angle>";initial-value:0deg;inherits:false}
-.fx-track .docsite-card::after{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;opacity:0;transition:opacity .4s;pointer-events:none;background:conic-gradient(from var(--fx-angle),var(--fx-accent),var(--fx-accent-2),var(--fx-accent-3),var(--fx-accent));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:fx-spin 4s linear infinite}
-.fx-track .docsite-card:hover::after,.fx-track .docsite-card:focus-within::after{opacity:1}
+.fx-track>.docsite-card::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;opacity:0;transition:opacity .4s;pointer-events:none;background:conic-gradient(from var(--fx-angle),var(--fx-accent),var(--fx-accent-2),var(--fx-accent-3),var(--fx-accent));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:fx-spin 4s linear infinite}
+.fx-track>.docsite-card:hover::after,.fx-track>.docsite-card:focus-within::after{opacity:1}
 @keyframes fx-spin{to{--fx-angle:360deg}}
+@media (prefers-reduced-motion:reduce){.fx-track>.docsite-card,.fx-track>.docsite-card::after{animation:none!important;transition:none!important;transform:none}}
+.fx-track [data-card-icon]{margin-bottom:1.5rem;width:auto;height:auto;justify-content:flex-start}
+.fx-track [data-card-icon] svg{width:28px;height:28px}
+.fx-track .sl-heading-wrapper{margin-top:0}
+.fx-track h2{font-size:1.375rem;font-weight:600;letter-spacing:-.015em;line-height:1.3}
+.fx-track .sl-anchor-link{display:none}
+.fx-track p{margin-top:.75rem;color:var(--docsite-color-foreground-muted);line-height:1.6}
+.fx-track .docsite-card-link:focus-visible{outline:2px solid var(--docsite-color-primary);outline-offset:-2px}
 
-/* Canvas strip replaces the icon on wide screens */
-.fx-canvas{display:block;width:100%;height:96px;margin:0 0 1.5rem!important;border:1px solid var(--fx-border);border-radius:12px;background:linear-gradient(180deg,color-mix(in srgb,var(--fx-accent) 6%,transparent),color-mix(in srgb,var(--fx-accent-2) 2%,transparent))}
-.fx-track .docsite-card.has-canvas [data-card-icon]{display:none}
-@media (max-width:50em){
-  .fx-track{grid-template-columns:1fr}
-  .fx-canvas{display:none}
-  .fx-track .docsite-card.has-canvas [data-card-icon]{display:flex}
+/* Learn more: plain row of links under the strip, not a card */
+.sl-markdown-content .fx-more{margin-top:2.5rem!important;padding:0;border:0;border-radius:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:.5rem 2rem}
+.fx-more [data-card-icon]{display:none}
+.fx-more .sl-heading-wrapper{margin:0}
+.fx-more h2{font-size:.8125rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--docsite-color-foreground-faint)}
+.fx-more .sl-anchor-link{display:none}
+.fx-more ul{display:flex;flex-wrap:wrap;gap:.5rem 1.75rem;margin:0!important;padding:0;list-style:none}
+.fx-more li{margin:0!important}
+.fx-more a{color:var(--docsite-color-foreground);text-decoration:underline;text-decoration-color:var(--docsite-color-border-strong);text-underline-offset:.25em}
+.fx-more a:hover{color:var(--docsite-color-primary);text-decoration-color:currentColor}
+
+@media (max-width:64em){
+  .fx-hero{grid-template-columns:1fr;padding-top:0}
+  .fx-art{display:none}
 }
-@media (prefers-reduced-motion:reduce){.fx-track *,.fx-track *::after{animation:none!important;transition:none!important}.fx-track .docsite-card{opacity:1;filter:none;transform:none}}
+@media (max-width:50em){
+  .sl-markdown-content .fx-track{grid-template-columns:1fr}
+  .fx-track>.docsite-card{padding:1.5rem}
+  .fx-track>.docsite-card+.docsite-card{border-left:0!important;border-top:1px solid var(--docsite-color-border)!important}
+}
 </style>
 </head>
 <body>
 <script>
 (() => {
-  // Helpers
-  const rng = (seed) => () => (seed = (seed * 16807) % 2147483647) / 2147483647;
-  const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v));
-  const ease = (s) => (s = clamp(s), s < .5 ? 4 * s * s * s : 1 - Math.pow(-2 * s + 2, 3) / 2);
-  const easeOut = (s) => 1 - Math.pow(1 - clamp(s), 3);
-  const back = (s) => { s = clamp(s); const c = 1.7; return 1 + (c + 1) * Math.pow(s - 1, 3) + c * Math.pow(s - 1, 2); };
-  const bell = (d, w) => Math.exp(-(d * d) / (2 * w * w));
-  const rr = (ctx, x, y, w, h, r) => { ctx.beginPath(); ctx.roundRect ? ctx.roundRect(x, y, w, h, r) : ctx.rect(x, y, w, h); };
-  const dot = (ctx, x, y, r, color, alpha, blur = 0) => {
-    ctx.globalAlpha = alpha; ctx.fillStyle = color; ctx.shadowColor = color; ctx.shadowBlur = blur;
-    ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.fill(); ctx.shadowBlur = 0;
-  };
-  const FONT = '500 10px Inter, system-ui, -apple-system, "Segoe UI", sans-serif';
-  // Fully transparent version of a color. Fading to plain 'transparent' (transparent black) leaves a dark halo.
-  const clear = (c) => c.startsWith('hsl(') ? c.replace(')', ' / 0)') : c.startsWith('#') && c.length === 7 ? c + '00' : 'rgba(255,255,255,0)';
-  // Falconer mark (27.2 x 25.8 units), drawn as a single path.
-  const LOGO = new Path2D('M6.5616 12.0365L4.84115 13.757V20.949L0 25.7885H2.43219L5.8648 22.3559H13.4417L15.1622 20.6355H6.5616V12.0365Z M10.0041 8.5956L8.28362 10.316V18.9166H16.8842L18.6047 17.1962H10.0057V8.59726L10.0041 8.5956Z M18.6055 13.7574H13.4425V5.15511L11.722 6.87556V15.4745H20.321L22.0414 13.7541H18.6038L18.6055 13.7574Z M22.0459 10.3166H16.8829V1.71602L15.1641 3.43647V12.0371H23.7631L25.4819 10.3166H22.0459Z M18.597 0V8.599H27.1959V0H18.597Z');
-
-  // Each scene draws one frame from time t (seconds). C holds brand colors.
-  const scenes = {
-    // Sources stream into one hub that breathes as data arrives.
-    plug(ctx, w, h, t, C) {
-      const hub = { x: w * .8, y: h / 2 }, lanes = 5, src = [];
-      for (let l = 0; l < lanes; l++) src.push({ x: 22, y: 16 + l * (h - 32) / (lanes - 1) });
-      const curve = (s, p) => { const q = 1 - p, mx = w * .48; return [q * q * s.x + 2 * q * p * mx + p * p * hub.x, q * q * s.y + 2 * q * p * s.y + p * p * hub.y]; };
-      ctx.lineWidth = 1.2;
-      src.forEach(s => {
-        ctx.globalAlpha = .28; ctx.strokeStyle = C.a3; ctx.beginPath();
-        for (let p = 0; p <= 1.001; p += .04) { const [x, y] = curve(s, p); p ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }
-        ctx.stroke();
-        dot(ctx, s.x, s.y, 4, C.a2, .9, 6);
-      });
-      const n = 15; let energy = 0;
-      for (let i = 0; i < n; i++) {
-        const raw = (t * .12 + i / n) % 1, p = ease(raw), s = src[i % lanes];
-        for (let k = 4; k >= 0; k--) {
-          const [x, y] = curve(s, ease(clamp(raw - k * .012)));
-          dot(ctx, x, y, 2.4 - k * .35, k ? C.a2 : C.a, (1 - k / 5) * (.4 + p * .6), k ? 0 : 6);
-        }
-        energy += bell(raw - 1, .05) + bell(raw, .05);
-      }
-      const r = 8 + Math.sin(t * 1.2) * 1 + energy * 1.5;
-      const g = ctx.createRadialGradient(hub.x, hub.y, 0, hub.x, hub.y, r * 2.2);
-      g.addColorStop(0, C.a2); g.addColorStop(1, clear(C.a2));
-      ctx.globalAlpha = .18; ctx.fillStyle = g; ctx.beginPath(); ctx.arc(hub.x, hub.y, r * 2.2, 0, 7); ctx.fill();
-      const size = 26 + Math.sin(t * 1.2) * 1 + energy * 2, sc = size / 27.2;
-      ctx.save(); ctx.translate(hub.x - 13.6 * sc, hub.y - 12.9 * sc); ctx.scale(sc, sc);
-      ctx.globalAlpha = .95; ctx.fillStyle = C.a; ctx.shadowColor = C.a2; ctx.shadowBlur = 6; ctx.fill(LOGO); ctx.restore();
-    },
-
-    // A soft beam sweeps a field of nodes and links what it reads.
-    scan(ctx, w, h, t, C) {
-      const r = rng(7), nodes = [];
-      for (let i = 0; i < 30; i++) nodes.push({ x: 14 + r() * (w - 28), y: 12 + r() * (h - 24), ph: r() * 6 });
-      const sx = (ease((t * .09) % 1) * 1.3 - .15) * w, tail = w * .5;
-      const lit = (n) => { const d = sx - n.x; return d < -20 ? 0 : d < 0 ? easeOut(1 + d / 20) : d < tail ? Math.pow(1 - d / tail, 1.6) : 0; };
-      ctx.lineWidth = 1;
-      for (let i = 0; i < nodes.length; i++) for (let j = i + 1; j < nodes.length; j++) {
-        const a = nodes[i], b = nodes[j], dist = Math.hypot(a.x - b.x, a.y - b.y);
-        const k = Math.min(lit(a), lit(b)) * clamp(1 - dist / 80);
-        if (k > .01) { ctx.globalAlpha = k * .8; ctx.strokeStyle = C.a2; ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke(); }
-      }
-      nodes.forEach(n => {
-        const k = lit(n), drift = Math.sin(t * .8 + n.ph) * 1.2;
-        dot(ctx, n.x, n.y + drift, 2 + k * 2, k > .05 ? C.a : C.a3, .35 + k * .65, k * 10);
-      });
-      const g = ctx.createLinearGradient(sx - 60, 0, sx + 12, 0);
-      g.addColorStop(0, clear(C.a2)); g.addColorStop(.83, C.a2); g.addColorStop(1, clear(C.a2));
-      ctx.globalAlpha = .22; ctx.fillStyle = g; ctx.fillRect(sx - 60, 0, 72, h);
-      ctx.globalAlpha = .8; ctx.fillStyle = C.a2; ctx.shadowColor = C.a2; ctx.shadowBlur = 10; ctx.fillRect(sx - 1, 6, 2, h - 12); ctx.shadowBlur = 0;
-    },
-
-    // A calm heartbeat; an irregular beat is gently flagged, then settles.
-    'heart-rate-monitor'(ctx, w, h, t, C) {
-      const mid = h * .56, speed = 38, period = 150;
-      const shape = (k, odd) => {
-        const a = odd ? .35 : 1;
-        return -bell(k - 52, 3.2) * 28 * a + bell(k - 58, 2.6) * 12 * a - bell(k - 92, 9) * 6 + (odd ? -bell(k - 62, 4) * 14 : 0);
-      };
-      const yAt = (x) => { const u = x + t * speed, c = Math.floor(u / period); return mid + shape(((u % period) + period) % period, c % 3 === 2) * (h / 96); };
-      ctx.lineWidth = 2; ctx.lineJoin = ctx.lineCap = 'round';
-      const g = ctx.createLinearGradient(0, 0, w, 0);
-      g.addColorStop(0, clear(C.a)); g.addColorStop(.35, C.a); g.addColorStop(1, C.a2);
-      ctx.strokeStyle = g; ctx.shadowColor = C.a2; ctx.shadowBlur = 8; ctx.globalAlpha = 1;
-      ctx.beginPath(); for (let x = 0; x <= w; x += 1.5) { const y = yAt(x); x ? ctx.lineTo(x, y) : ctx.moveTo(x, y); } ctx.stroke(); ctx.shadowBlur = 0;
-      dot(ctx, w - 6, yAt(w - 6), 3.5, C.a2, 1, 12);
-      const first = Math.floor((t * speed) / period);
-      for (let c = first; c <= first + Math.ceil(w / period) + 1; c++) {
-        if (c % 3 !== 2) continue;
-        const bx = c * period - t * speed + 60, fade = clamp(bx / 60) * clamp((w - bx) / 60);
-        if (fade <= 0) continue;
-        const rg = ctx.createRadialGradient(bx, mid, 0, bx, mid, 34);
-        rg.addColorStop(0, C.a3); rg.addColorStop(1, clear(C.a3));
-        ctx.globalAlpha = .35 * fade; ctx.fillStyle = rg; ctx.beginPath(); ctx.arc(bx, mid, 34, 0, 7); ctx.fill();
-        ctx.globalAlpha = fade; ctx.fillStyle = C.a; ctx.font = FONT; ctx.textAlign = 'center'; ctx.fillText('drift found', bx, 22); ctx.textAlign = 'left';
-      }
-    },
-
-    // A change in code glides down and refreshes the matching doc.
-    refresh(ctx, w, h, t, C) {
-      const cols = 5, gap = 14, bw = (w - gap * (cols + 1)) / cols, bh = 20, topY = 12, botY = h - 12 - bh;
-      const step = 2.8, k = Math.floor(t / step) % cols, p = (t % step) / step;
-      ctx.font = FONT;
-      for (let i = 0; i < cols; i++) {
-        const x = gap + i * (bw + gap), on = i === k;
-        const codeGlow = on ? bell(p - .15, .12) : 0, docGlow = on ? easeOut((p - .62) / .2) * (1 - easeOut((p - .88) / .12)) : 0;
-        rr(ctx, x, topY, bw, bh, 6); ctx.globalAlpha = .22 + codeGlow * .78; ctx.fillStyle = codeGlow > .05 ? C.a2 : C.a3; ctx.shadowColor = C.a2; ctx.shadowBlur = codeGlow * 14; ctx.fill(); ctx.shadowBlur = 0;
-        rr(ctx, x, botY, bw, bh, 6); ctx.globalAlpha = .22 + docGlow * .78; ctx.fillStyle = docGlow > .05 ? C.a : C.a3; ctx.shadowColor = C.a; ctx.shadowBlur = docGlow * 14; ctx.fill(); ctx.shadowBlur = 0;
-        ctx.globalAlpha = .25; ctx.strokeStyle = C.a3; ctx.lineWidth = 1; ctx.setLineDash([2, 4]);
-        ctx.beginPath(); ctx.moveTo(x + bw / 2, topY + bh + 3); ctx.lineTo(x + bw / 2, botY - 3); ctx.stroke(); ctx.setLineDash([]);
-      }
-      const q = ease((p - .22) / .42);
-      if (q > 0 && q < 1) {
-        const x = gap + k * (bw + gap) + bw / 2, y0 = topY + bh + 3, y1 = botY - 3;
-        for (let j = 5; j >= 0; j--) { const qq = clamp(q - j * .035); dot(ctx, x, y0 + qq * (y1 - y0), 3.4 - j * .45, C.a2, 1 - j / 6, j ? 0 : 12); }
-      }
-      ctx.globalAlpha = .9; ctx.fillStyle = C.a; ctx.fillText('code', gap, topY + bh + 13); ctx.fillText('docs', gap, botY - 6);
-    },
-
-    // A draft writes itself, line by line, and each line earns a citation.
-    pencil(ctx, w, h, t, C) {
-      const lines = [.84, .64, .92, .5], lh = (h - 20) / lines.length, cycle = 12, writeEnd = .72;
-      const local = (t % cycle) / cycle, prog = local / writeEnd, fadeAll = 1 - easeOut((local - .9) / .1);
-      let cx = 14, cy = 10 + lh / 2;
-      lines.forEach((len, i) => {
-        const f = ease((prog - i / lines.length) * lines.length);
-        const y = 10 + i * lh + lh / 2, full = (w - 70) * len;
-        rr(ctx, 14, y - 3.5, full, 7, 3.5); ctx.globalAlpha = .2 * fadeAll + .1; ctx.fillStyle = C.a3; ctx.fill();
-        if (f > 0) { rr(ctx, 14, y - 3.5, Math.max(7, full * f), 7, 3.5); ctx.globalAlpha = .9 * fadeAll; ctx.fillStyle = C.a; ctx.fill(); }
-        const pop = back(((prog - (i + 1) / lines.length) * lines.length) / .5);
-        if (pop > 0) {
-          const px = 14 + full + 14;
-          dot(ctx, px, y, 6 * pop, C.a2, fadeAll, 8);
-          ctx.globalAlpha = fadeAll; ctx.fillStyle = C.bg; ctx.font = '600 8px Inter, system-ui, sans-serif'; ctx.textAlign = 'center'; ctx.fillText(String(i + 1), px, y + 3); ctx.textAlign = 'left';
-        }
-        if (f > 0 && f < 1) { cx = 14 + full * f; cy = y; }
-      });
-      if (prog < 1) { ctx.globalAlpha = (.55 + .45 * Math.sin(t * 5)) * fadeAll; ctx.fillStyle = C.a2; rr(ctx, cx + 3, cy - 8, 2, 16, 1); ctx.fill(); }
-    },
-
-    // A published page sends soft waves out; readers light up as they arrive.
-    world(ctx, w, h, t, C) {
-      const cx = w * .5, cy = h / 2, r = rng(11), readers = [];
-      for (let i = 0; i < 28; i++) readers.push({ x: 12 + r() * (w - 24), y: 10 + r() * (h - 20), ph: r() * 6 });
-      const maxR = Math.hypot(w / 2, h / 2), waves = [0, 1, 2].map(i => easeOut((t * .12 + i / 3) % 1) * maxR);
-      waves.forEach(R => { ctx.lineWidth = 1.4; ctx.globalAlpha = .45 * Math.pow(1 - R / maxR, 1.5); ctx.strokeStyle = C.a2; ctx.beginPath(); ctx.arc(cx, cy, R, 0, 7); ctx.stroke(); });
-      readers.forEach(p => {
-        const d = Math.hypot(p.x - cx, p.y - cy);
-        const k = Math.max(...waves.map(R => bell(R - d, 10)));
-        dot(ctx, p.x, p.y + Math.sin(t * .7 + p.ph), 2 + k * 2, k > .2 ? C.a : C.a3, .35 + k * .65, k * 10);
-      });
-      const lift = Math.sin(t * 1.1) * 1.5;
-      rr(ctx, cx - 11, cy - 14 + lift, 22, 28, 4); ctx.globalAlpha = 1; ctx.fillStyle = C.a; ctx.shadowColor = C.a2; ctx.shadowBlur = 16; ctx.fill(); ctx.shadowBlur = 0;
-      ctx.fillStyle = C.bg; [-7, -2, 3].forEach((o, i) => { rr(ctx, cx - 6, cy + o + lift, i === 2 ? 8 : 12, 2.4, 1.2); ctx.fill(); });
-    },
-
-    // A comet travels the loop; each stop glows as it passes.
-    infinity(ctx, w, h, t, C) {
-      const cx = w / 2, cy = h / 2, A = Math.min(w * .26, h * .85);
-      const pt = (s) => { const d = 1 + Math.sin(s) ** 2; return [cx + A * Math.cos(s) / d, cy + A * Math.sin(s) * Math.cos(s) / d]; };
-      ctx.lineWidth = 2; ctx.lineCap = 'round'; ctx.globalAlpha = .3; ctx.strokeStyle = C.a3; ctx.beginPath();
-      for (let s = 0; s <= Math.PI * 2 + .05; s += .04) { const [x, y] = pt(s); s ? ctx.lineTo(x, y) : ctx.moveTo(x, y); } ctx.stroke();
-      const head = t * .75, trail = 90;
-      for (let i = trail; i >= 0; i--) {
-        const [x, y] = pt(head - i * .025), k = Math.pow(1 - i / trail, 1.8);
-        dot(ctx, x, y, .8 + k * 3, i < 8 ? C.a2 : C.a, k, i === 0 ? 16 : 0);
-      }
-      const stops = [['code', Math.PI / 4], ['draft', Math.PI * .75], ['accept', Math.PI * 1.25], ['check', Math.PI * 1.75]];
-      ctx.font = FONT;
-      stops.forEach(([txt, s]) => {
-        const [x, y] = pt(s);
-        let d = ((head - s) % (Math.PI * 2) + Math.PI * 2) % (Math.PI * 2); if (d > Math.PI) d -= Math.PI * 2;
-        const k = d > -.2 ? bell(d, .5) : 0;
-        dot(ctx, x, y, 3 + k * 2.5, C.a, .45 + k * .55, k * 14);
-        const above = y < cy;
-        ctx.textAlign = 'center';
-        ctx.globalAlpha = .55 + k * .45; ctx.fillStyle = C.a;
-        ctx.fillText(txt, x, above ? y + 15 : y - 9);
-      });
-      ctx.textAlign = 'left';
-    }
-  };
+  // The Falconer mark as a static blueprint: outlined steps, a guide diagonal, and one solid block.
+  const ART = `<svg viewBox="-4 -4.7 35.2 35.2" fill="none" aria-hidden="true">
+    <rect x="-4" y="-4.7" width="35.2" height="35.2" stroke="currentColor" stroke-opacity=".35" vector-effect="non-scaling-stroke"/>
+    <circle cx="13.6" cy="12.9" r="20.5" stroke="currentColor" stroke-opacity=".35" stroke-dasharray="3 4" vector-effect="non-scaling-stroke"/>
+    <g stroke="currentColor" stroke-linejoin="miter" vector-effect="non-scaling-stroke" fill="currentColor">
+      <path class="fx-step" style="--i:0" vector-effect="non-scaling-stroke" d="M6.5616 12.0365L4.84115 13.757V20.949L0 25.7885H2.43219L5.8648 22.3559H13.4417L15.1622 20.6355H6.5616V12.0365Z"/>
+      <path class="fx-step" style="--i:1" vector-effect="non-scaling-stroke" d="M10.0041 8.5956L8.28362 10.316V18.9166H16.8842L18.6047 17.1962H10.0057V8.59726L10.0041 8.5956Z"/>
+      <path class="fx-step" style="--i:2" vector-effect="non-scaling-stroke" d="M18.6055 13.7574H13.4425V5.15511L11.722 6.87556V15.4745H20.321L22.0414 13.7541H18.6038L18.6055 13.7574Z"/>
+      <path class="fx-step" style="--i:3" vector-effect="non-scaling-stroke" d="M22.0459 10.3166H16.8829V1.71602L15.1641 3.43647V12.0371H23.7631L25.4819 10.3166H22.0459Z"/>
+      <rect class="fx-step" style="--i:4" vector-effect="non-scaling-stroke" x="18.597" y="0" width="8.599" height="8.599"/>
+    </g>
+  </svg>`;
 
   const init = () => {
-    const cards = [...document.querySelectorAll('.sl-markdown-content .docsite-card.docsite-card-linked')];
-    if (!cards.length || document.querySelector('.fx-track')) return;
+    const content = document.querySelector('.sl-markdown-content');
+    const cards = content ? [...content.querySelectorAll(':scope > .docsite-card.docsite-card-linked')] : [];
+    if (!cards.length || content.querySelector('.fx-track')) return;
+
     const track = document.createElement('div');
     track.className = 'fx-track';
     cards[0].before(track);
     track.append(...cards);
-    for (let el = track.previousElementSibling; el; el = el.previousElementSibling) el.classList.add('fx-center');
-    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const fine = matchMedia('(hover: hover) and (pointer: fine) and (min-width: 50em)').matches;
 
-    const strips = [];
-    cards.forEach((c, i) => {
-      c.style.setProperty('--fx-delay', `${(i % 2) * 0.04}s`);
-      c.insertAdjacentHTML('afterbegin', '<span class="fx-glow" aria-hidden="true"></span>');
-      const icon = c.querySelector('[data-card-icon]');
-      const draw = icon && scenes[icon.dataset.cardIcon];
-      if (!draw) return;
-      const canvas = document.createElement('canvas');
-      canvas.className = 'fx-canvas';
-      canvas.setAttribute('aria-hidden', 'true');
-      icon.before(canvas);
-      c.classList.add('has-canvas');
-      strips.push({ canvas, ctx: canvas.getContext('2d'), draw, visible: false, offset: i * 2.3, fade: 0 });
+    // Everything before the cards becomes the hero copy, led by the page title.
+    const copy = document.createElement('div');
+    copy.className = 'fx-hero-copy';
+    const h1 = document.querySelector('.page-title-row h1');
+    if (h1) copy.append(h1);
+    while (content.firstElementChild !== track) copy.append(content.firstElementChild);
+    copy.querySelectorAll('p').forEach(p => {
+      const a = p.querySelector('a[href*="/quickstart"]');
+      if (a && p.textContent.trim() === a.textContent.trim()) p.classList.add('fx-cta');
     });
 
-    // Brand colors, refreshed when the theme changes.
-    let C = {};
-    const readColors = () => {
-      const s = getComputedStyle(document.documentElement);
-      const v = (n, f) => (s.getPropertyValue(n).trim() || f);
-      C = { a: v('--fx-accent', '#0090b3'), a2: v('--fx-accent-2', '#5ec4dc'), a3: v('--fx-accent-3', '#a8e2ee'), bg: v('--docsite-color-bg', '#13171b') };
-    };
-    readColors();
-    new MutationObserver(readColors).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    const art = document.createElement('div');
+    art.className = 'fx-art';
+    art.innerHTML = ART;
 
-    const size = (s) => {
-      const dpr = Math.min(devicePixelRatio || 1, 2), r = s.canvas.getBoundingClientRect();
-      if (!r.width) return false;
-      const W = Math.round(r.width * dpr), H = Math.round(r.height * dpr);
-      if (s.canvas.width !== W || s.canvas.height !== H) { s.canvas.width = W; s.canvas.height = H; }
-      s.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-      s.w = r.width; s.h = r.height;
-      return true;
-    };
-    const paint = (s, t, alpha = 1) => {
-      if (!size(s)) return;
-      const ctx = s.ctx;
-      ctx.clearRect(0, 0, s.w, s.h);
-      ctx.save(); ctx.globalAlpha = 1;
-      s.draw(ctx, s.w, s.h, t + s.offset, C);
-      ctx.restore();
-      if (alpha < 1) { ctx.save(); ctx.globalCompositeOperation = 'destination-in'; ctx.globalAlpha = alpha; ctx.fillRect(0, 0, s.w, s.h); ctx.restore(); }
-    };
+    const hero = document.createElement('div');
+    hero.className = 'fx-hero';
+    hero.append(copy, art);
+    content.prepend(hero);
 
-    if (reduce || !('IntersectionObserver' in window)) {
-      cards.forEach(c => c.classList.add('is-in'));
-      strips.forEach(s => paint(s, 3));
-      addEventListener('resize', () => strips.forEach(s => paint(s, 3)));
-    } else {
-      const io = new IntersectionObserver(entries => {
-        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } });
-      }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
-      cards.forEach(c => io.observe(c));
+    const more = track.nextElementSibling;
+    if (more && more.classList.contains('docsite-card')) more.classList.add('fx-more');
 
-      // Only animate strips on screen; each fades in gently the first time.
-      const vis = new IntersectionObserver(entries => {
-        entries.forEach(e => { const s = strips.find(x => x.canvas === e.target); if (s) s.visible = e.isIntersecting; });
-      });
-      strips.forEach(s => vis.observe(s.canvas));
-      let last = performance.now(), clock = 0;
-      const loop = (now) => {
-        const dt = Math.min(.05, (now - last) / 1000); last = now; clock += dt;
-        strips.forEach(s => {
-          if (!s.visible) return;
-          s.fade = Math.min(1, s.fade + dt / .8);
-          paint(s, clock, easeOut(s.fade));
-        });
-        requestAnimationFrame(loop);
-      };
-      requestAnimationFrame(loop);
-    }
-
-
+    // Hover glow and tilt, as in the previous card design.
+    cards.forEach(c => c.insertAdjacentHTML('afterbegin', '<span class="fx-glow" aria-hidden="true"></span>'));
+    const fine = matchMedia('(hover: hover) and (pointer: fine) and (min-width: 50em)').matches;
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (!fine || reduce) return;
     cards.forEach(card => {
       card.addEventListener('pointermove', e => {
