@@ -97,6 +97,10 @@
       {
         "from": "/use-cases/generate-documents/create-a-skill-doc",
         "to": "/use-cases/skill-docs/create-skill-docs"
+      },
+      {
+        "from": "/public-docs/organize-site-navigation",
+        "to": "/public-docs/navigation-sections"
       }
     ],
     "tabs": [
@@ -279,7 +283,8 @@
             "anchor": "Get started",
             "pages": [
               "public-docs/set-up-a-docs-site.mdx",
-              "public-docs/organize-site-navigation.mdx",
+              "public-docs/docs-and-files-views.mdx",
+              "public-docs/navigation-sections.mdx",
               "public-docs/build-and-publish.mdx"
             ]
           },

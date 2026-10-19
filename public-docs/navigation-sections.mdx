@@ -1,0 +1,111 @@
+---
+title: Navigation sections
+description: Tabs, groups, anchors, and links, how each renders on the site, and how to control what's published, hidden, or private.
+sidebar:
+  order: 4
+---
+
+Tabs, groups, anchors, and links, how each renders on the site, and how to control what's published, hidden, or private.
+
+The **Docs** view is a tree of sections and pages.
+Drag to reorder or nest, and the site follows.
+Every section has a kind that decides how it renders.
+
+## The four kinds
+
+| Kind | On the site | Can hold pages | Can have a URL |
+| --- | --- | --- | --- |
+| **Group** | A labeled, collapsible list of pages in the sidebar | Yes | No |
+| **Tab** | A section in the site header. The sidebar shows only that tab's pages. | Yes | Optional |
+| **Anchor** | A heading in the sidebar that never collapses, with its pages under it | Yes | Optional |
+| **Link** | An entry in the navigation that goes to another website | No | Required |
+
+![A published site with header tabs, a sidebar anchor, and groups](/images/public-docs-navigation-site.png)
+
+### Groups
+
+A group is what **Add folder** creates.
+On the site it's a collapsible section that starts open.
+Visitors can collapse it, and the site remembers their choice; a group that holds the current page always opens.
+Groups nest inside groups, anchors, and tabs.
+
+### Tabs
+
+Tabs split a large site into top-level areas, such as Documentation and API reference.
+They sit directly under the site root; a tab nested deeper renders as a group.
+The header shows one entry per tab, and clicking one lands on its first page.
+On phones the tabs appear at the top of the sidebar.
+
+Give a tab a URL and it becomes an **external link tab**: it goes to another site and holds no pages.
+A tab with no pages and no URL isn't shown as a tab.
+
+Pages outside every tab still publish.
+They show in the sidebar when the visitor is on one of them; on a site where everything else is in tabs, a visitor on such a page sees the first tab's sidebar.
+
+### Anchors
+
+An anchor is a heading in the sidebar.
+Unlike a group it never folds, so its pages are always visible.
+Use anchors to break a long sidebar into named parts.
+An anchor with a URL and no pages renders as a plain link.
+
+### Links
+
+A link points at another website, such as a community forum or your main site.
+It can't hold pages, and its address has to start with `http://` or `https://`.
+
+## Create and change sections
+
+Right-click the **Published** header or a section, or click its **...** button.
+
+| To | Do this |
+| --- | --- |
+| Add a group | **Add folder** |
+| Add a tab | **Add tab** on the Published header |
+| Add an anchor | **Add anchor** |
+| Add an external link in the header | **Other > Add external link tab**, then enter a **Label** and a **Destination** URL |
+| Change a section's kind | **Convert to**, then **Group**, **Tab**, or **Anchor**. **Tab** is offered only for sections directly under the site root. |
+| Change a link's address | Click the section; its link dialog opens |
+| Reorder or nest | Drag, or use **Move** |
+| Rename | **Rename**, or click the name |
+| Remove | **Remove from Docs**. Pages keep their files. See [Unlink a page](/public-docs/docs-and-files-views#unlink-a-page). |
+
+Creating and converting sections needs an organization owner.
+A section with no pages is left out of the site.
+
+## Private and hidden
+
+Right-click a section and open **Publishing options**.
+The two settings are independent.
+
+| Option | What it does |
+| --- | --- |
+| **Restrict access** | Marks the section private. Nothing in it is built, so it's absent from the site, search, Ask the docs, the sitemap, and `llms.txt`. Choose **Open access** to publish it again. |
+| **Hide from navigation** | Builds the pages but leaves them out of the sidebar and search, and marks them `noindex` for search engines. Visitors can still open them from a direct link. Choose **Show in navigation** to list them again. |
+
+Access is inherited.
+A section with no setting of its own follows its parent, and the site root is public, so the menu always shows the opposite of the section's current effective state.
+A private section's pages are private too, and the setting is stored only where it differs from the parent.
+
+In the Docs tree, a section with its own setting shows a small icon after its name: a lock for **Private: not built on the site**, or a crossed-out eye for **Hidden: left out of the site menu and search**.
+Pages inside it inherit without showing the icon.
+
+To publish one page inside a private section, set `access: public` in that page's frontmatter.
+
+## Page settings
+
+Frontmatter on a page controls how it appears in the navigation and on the site.
+
+| Field | What it does |
+| --- | --- |
+| `title` | The page title. By default it's the page's first heading. |
+| `sidebarTitle` | A shorter label for the sidebar |
+| `description` | The summary shown in search results, link previews, and `llms.txt` |
+| `tableOfContents` | `false` hides the on-page table of contents |
+| `hidden` | `true` is the same as **Hide from navigation** for one page. Its children move up into its place. |
+| `access` | `public` or `private`, the same as **Publishing options** for one page. Wins over the section's setting. |
+| `noindex` | `true` keeps the page out of search engines, the sitemap, and the llms files. The page still serves. |
+| `pagefind` | `false` leaves the page out of site search and Ask the docs |
+
+A page's address comes from its file path, not from its frontmatter or its place in Docs.
+See [Docs view and Files view](/public-docs/docs-and-files-views).
