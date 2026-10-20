@@ -7,36 +7,30 @@ sidebar:
 
 Publish a Falconer space as a documentation website, with search, an AI assistant, and your own domain.
 
-Public docs turn the documents in a space into a static website that anyone can read.
-Write in the Falconer editor, or keep writing Markdown in a GitHub repository with [two-way sync](/two-way-sync/overview), and publish the result from the same place.
+Write in the Falconer editor, or keep writing Markdown in a GitHub repository with [two-way sync](/two-way-sync/overview), and publish from the same source.
 
 ![A space with a docs site, showing the site card with its address, Live status, and Site configuration](/images/public-docs-space-page.png)
 
 ## How it works
 
-A docs site belongs to one [space](/organize/spaces).
-The space's **Docs** tab is the site's navigation, and its **Files** tab holds the Markdown files, images, and configuration behind it.
+A docs site belongs to one [space](/organize/spaces). The space's **Docs** tab is the site's navigation, and its **Files** tab contains the Markdown files, images, and configuration behind it.
 
-Publishing is done in builds.
-A build is a snapshot of the space rendered as a website.
-You can preview any build privately, make one live, and go back to an earlier one at any time.
-Visitors only ever see the build you published, so you can keep editing without changing the live site.
+Publishing is done in builds. A build is a snapshot of the space rendered as a website. You can preview any build privately, make one live, and go back to an earlier one at any time. Visitors only ever see the build you published, so you can keep editing without changing the live site.
 
-The site is served from Falconer's hosting at `your-subdomain.falconer.site`.
-You can move it to a [custom domain](/public-docs/custom-domain) such as `docs.example.com` or `example.com/docs`.
+The site is served from Falconer's hosting at `your-subdomain.falconer.site`. You can move it to a [custom domain](/public-docs/custom-domain) such as `docs.example.com` or `example.com/docs`.
 
-## What visitors get
+## What visitors see
 
 - A documentation site with a sidebar, header tabs, breadcrumbs, light and dark themes, and a table of contents on every page.
 - [**Search**](/public-docs/site-search), served from an index of the published build.
 - [**Ask the docs**](/public-docs/ask-the-docs), an AI assistant that answers from the published pages with citations.
 - A page action menu with **Copy**, **View as Markdown**, **Ask the agent**, **Ask ChatGPT**, and **Ask Claude**.
 - [Search engine optimization](/public-docs/search-engine-optimization) built in: a sitemap, structured data, social images, and canonical URLs on every build.
-- [Agent-ready docs](/public-docs/agent-ready-docs): `llms.txt`, `llms-full.txt`, and a Markdown twin of every page for AI assistants and coding agents.
+- [Agent-ready docs](/public-docs/agent-ready-docs): `llms.txt`, `llms-full.txt`, and a Markdown version of every page for AI assistants and coding agents.
 
 ![The published site with the Ask the docs panel open next to a page](/images/public-docs-site-ask.png)
 
-## Who can do what
+## Author roles
 
 | Role | What they can do |
 | --- | --- |
@@ -45,9 +39,9 @@ You can move it to a [custom domain](/public-docs/custom-domain) such as `docs.e
 
 Paid add-ons such as a custom domain and white-label branding are changed by an owner who can manage billing.
 
-> **Note:** Public docs are enabled per organization. If you don't see **Set up public docsite** when creating a space, contact Falconer to turn it on.
+> **Note:** Public docs are enabled per organization. If you don't see **Set up public docsite** when creating a space, contact support@falconer.com to turn it on.
 
-## The publishing loop
+## Publishing steps
 
 1. [Set up a docs site](/public-docs/set-up-a-docs-site) on a space.
 2. Write pages and arrange them with the [Docs and Files views](/public-docs/docs-and-files-views) and [navigation sections](/public-docs/navigation-sections).
@@ -56,14 +50,11 @@ Paid add-ons such as a custom domain and white-label branding are changed by an 
 
 ## Work from a repository
 
-If the space is [synced with GitHub](/two-way-sync/set-up-two-way-sync), the site's configuration is stored as `falconer.json` at the root of the synced path and committed with your pages.
-Engineers can edit it in the repository, and the settings in Falconer update when the change is pulled.
-See the [falconer.json reference](/public-docs/falconer-json-reference).
+If the space is [synced with GitHub](/two-way-sync/set-up-two-way-sync), the site's configuration is stored as `falconer.json` at the root of the synced path and committed with your pages. Engineers can edit it in the repository, and the settings in Falconer update when the change is pulled. See the [falconer.json reference](/public-docs/falconer-json-reference).
 
 ## Automate with the API and MCP
 
-Everything on these pages is also available through the Falconer MCP and the public API: creating sites, starting builds, publishing, setting redirects, and managing custom domains.
-See [Automate with MCP and the API](/public-docs/automate).
+Everything on these pages is also available through the Falconer MCP and the public API: creating sites, starting builds, publishing, setting redirects, and managing custom domains. See [Automate with MCP and the API](/public-docs/automate).
 
 ## Learn more
 
