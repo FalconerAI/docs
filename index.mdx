@@ -7,7 +7,7 @@ pagefind: false
 
 Falconer is a fully end-to-end knowledge platform that provides humans and agents with auto-updating documentation.
 
-[Set up Falconer](/quickstart/)
+[Quickstart](/quickstart/)
 
 <Card icon="plug" url="/set-up/connect-sources" cta="Connect sources">
 
@@ -75,20 +75,29 @@ page-context-menu{display:none!important}
 .fx-h1-logo{display:inline-flex;align-items:center;flex:none;transform:translateY(4.25px)}
 .fx-h1-logo img{display:block;height:.82em;width:auto;margin:0!important;padding:0!important;position:static!important;transform:none!important}
 .fx-h1-text{font-size:.97em}
-/* The title carries the logo on this page, so hide it in the header */
-header .site-title img{display:none!important}
 :root[data-theme="light"] .fx-h1-logo img[data-variant="dark"],
 :root:not([data-theme="light"]) .fx-h1-logo img[data-variant="light"]{display:none!important}
 
 /* Quickstart CTA */
 .fx-hero-copy .fx-cta{margin-top:2rem}
-.fx-cta a{display:inline-flex;align-items:center;gap:.6rem;padding:.7rem 1.15rem;border-radius:.5rem;background:var(--docsite-color-primary);color:var(--docsite-color-on-primary);font-weight:600;font-size:1rem;line-height:1;text-decoration:none}
-.fx-cta a::after{content:"→";font-weight:500}
-.fx-cta a:hover{background:var(--docsite-color-primary-hover);color:var(--docsite-color-on-primary)}
+/* Marketing StackButton (brand variant): square face with two shadow layers that fan out on hover */
+.fx-cta a{position:relative;display:inline-flex;align-items:center;justify-content:center;padding:13px 40px;color:#fff;font-weight:500;font-size:1rem;line-height:1;text-decoration:none}
+.fx-cta a:hover{color:#fff;text-decoration:none}
+.fx-cta .btn-face,.fx-cta .btn-shadow{position:absolute;inset:0;background:var(--docsite-color-primary);border:1px solid var(--fx-accent-2)}
+.fx-cta .btn-face{z-index:3}
+.fx-cta .btn-text{position:relative;z-index:4}
+.fx-cta .btn-shadow{opacity:0;transition:transform .4s ease,opacity .4s ease}
+.fx-cta .btn-shadow:nth-child(1){z-index:1}
+.fx-cta .btn-shadow:nth-child(2){z-index:2}
+.fx-cta a:hover .btn-shadow:nth-child(1){opacity:.5;transform:translate(24px,24px)}
+.fx-cta a:hover .btn-shadow:nth-child(2){opacity:.75;transform:translate(12px,12px)}
 .fx-cta a:focus-visible{outline:2px solid var(--docsite-color-primary-ring);outline-offset:3px}
+@media (max-width:640px){.fx-cta a{padding:12px 32px}.fx-cta a:hover .btn-shadow:nth-child(1){transform:translate(16px,16px)}.fx-cta a:hover .btn-shadow:nth-child(2){transform:translate(8px,8px)}}
+@media (max-width:480px){.fx-cta a{padding:14px 28px;width:100%;max-width:280px}}
+@media (prefers-reduced-motion:reduce){.fx-cta .btn-shadow{transition:none}}
 
 /* Cards: one bordered strip, cells split by hairlines */
-.sl-markdown-content .fx-track{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:3.5rem;border:1px solid var(--docsite-color-border);border-radius:.75rem;overflow:hidden}
+.sl-markdown-content .fx-track{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:3.5rem;border:1px solid var(--docsite-color-border);border-radius:0;overflow:hidden}
 .fx-track>.docsite-card{margin:0!important;padding:2rem 2rem 2.25rem;border:0!important;border-radius:0;display:flex;flex-direction:column;align-items:flex-start;text-align:start;transition:none;background:transparent}
 .fx-track>.docsite-card+.docsite-card{border-left:1px solid var(--docsite-color-border)!important}
 .fx-track>.docsite-card:hover{background:transparent}
@@ -185,39 +194,17 @@ header .site-title img{display:none!important}
     copy.className = 'fx-hero-copy';
     const h1 = document.querySelector('.page-title-row h1');
     if (h1) {
-      // Swap the word "Falconer" in the title for the header's logo lockup (both theme variants).
-      const imgs = [...document.querySelectorAll('header .site-title img')];
-      const text = h1.textContent.trim();
-      if (imgs.length && /^Falconer\b/.test(text)) {
-        const logo = document.createElement('span');
-        logo.className = 'fx-h1-logo';
-        imgs.forEach(img => {
-          const c = img.cloneNode();
-          c.alt = '';
-          // The header hides one variant per theme; tag each copy so our own rule removes it from layout.
-          c.dataset.variant = img.classList.contains('light:sl-hidden') ? 'dark' : 'light';
-          // Drop the header's classes so its per-variant spacing does not follow the copy.
-          c.removeAttribute('class');
-          c.removeAttribute('style');
-          logo.append(c);
-        });
-        const label = document.createElement('span');
-        label.className = 'sr-only';
-        label.textContent = 'Falconer';
-        const row = document.createElement('span');
-        row.className = 'fx-h1-row';
-        const word = document.createElement('span');
-        word.className = 'fx-h1-text';
-        word.textContent = text.replace(/^Falconer\s*/, '');
-        row.append(logo, label, word);
-        h1.replaceChildren(row);
-      }
       copy.append(h1);
     }
     while (content.firstElementChild !== track) copy.append(content.firstElementChild);
     copy.querySelectorAll('p').forEach(p => {
       const a = p.querySelector('a[href*="/quickstart"]');
-      if (a && p.textContent.trim() === a.textContent.trim()) p.classList.add('fx-cta');
+      if (a && p.textContent.trim() === a.textContent.trim()) {
+        p.classList.add('fx-cta');
+        const label = a.textContent.trim();
+        a.innerHTML = '<span class="btn-shadow"></span><span class="btn-shadow"></span><span class="btn-face"></span><span class="btn-text"></span>';
+        a.querySelector('.btn-text').textContent = label;
+      }
     });
 
     const art = document.createElement('div');
@@ -299,6 +286,31 @@ header .site-title img{display:none!important}
     cards.forEach(c => {
       const key = c.querySelector('[data-card-icon]')?.dataset.cardIcon;
       if (MARKS[key]) c.insertAdjacentHTML('beforeend', `<span class="fx-mark fx-mark-${key}" aria-hidden="true">${MARKS[key]}</span>`);
+    });
+
+    // Custom card icons in place of the Tabler set, drawn in a single color (currentColor).
+    const ICONS = {
+      // Hub with four connected sources
+      plug: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="3"/>
+        <circle cx="4.5" cy="4.5" r="2"/><circle cx="19.5" cy="4.5" r="2"/><circle cx="4.5" cy="19.5" r="2"/><circle cx="19.5" cy="19.5" r="2"/>
+        <path d="M6 6l3.9 3.9M18 6l-3.9 3.9M6 18l3.9-3.9M18 18l-3.9-3.9"/>
+      </svg>`,
+      // Scan frame with a health pulse running through it
+      'heart-rate-monitor': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M3 8V5a2 2 0 0 1 2-2h3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3"/>
+        <path d="M6.5 12h3l1.5-3 2 6 1.5-3h3"/>
+      </svg>`,
+      // Product auto-update icon (ui/public/app-icons/auto-update-light.svg), recolored to currentColor
+      refresh: `<svg viewBox="0 0 15 15" fill="none" aria-hidden="true">
+        <path d="M3.92351 1.81802C3.1934 2.30061 2.56548 2.92224 2.07556 3.64745M1.07069 6.04644C0.900265 6.90413 0.900265 7.78698 1.07069 8.64467M2.04373 11.0481C2.52632 11.7782 3.14796 12.4061 3.87316 12.896M6.27215 13.9011C7.12793 14.0708 8.00868 14.0708 8.86446 13.9011M11.2738 12.9279C12.0039 12.4454 12.6318 11.8237 13.1217 11.0985M14.1268 8.69946C14.2973 7.84177 14.2973 6.95892 14.1268 6.10123M13.1535 3.69779C12.6709 2.96769 12.0493 2.33976 11.324 1.84985M8.92536 0.844716C8.06863 0.669401 7.18579 0.664367 6.32712 0.829903M7.59869 14.0389C9.3666 14.0389 11.0621 13.3366 12.3122 12.0865C13.5623 10.8364 14.2646 9.14089 14.2646 7.37297C14.2646 5.60505 13.5623 3.90955 12.3122 2.65944C11.0621 1.40933 9.3666 0.707031 7.59869 0.707031" stroke="currentColor" stroke-width="1" stroke-linejoin="round"/>
+        <path d="M10.3814 7.28835L6.6112 11.3278C6.57124 11.3705 6.51851 11.399 6.46094 11.409C6.40338 11.419 6.34411 11.4101 6.29209 11.3835C6.24006 11.3569 6.1981 11.3141 6.17253 11.2615C6.14697 11.209 6.13918 11.1496 6.15036 11.0922L6.64385 8.62374L4.70388 7.89528C4.66222 7.8797 4.62506 7.85403 4.59574 7.82059C4.56641 7.78714 4.54583 7.74695 4.53583 7.7036C4.52582 7.66026 4.52671 7.61511 4.53842 7.5722C4.55012 7.52928 4.57227 7.48993 4.60289 7.45767L8.37309 3.41817C8.41304 3.37553 8.46578 3.34705 8.52335 3.33701C8.58091 3.32697 8.64018 3.33593 8.6922 3.36253C8.74423 3.38914 8.78619 3.43194 8.81176 3.48448C8.83732 3.53702 8.84511 3.59646 8.83393 3.65381L8.33909 6.12497L10.2791 6.85242C10.3204 6.86811 10.3573 6.89374 10.3864 6.92706C10.4155 6.96037 10.4359 7.00034 10.4459 7.04343C10.4559 7.08652 10.4551 7.13141 10.4436 7.17412C10.4321 7.21684 10.4103 7.25607 10.38 7.28835H10.3814Z" fill="currentColor"/>
+      </svg>`
+    };
+    cards.forEach(c => {
+      const slot = c.querySelector('[data-card-icon]');
+      const icon = ICONS[slot?.dataset.cardIcon];
+      if (icon) slot.innerHTML = icon;
     });
 
     // Hover glow and tilt, as in the previous card design.
