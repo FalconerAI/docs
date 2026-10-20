@@ -20,23 +20,15 @@ What to check when a page, build, link, image, domain, or redirect doesn't behav
 
 ## Changes aren't showing
 
-- Edits only reach visitors in a build you publish.
-  Check **Builds** for the build that's live and when it was made.
+- Edits only reach visitors in a build you publish. Check **Builds** for the build that's live and when it was made.
 - Publishing reaches every edge location within about a minute; the site may briefly show the previous build.
-- A page you moved or renamed in **Files** has a new address.
-  The old one redirects after the next published build.
+- A page you moved or renamed in **Files** has a new address. The old one redirects after the next published build.
 
 ## A build failed or is stuck
 
-- A build that hasn't progressed for 30 minutes is marked **Failed** with "Build stopped unexpectedly".
-  Start a new one; one build runs at a time per site.
-- **Failed** means the build didn't finish.
-  Start a new one to retry.
-  A page with a problem, such as an OpenAPI page that can't find its document or a diagram that doesn't parse, shows an error in its place instead of failing the build, so a build that keeps failing isn't caused by one page.
-  Contact Falconer with the build number.
-- **Indexing** that never reaches **Indexed** keeps search and Ask the docs on the previous build.
-  Click **Index docsite** on the build to run it again.
-  See [Build status](/public-docs/build-and-publish#build-status).
+- A build that hasn't progressed for 30 minutes is marked **Failed** with "Build stopped unexpectedly". Start a new one; one build runs at a time per site.
+- **Failed** means the build didn't finish. Start a new one to retry. A page with a problem, such as an OpenAPI page that can't find its document or a diagram that doesn't parse, shows an error in its place instead of failing the build, so a build that keeps failing isn't caused by one page. Contact Falconer with the build number.
+- **Indexing** that never reaches **Indexed** keeps search and Ask the docs on the previous build. Click **Index docsite** on the build to run it again. See [Build status](/public-docs/build-and-publish#build-status).
 
 ## Issues lists broken links
 
@@ -48,24 +40,18 @@ Each broken link has a reason:
 | Heading not found | The page exists but has no heading with that anchor. Copy the anchor from the heading's link on the site. |
 | Document not published | A reference chip points at a Falconer document that isn't a page on this site. Link the document into Docs, or replace the chip with a plain link. |
 
-Links to other websites and to files that aren't Markdown are never reported.
-See [Links between pages](/public-docs/write-pages#links-between-pages).
+Links to other websites and to files that aren't Markdown are never reported. See [Links between pages](/public-docs/write-pages#links-between-pages).
 
 ## An image isn't showing
 
-- The file has to be in the space's **Files** view.
-  An image on another website is left as a plain URL and loads only if that site allows it.
+- The file has to be in the space's **Files** view. An image on another website is left as a plain URL and loads only if that site allows it.
 - The format has to be one the site serves: SVG, PNG, JPEG, GIF, WebP, AVIF, BMP, or ICO.
 - The file has to be under 100 MB, or 5 MB for a logo or favicon.
-- Check the path from the page to the image, the same way as a link.
-  See [Images and files](/public-docs/write-pages#images-and-files).
+- Check the path from the page to the image, the same way as a link. See [Images and files](/public-docs/write-pages#images-and-files).
 
 ## Search or Ask the docs gives old answers
 
-Both read from the index of the published build, and indexing runs after the build.
-If you published before indexing finished, they answer from the previously indexed build until it completes.
-Wait for **Indexed** on the live build, or click **Index docsite** on it.
-See [When results update](/public-docs/site-search#when-results-update).
+Both read from the index of the published build, and indexing runs after the build. If you published before indexing finished, they answer from the previously indexed build until it completes. Wait for **Indexed** on the live build, or click **Index docsite** on it. See [When results update](/public-docs/site-search#when-results-update).
 
 ## A page is on the site but not in search
 
@@ -77,14 +63,12 @@ See [When results update](/public-docs/site-search#when-results-update).
 
 **Subdomain**
 
-- The CNAME has to point directly at `cname.falconer.com` and have propagated.
-  New records can take a few minutes; click **Check now** after waiting.
+- The CNAME has to point directly at `cname.falconer.com` and have propagated. New records can take a few minutes; click **Check now** after waiting.
 
 **Path on your domain**
 
 - The site has to be published before the check can succeed.
-- The forwarding rule has to pass the Falconer host name, keep the path, and forward both `/docs` and `/docs/*`.
-  The check message says which part failed: a redirect, a 404, a wrong host header, your own page being served instead of the docs, or an HTTPS problem.
+- The forwarding rule has to pass the Falconer host name, keep the path, and forward both `/docs` and `/docs/*`. The check message says which part failed: a redirect, a 404, a wrong host header, your own page being served instead of the docs, or an HTTPS problem.
 - Don't cache the docs path on your side.
 
 See [Domain status](/public-docs/custom-domain#domain-status) for what each status means.
@@ -93,17 +77,12 @@ See [Domain status](/public-docs/custom-domain#domain-status) for what each stat
 
 - Redirects take effect on the next build you publish.
 - Each old path can appear once, and matching ignores letter case and trailing slashes.
-- A site can have 1,000 redirects after wildcards are expanded; above that, publishing is refused.
-  Remove or combine rules with wildcards.
-  See [Redirects](/public-docs/redirects).
+- A site can have 1,000 redirects after wildcards are expanded; above that, publishing is refused. Remove or combine rules with wildcards. See [Redirects](/public-docs/redirects).
 
 ## Search engines show the password page
 
-That's expected on a password-protected site: crawlers only ever see the password page.
-To keep the site out of results entirely, turn off **Allow search engines** in [Search and sharing](/public-docs/customize-your-site#search-and-sharing).
+That's expected on a password-protected site: crawlers only ever see the password page. To keep the site out of results entirely, turn off **Allow search engines** in [Search and sharing](/public-docs/customize-your-site#search-and-sharing).
 
 ## Ask the docs says the limit was reached
 
-The assistant has daily fair-use limits per visitor, per network, and per organization.
-Questions are refused until the limit resets.
-See [Plans and limits](/public-docs/plans-and-limits#ask-the-docs).
+The assistant has daily fair-use limits per visitor, per network, and per organization. Questions are refused until the limit resets. See [Plans and limits](/public-docs/plans-and-limits#ask-the-docs).

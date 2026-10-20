@@ -7,9 +7,7 @@ sidebar:
 
 How a page gets its title, address, and summary, and how links, images, and snippets work on the site.
 
-A page is a Falconer document: one you write in the editor, or a Markdown file synced from a repository.
-Everything on this page applies to both.
-For where pages live and how they're placed in the navigation, see [Docs view and Files view](/public-docs/docs-and-files-views).
+A page is a Falconer document: one you write in the editor, or a Markdown file synced from a repository. Everything on this page applies to both. For where pages live and how they're placed in the navigation, see [Docs view and Files view](/public-docs/docs-and-files-views).
 
 ## What makes a page
 
@@ -23,8 +21,7 @@ For where pages live and how they're placed in the navigation, see [Docs view an
 
 ## Page settings
 
-Frontmatter is the YAML block at the top of the page's Markdown.
-These keys change how the page is built.
+Frontmatter is the YAML block at the top of the page's Markdown. These keys change how the page is built.
 
 | Key | What it does |
 | --- | --- |
@@ -51,25 +48,19 @@ Link to another page by its file path, and Falconer rewrites the link to the pag
 - The extension is optional: `install` finds `install.md`, `install.mdx`, or `install/index.md`.
 - Anchors and query strings are kept: `/guides/install#requirements`.
 
-A link that matches no page is left as written, and so are external links.
-A reference chip to a Falconer document only works when that document is a page on the site.
+A link that matches no page is left as written, and so are external links. A reference chip to a Falconer document only works when that document is a page on the site.
 
-Every build checks the links between pages and lists the broken ones, with the reason, under **Issues**.
-See [Issues](/public-docs/build-and-publish#issues).
+Every build checks the links between pages and lists the broken ones, with the reason, under **Issues**. See [Issues](/public-docs/build-and-publish#issues).
 
 ## Images and files
 
-Reference an image by its path, the same way as a link, or add it in the editor and Falconer stores it for you.
-The file has to be in the space's **Files** view; images on other websites are left as plain URLs.
+Reference an image by its path, the same way as a link, or add it in the editor and Falconer stores it for you. The file has to be in the space's **Files** view; images on other websites are left as plain URLs.
 
-- Formats: SVG, PNG, JPEG, GIF, WebP, AVIF, BMP, and ICO.
-  SVGs are sanitized before they're served.
-- Each image can be up to 100 MB.
-  Logos and favicons set in **Site configuration** are limited to 5 MB.
+- Formats: SVG, PNG, JPEG, GIF, WebP, AVIF, BMP, and ICO. SVGs are sanitized before they're served.
+- Each image can be up to 100 MB. Logos and favicons set in **Site configuration** are limited to 5 MB.
 - An image the build can't find, read, or recognize is left out of the page.
 - Moving an image in **Files** keeps it working; Falconer rewrites the pages that reference it.
-- In a space synced with GitHub, images you add in the editor are committed to the repository.
-  See [Images and other files](/two-way-sync/images-and-files).
+- In a space synced with GitHub, images you add in the editor are committed to the repository. See [Images and other files](/two-way-sync/images-and-files).
 
 To let visitors download a PDF or another file, link to its path in **Files**.
 

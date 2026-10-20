@@ -109,9 +109,8 @@
     ],
     "tabs": [
       {
-        "tab": "Documentation",
+        "tab": "Knowledge base",
         "pages": [
-          "index.mdx",
           "quickstart.mdx",
           {
             "anchor": "Get started",
@@ -270,6 +269,16 @@
         "pages": [
           "public-docs/overview.mdx",
           {
+            "anchor": "Get started",
+            "pages": [
+              "public-docs/set-up-a-docs-site.mdx",
+              "public-docs/docs-and-files-views.mdx",
+              "public-docs/write-pages.mdx",
+              "public-docs/navigation-sections.mdx",
+              "public-docs/build-and-publish.mdx"
+            ]
+          },
+          {
             "anchor": "Find answers",
             "pages": [
               "public-docs/site-search.mdx",
@@ -281,16 +290,6 @@
             "pages": [
               "public-docs/search-engine-optimization.mdx",
               "public-docs/agent-ready-docs.mdx"
-            ]
-          },
-          {
-            "anchor": "Get started",
-            "pages": [
-              "public-docs/set-up-a-docs-site.mdx",
-              "public-docs/docs-and-files-views.mdx",
-              "public-docs/write-pages.mdx",
-              "public-docs/navigation-sections.mdx",
-              "public-docs/build-and-publish.mdx"
             ]
           },
           {
@@ -308,12 +307,15 @@
               "public-docs/components.mdx",
               "public-docs/falconer-json-reference.mdx",
               "public-docs/plans-and-limits.mdx",
-              "public-docs/troubleshooting.mdx",
-              "public-docs/automate.mdx"
+              "public-docs/automate.mdx",
+              "public-docs/troubleshooting.mdx"
             ]
           }
         ]
       }
+    ],
+    "pages": [
+      "index.mdx"
     ]
   }
 }

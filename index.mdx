@@ -7,8 +7,6 @@ pagefind: false
 
 Falconer is a fully end-to-end knowledge platform that provides humans and agents with auto-updating documentation.
 
-Connect your code and tools, catch docs that have drifted, and keep every page current as your product changes.
-
 [Set up Falconer](/quickstart/)
 
 <Card icon="plug" url="/set-up/connect-sources" cta="Connect sources">
@@ -34,6 +32,8 @@ Knowledge Health scans your docs and sources for gaps, contradictions, and code 
 Docs update when related code changes, automatically or after your review.
 
 </Card>
+
+Connect your code and tools, catch docs that have drifted, and keep every page current as your product changes.
 
 <Card icon="book">
 
@@ -69,6 +69,17 @@ page-context-menu{display:none!important}
 @keyframes fx-step{from{fill-opacity:.06}to{fill-opacity:1}}
 @media (prefers-reduced-motion:reduce){.fx-art .fx-step{animation:none}}
 
+/* Logo lockup standing in for the word "Falconer" in the title, on the same line as "docs" */
+.fx-hero h1:has(.fx-h1-row){display:block;text-align:start;justify-content:flex-start}
+.fx-h1-row{display:inline-flex;flex-direction:row;justify-content:flex-start;align-items:center;gap:.28em;line-height:1;white-space:nowrap}
+.fx-h1-logo{display:inline-flex;align-items:center;flex:none;transform:translateY(4.25px)}
+.fx-h1-logo img{display:block;height:.82em;width:auto;margin:0!important;padding:0!important;position:static!important;transform:none!important}
+.fx-h1-text{font-size:.97em}
+/* The title carries the logo on this page, so hide it in the header */
+header .site-title img{display:none!important}
+:root[data-theme="light"] .fx-h1-logo img[data-variant="dark"],
+:root:not([data-theme="light"]) .fx-h1-logo img[data-variant="light"]{display:none!important}
+
 /* Quickstart CTA */
 .fx-hero-copy .fx-cta{margin-top:2rem}
 .fx-cta a{display:inline-flex;align-items:center;gap:.6rem;padding:.7rem 1.15rem;border-radius:.5rem;background:var(--docsite-color-primary);color:var(--docsite-color-on-primary);font-weight:600;font-size:1rem;line-height:1;text-decoration:none}
@@ -102,11 +113,30 @@ page-context-menu{display:none!important}
 .fx-track p{margin-top:.75rem;color:var(--docsite-color-foreground-muted);line-height:1.6}
 .fx-track .docsite-card-link:focus-visible{outline:2px solid var(--docsite-color-primary);outline-offset:-2px}
 
+/* Line under the cards */
+.sl-markdown-content .fx-tagline{margin-top:1.5rem!important;max-width:40rem;font-size:1.0625rem;line-height:1.6;color:var(--docsite-color-foreground)}
+
+/* Product watermarks in the card corners */
+.fx-mark{position:absolute;top:-.25rem;right:-.25rem;width:11.5rem;color:var(--fx-accent);opacity:.22;pointer-events:none;z-index:-1;transition:opacity .4s,transform .6s cubic-bezier(.2,.7,.2,1);-webkit-mask-image:radial-gradient(130% 130% at 100% 0%,#000 45%,transparent 82%);mask-image:radial-gradient(130% 130% at 100% 0%,#000 45%,transparent 82%)}
+.fx-mark svg{display:block;width:100%;height:auto;overflow:visible}
+.fx-track>.docsite-card:hover .fx-mark{opacity:.4;transform:translate(-2px,2px) scale(1.03)}
+.fx-mark .fx-flow{stroke-dasharray:3 7;animation:fx-flow 1.4s linear infinite}
+.fx-mark .fx-orbit{transform-origin:110px 80px;animation:fx-rot 20s linear infinite}
+.fx-mark .fx-ripple{transform-origin:110px 80px;animation:fx-ripple 3s ease-out infinite}
+.fx-mark .fx-ripple+.fx-ripple{animation-delay:1.5s}
+@keyframes fx-ripple{from{transform:scale(1);opacity:.7}to{transform:scale(2.7);opacity:0}}
+.fx-mark .fx-pulse{animation:fx-pulse 2.4s ease-in-out infinite}
+@keyframes fx-flow{to{stroke-dashoffset:-20}}
+@keyframes fx-rot{to{transform:rotate(360deg)}}
+@keyframes fx-pulse{0%,100%{opacity:.35}50%{opacity:1}}
+@media (prefers-reduced-motion:reduce){.fx-mark *{animation:none!important}}
+@media (max-width:64em){.fx-mark{display:none}}
+
 /* Learn more: plain row of links under the strip, not a card */
-.sl-markdown-content .fx-more{margin-top:2.5rem!important;padding:0;border:0;border-radius:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:.5rem 2rem}
+.sl-markdown-content .fx-more{margin-top:2.5rem!important;padding:0;border:0;border-radius:0;display:flex;flex-wrap:wrap;align-items:baseline;gap:.5rem 1.75rem}
 .fx-more [data-card-icon]{display:none}
 .fx-more .sl-heading-wrapper{margin:0}
-.fx-more h2{font-size:.8125rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--docsite-color-foreground-faint)}
+.fx-more h2{font-size:1rem;font-weight:600;color:var(--docsite-color-foreground-faint)}
 .fx-more .sl-anchor-link{display:none}
 .fx-more ul{display:flex;flex-wrap:wrap;gap:.5rem 1.75rem;margin:0!important;padding:0;list-style:none}
 .fx-more li{margin:0!important}
@@ -154,7 +184,36 @@ page-context-menu{display:none!important}
     const copy = document.createElement('div');
     copy.className = 'fx-hero-copy';
     const h1 = document.querySelector('.page-title-row h1');
-    if (h1) copy.append(h1);
+    if (h1) {
+      // Swap the word "Falconer" in the title for the header's logo lockup (both theme variants).
+      const imgs = [...document.querySelectorAll('header .site-title img')];
+      const text = h1.textContent.trim();
+      if (imgs.length && /^Falconer\b/.test(text)) {
+        const logo = document.createElement('span');
+        logo.className = 'fx-h1-logo';
+        imgs.forEach(img => {
+          const c = img.cloneNode();
+          c.alt = '';
+          // The header hides one variant per theme; tag each copy so our own rule removes it from layout.
+          c.dataset.variant = img.classList.contains('light:sl-hidden') ? 'dark' : 'light';
+          // Drop the header's classes so its per-variant spacing does not follow the copy.
+          c.removeAttribute('class');
+          c.removeAttribute('style');
+          logo.append(c);
+        });
+        const label = document.createElement('span');
+        label.className = 'sr-only';
+        label.textContent = 'Falconer';
+        const row = document.createElement('span');
+        row.className = 'fx-h1-row';
+        const word = document.createElement('span');
+        word.className = 'fx-h1-text';
+        word.textContent = text.replace(/^Falconer\s*/, '');
+        row.append(logo, label, word);
+        h1.replaceChildren(row);
+      }
+      copy.append(h1);
+    }
     while (content.firstElementChild !== track) copy.append(content.firstElementChild);
     copy.querySelectorAll('p').forEach(p => {
       const a = p.querySelector('a[href*="/quickstart"]');
@@ -170,8 +229,77 @@ page-context-menu{display:none!important}
     hero.append(copy, art);
     content.prepend(hero);
 
-    const more = track.nextElementSibling;
-    if (more && more.classList.contains('docsite-card')) more.classList.add('fx-more');
+    let next = track.nextElementSibling;
+    if (next && next.tagName === 'P') { next.classList.add('fx-tagline'); next = next.nextElementSibling; }
+    if (next && next.classList.contains('docsite-card')) next.classList.add('fx-more');
+
+    // Watermark per card: a small picture of the product surface it describes.
+    const MARKS = {
+      // Sources orbiting and streaming into the Falconer hub
+      plug: `<svg viewBox="0 0 220 160" fill="none" stroke="currentColor" stroke-width="1.5" font-family="inherit">
+        <circle cx="110" cy="80" r="68" stroke-dasharray="2 5" stroke-opacity=".6"/>
+        <g class="fx-orbit"><circle cx="110" cy="80" r="38" stroke-dasharray="1 4"/><circle cx="148" cy="80" r="3" fill="currentColor" stroke="none"/><circle cx="91" cy="47" r="2.5" style="fill:var(--fx-accent-2)" stroke="none"/><circle cx="91" cy="113" r="2" fill="currentColor" stroke="none"/></g>
+        <g class="fx-flow" style="stroke:var(--fx-accent-2)" stroke-width="2">
+          <path d="M165 80H134"/><path d="M137.5 127.6L122 100.8"/><path d="M82.5 127.6L98 100.8"/><path d="M55 80H86"/><path d="M82.5 32.4L98 59.2"/><path d="M137.5 32.4L122 59.2"/>
+        </g>
+        <g>
+          <circle cx="178" cy="80" r="13" fill="currentColor" fill-opacity=".12"/><path transform="translate(170 72) scale(.6667)" fill="currentColor" stroke="none" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.070 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.930 0-1.310.465-2.380 1.235-3.220-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.300 1.230.960-.267 1.980-.399 3-.405 1.020.006 2.040.138 3 .405 2.280-1.552 3.285-1.230 3.285-1.230.645 1.653.240 2.873.120 3.176.765.840 1.230 1.910 1.230 3.220 0 4.610-2.805 5.625-5.475 5.920.420.360.810 1.096.810 2.220 0 1.606-.015 2.896-.015 3.286 0 .315.210.690.825.570C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+          <circle cx="144" cy="139" r="13" fill="currentColor" fill-opacity=".12"/><path transform="translate(136 131) scale(.6667)" fill="currentColor" stroke="none" d="M2.886 4.18A11.982 11.982 0 0 1 11.99 0C18.624 0 24 5.376 24 12.009c0 3.64-1.62 6.903-4.18 9.105L2.887 4.18ZM1.817 5.626l16.556 16.556c-.524.33-1.075.62-1.65.866L.951 7.277c.247-.575.537-1.126.866-1.65ZM.322 9.163l14.515 14.515c-.71.172-1.443.282-2.195.322L0 11.358a12 12 0 0 1 .322-2.195Zm-.17 4.862 9.823 9.824a12.020 12.020 0 0 1-9.824-9.824Z"/>
+          <circle cx="76" cy="139" r="13" fill="currentColor" fill-opacity=".12"/><path transform="translate(68 131) scale(.6667)" fill="currentColor" stroke="none" d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z"/>
+          <circle cx="42" cy="80" r="13" fill="currentColor" fill-opacity=".12"/><path transform="translate(34 72) scale(.6667)" fill="currentColor" stroke="none" d="M4.459 4.208c.746.606 1.026.56 2.428.466l13.215-.793c.28 0 .047-.28-.046-.326L17.86 1.968c-.42-.326-.981-.7-2.055-.607L3.01 2.295c-.466.046-.56.28-.374.466zm.793 3.080v13.904c0 .747.373 1.027 1.214.98l14.523-.84c.841-.046.935-.56.935-1.167V6.354c0-.606-.233-.933-.748-.887l-15.177.887c-.56.047-.747.327-.747.933zm14.337.745c.093.42 0 .84-.42.888l-.7.14v10.264c-.608.327-1.168.514-1.635.514-.748 0-.935-.234-1.495-.933l-4.577-7.186v6.952L12.21 19s0 .84-1.168.84l-3.222.186c-.093-.186 0-.653.327-.746l.84-.233V9.854L7.822 9.76c-.094-.42.14-1.026.793-1.073l3.456-.233 4.764 7.279v-6.44l-1.215-.139c-.093-.514.28-.887.747-.933zM1.936 1.035l13.31-.98c1.634-.14 2.055-.047 3.082.7l4.249 2.986c.7.513.934.653.934 1.213v16.378c0 1.026-.373 1.634-1.68 1.726l-15.458.934c-.98.047-1.448-.093-1.962-.747l-3.129-4.060c-.56-.747-.793-1.306-.793-1.960V2.667c0-.839.374-1.54 1.447-1.632z"/>
+          <circle cx="76" cy="21" r="13" fill="currentColor" fill-opacity=".12"/><path transform="translate(68 13) scale(.6667)" fill="currentColor" stroke="none" d="M14.727 6.727H14V0H4.91c-.905 0-1.637.732-1.637 1.636v20.728c0 .904.732 1.636 1.636 1.636h14.182c.904 0 1.636-.732 1.636-1.636V6.727h-6zm-.545 10.455H7.09v-1.364h7.090v1.364zm2.727-3.273H7.091v-1.364h9.818v1.364zm0-3.273H7.091V9.273h9.818v1.363zM14.727 6h6l-6-6v6z"/>
+          <circle cx="144" cy="21" r="13" fill="currentColor" fill-opacity=".12"/><path transform="translate(136 13) scale(.6667)" fill="currentColor" stroke="none" d="M.87 18.257c-.248.382-.53.875-.763 1.245a.764.764 0 0 0 .255 1.04l4.965 3.054a.764.764 0 0 0 1.058-.26c.199-.332.454-.763.733-1.221 1.967-3.247 3.945-2.853 7.508-1.146l4.957 2.337a.764.764 0 0 0 1.028-.382l2.364-5.346a.764.764 0 0 0-.382-1 599.851 599.851 0 0 1-4.965-2.361C10.911 10.970 5.224 11.185.87 18.257zM23.131 5.743c.249-.405.531-.875.764-1.25a.764.764 0 0 0-.256-1.034L18.675.404a.764.764 0 0 0-1.058.26c-.195.335-.451.763-.734 1.225-1.966 3.246-3.945 2.850-7.508 1.146L4.437.694a.764.764 0 0 0-1.027.382L1.046 6.422a.764.764 0 0 0 .382 1c1.039.49 3.105 1.467 4.965 2.361 6.698 3.246 12.392 3.029 16.738-4.040z"/>
+        </g>
+        <circle class="fx-ripple" cx="110" cy="80" r="22" style="stroke:var(--fx-accent-2)"/><circle class="fx-ripple" cx="110" cy="80" r="22" style="stroke:var(--fx-accent-2)"/>
+        <circle cx="110" cy="80" r="22" fill="currentColor" fill-opacity=".18" stroke-width="2"/>
+        <path transform="translate(97.8 68.4) scale(.9)" fill="currentColor" stroke="none" d="M6.5616 12.0365L4.84115 13.757V20.949L0 25.7885H2.43219L5.8648 22.3559H13.4417L15.1622 20.6355H6.5616V12.0365Z M10.0041 8.5956L8.28362 10.316V18.9166H16.8842L18.6047 17.1962H10.0057V8.59726L10.0041 8.5956Z M18.6055 13.7574H13.4425V5.15511L11.722 6.87556V15.4745H20.321L22.0414 13.7541H18.6038L18.6055 13.7574Z M22.0459 10.3166H16.8829V1.71602L15.1641 3.43647V12.0371H23.7631L25.4819 10.3166H22.0459Z M18.597 0V8.599H27.1959V0H18.597Z"/>
+      </svg>`,
+      // Knowledge Health score ring at 100
+      'heart-rate-monitor': `<svg viewBox="0 0 160 160" fill="none" stroke="currentColor" font-family="inherit">
+        <circle cx="80" cy="80" r="74" stroke-width="5" stroke-dasharray="1.2 10.4" stroke-opacity=".5"/>
+        <circle cx="80" cy="80" r="58" stroke-width="14" stroke-opacity=".12"/>
+        <g stroke-width="14" transform="rotate(-90 80 80)">
+          <circle cx="80" cy="80" r="58" stroke-dasharray="86 278.4"/>
+          <circle cx="80" cy="80" r="58" stroke-dasharray="86 278.4" stroke-dashoffset="-91.1" style="stroke:var(--fx-accent-2)"/>
+          <circle cx="80" cy="80" r="58" stroke-dasharray="86 278.4" stroke-dashoffset="-182.2" style="stroke:var(--fx-accent-3)"/>
+          <circle cx="80" cy="80" r="58" stroke-dasharray="86 278.4" stroke-dashoffset="-273.3" style="stroke:var(--fx-accent-2)"/>
+        </g>
+        <text x="80" y="90" text-anchor="middle" fill="currentColor" stroke="none" font-size="36" font-weight="700" letter-spacing="-1">100</text>
+        <text x="80" y="108" text-anchor="middle" fill="currentColor" stroke="none" font-size="10" font-weight="600">HEALTH</text>
+      </svg>`,
+      // Code change flowing into the doc it updates, with Auto-update switched on
+      refresh: `<svg viewBox="0 0 240 160" fill="none" stroke="currentColor" stroke-width="1.5" font-family="inherit">
+        <rect x="2" y="2" width="236" height="30" rx="10" fill="currentColor" fill-opacity=".1"/>
+        <path d="M19 13a6 6 0 1 1 -1.5 7.5M19 9v4h4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="38" y="22" fill="currentColor" stroke="none" font-size="12" font-weight="700">Auto-update</text>
+        <rect x="196" y="8" width="34" height="18" rx="9" fill="currentColor" fill-opacity=".6" stroke="none"/>
+        <circle cx="221" cy="17" r="7" style="fill:var(--fx-accent-3)" stroke="none"/>
+        <rect x="2" y="42" width="96" height="116" rx="10"/>
+        <text x="12" y="58" fill="currentColor" stroke="none" font-size="9" font-weight="700">&lt;/&gt;</text>
+        <g fill="currentColor" stroke="none" fill-opacity=".55">
+          <rect x="12" y="66" width="54" height="5" rx="2.5"/><rect x="20" y="77" width="62" height="5" rx="2.5"/>
+          <rect x="20" y="110" width="48" height="5" rx="2.5"/><rect x="12" y="121" width="40" height="5" rx="2.5"/><rect x="12" y="132" width="66" height="5" rx="2.5"/><rect x="20" y="143" width="36" height="5" rx="2.5"/>
+        </g>
+        <rect class="fx-pulse" x="8" y="86" width="84" height="18" rx="4" style="fill:var(--fx-accent-2)" fill-opacity=".3" stroke="none"/>
+        <rect x="20" y="92" width="58" height="5" rx="2.5" fill="currentColor" stroke="none"/>
+        <path class="fx-flow" d="M102 95C118 95 124 99 138 99" style="stroke:var(--fx-accent-2)" stroke-width="2.5"/>
+        <path d="M133 93l7 6-7 6" style="stroke:var(--fx-accent-2)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="144" y="42" width="94" height="116" rx="10"/>
+        <g fill="currentColor" stroke="none">
+          <rect x="154" y="54" width="52" height="8" rx="4"/>
+          <rect x="154" y="70" width="74" height="4" rx="2" fill-opacity=".45"/><rect x="154" y="79" width="60" height="4" rx="2" fill-opacity=".45"/>
+          <rect x="154" y="130" width="70" height="4" rx="2" fill-opacity=".45"/><rect x="154" y="139" width="46" height="4" rx="2" fill-opacity=".45"/>
+        </g>
+        <rect class="fx-pulse" x="150" y="89" width="82" height="32" rx="5" style="fill:var(--fx-accent-2)" fill-opacity=".3" stroke="none"/>
+        <g fill="currentColor" stroke="none"><rect x="156" y="95" width="68" height="5" rx="2.5"/><rect x="156" y="105" width="54" height="5" rx="2.5"/></g>
+        <circle cx="226" cy="146" r="9" fill="currentColor" stroke="none"/>
+        <path d="M222 146l3 3 5-6" style="stroke:var(--fx-accent-3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>`
+    };
+    cards.forEach(c => {
+      const key = c.querySelector('[data-card-icon]')?.dataset.cardIcon;
+      if (MARKS[key]) c.insertAdjacentHTML('beforeend', `<span class="fx-mark fx-mark-${key}" aria-hidden="true">${MARKS[key]}</span>`);
+    });
 
     // Hover glow and tilt, as in the previous card design.
     cards.forEach(c => c.insertAdjacentHTML('afterbegin', '<span class="fx-glow" aria-hidden="true"></span>'));

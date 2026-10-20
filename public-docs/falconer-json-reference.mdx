@@ -7,12 +7,9 @@ sidebar:
 
 The site configuration file Falconer writes to a synced repository, field by field.
 
-`falconer.json` lives at the root of the space's **Files** tab, which is the root of the synced path in a repository.
-Falconer generates it from the site settings and the **Docs** navigation.
-When the space is synced with GitHub, edits made in the repository are merged back into Falconer on the next pull.
+`falconer.json` lives at the root of the space's **Files** tab, which is the root of the synced path in a repository. Falconer generates it from the site settings and the **Docs** navigation. When the space is synced with GitHub, edits made in the repository are merged back into Falconer on the next pull.
 
-The file can't be edited directly in the **Files** tab.
-Change settings in **Site configuration**, or edit the file in the repository.
+The file can't be edited directly in the **Files** tab. Change settings in **Site configuration**, or edit the file in the repository.
 
 ```json
 {
@@ -51,8 +48,7 @@ Change settings in **Site configuration**, or edit the file in the repository.
 
 ## site
 
-Paths are relative to the root of the synced path, without a leading slash.
-Empty strings count as unset.
+Paths are relative to the root of the synced path, without a leading slash. Empty strings count as unset.
 
 | Field | Type | What it does |
 | --- | --- | --- |
@@ -78,9 +74,7 @@ Keys Falconer manages itself, such as the subdomain, custom domain, published bu
 
 ## navigation
 
-The navigation is a tree of page paths and containers.
-A page is its file path as a string.
-A container is an object with one key naming its kind and label, plus `pages`.
+The navigation is a tree of page paths and containers. A page is its file path as a string. A container is an object with one key naming its kind and label, plus `pages`.
 
 | Kind | Key | On the site |
 | --- | --- | --- |
@@ -98,10 +92,8 @@ Containers also accept:
 | `access` | `public` or `private`. Private content isn't built. Inherited from the parent when absent. |
 | `href` | An external URL, allowed on tabs, anchors, and links |
 
-`navigation.redirects` is a list of `{ from, to, permanent }`.
-See [Redirects](/public-docs/redirects).
+`navigation.redirects` is a list of `{ from, to, permanent }`. See [Redirects](/public-docs/redirects).
 
 ## Page frontmatter
 
-Per-page settings live in each page's frontmatter, not in `falconer.json`.
-See [Page settings](/public-docs/write-pages#page-settings).
+Per-page settings live in each page's frontmatter, not in `falconer.json`. See [Page settings](/public-docs/write-pages#page-settings).
