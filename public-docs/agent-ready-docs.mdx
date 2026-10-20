@@ -7,9 +7,7 @@ sidebar:
 
 How your published site serves AI agents and assistants, so they answer from your docs instead of guessing.
 
-More and more readers never open your docs themselves.
-They ask ChatGPT, Claude, Cursor, or a coding agent, and that agent fetches your site.
-Every build gives those agents a clean, complete, Markdown version of the docs alongside the pages people read.
+More and more readers never open your docs themselves. They ask ChatGPT, Claude, Cursor, or a coding agent, and that agent fetches your site. Every build gives those agents a clean, complete, Markdown version of the docs alongside the pages people read.
 
 ## What every build includes
 
@@ -19,24 +17,19 @@ Every build gives those agents a clean, complete, Markdown version of the docs a
 | `llms-full.txt` | The whole site as one Markdown file, so an agent can read everything in a single fetch. |
 | A Markdown twin of every page | Each page is also published at the same address with a `.md` extension, as clean Markdown with no layout, navigation, or script. |
 | Content negotiation | A client that requests a page with `Accept: text/markdown` gets the Markdown twin at the page's normal address, without knowing the `.md` convention. |
-| Discovery hints | Each page links to its Markdown twin with `rel="alternate"` in its head, and carries a short note pointing agents at the twin and at `llms-full.txt`. |
+| Discovery hints | Each page links to its Markdown version with `rel="alternate"` in its head, and carries a short note pointing agents at the twin and at `llms-full.txt`. |
 
-The Markdown versions follow the same rules as the pages: private pages are never built, and pages marked `noindex` are left out of `llms.txt` and `llms-full.txt`.
-When search engines are turned off, `robots.txt` keeps the Markdown mirrors out of their results too.
+The Markdown versions follow the same rules as the pages: private pages are never built, and pages marked `noindex` are left out of `llms.txt` and `llms-full.txt`. When search engines are turned off, `robots.txt` keeps the Markdown mirrors out of their results too.
 
 ## For readers who use an assistant
 
-The page action menu at the top of every page is built for the same readers.
-**Copy** copies the page as Markdown to paste into any assistant, **View as Markdown** opens the twin, and **Ask ChatGPT** and **Ask Claude** open a conversation about the page in those tools.
-You choose which of these appear.
-See [Context menu](/public-docs/customize-your-site#context-menu).
+The page action menu at the top of every page is built for the same readers. **Copy** copies the page as Markdown to paste into any assistant, **View as Markdown** opens the twin, and **Ask ChatGPT** and **Ask Claude** open a conversation about the page in those tools. You choose which of these appear. See [Context menu](/public-docs/customize-your-site#context-menu).
 
 For readers who stay on the site, [Ask the docs](/public-docs/ask-the-docs) answers from the published pages with citations.
 
 ## Write for agents
 
-Agents read the same Markdown your readers see, so good docs for people are good docs for agents.
-A few habits help both:
+Agents read the same Markdown your readers see, so good docs for people are good docs for agents. A few habits help both:
 
 - Give every page a `description` in its frontmatter. It's what `llms.txt` shows next to the page.
 - Use one topic per page and a clear title, so an agent reading the index can pick the right page.
