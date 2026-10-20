@@ -31,12 +31,27 @@ For example, ask your client to find a relevant document, read it, then use a ta
 
 If only one organization is available, your client can usually omit `organizationId`. If multiple organizations are available, pass the selected `organizationId` on future Falconer tool calls.
 
+## Settings, account and billing
+
+| Tool | What it does |
+| --- | --- |
+| `read_settings` | Reads one settings scope: `user` (display name, model, thinking effort, notification preferences), `document` (a document or skill by uuid), `org` (name, description, defaults) or `account` (plan, credit balance and packs, auto-reload, trial state, seats, pricing, available offer, and the setup steps a new workspace still has open). Every key reports its value, allowed values and whether it is editable. |
+| `edit_settings` | Changes settings in one scope. Owners can rename the organization and set its description (`org` scope) and change the plan (`account` scope): `plan: "trial"` starts the free Pro trial; `plan: "credits"` (pay as you go) opens a Stripe page that saves a card and authorizes automatic credit top-ups without charging anything now; `credits.purchase` buys a credit pack now; `plan: "pro"` opens a monthly seat subscription checkout and `"pro-annual"` a yearly one. Each returns a Stripe-hosted URL in the change detail. `credits.autoReload` changes the top-up pack and threshold, or turns top-ups off. Seats match workspace membership automatically. On a document (`document` scope) it sets status, labels, reviewers, appearance, auto-update and custom instructions; `type: "skill"` turns the document into an agent skill, whose `activation`, `contextKeys` and `description` can be set in the same call. |
+| `create_billing_portal_session` | Returns a Stripe-hosted billing portal URL for managing the payment method, seats, and invoices. A workspace that has never been billed has no portal yet; to save a card without charging it, set `credits.autoReload` or `plan: "credits"` with `edit_settings`. |
+
+For the first week, a new workspace's `account` scope lists the setup steps its owners still have open in the `onboarding` key: naming the workspace, connecting a source and choosing a plan.
+While a step is open, the server also offers an `onboard_workspace` prompt that walks your agent through them.
+`list_integrations` lists every source the workspace can connect, each with a link the person opens in their browser to sign in to the provider; when the flow finishes, the page tells them to go back to their agent.
+It also reports when a source still needs a step in Falconer (picking Jira or Asana projects, or Confluence spaces), with a link to that step, and the latest indexing run.
+
+Connecting a brand-new account automatically creates its organization server-side, so no tool call is needed to sign up. The plans, seats and credit packs these tools expose are the same ones described in [Plans and billing](/plans-and-pricing/plans-and-billing) and [Buy credits and manage auto reload](/plans-and-pricing/buy-credits-and-auto-reload). Payment details are only ever entered on Stripe-hosted pages opened in a browser. Agents should never ask for card details in chat; after checkout, they read the `account` scope again to confirm the plan, purchase or auto-reload took effect. Auto-reload is only turned on when you agree to it: paying for a pack with auto-reload saves the card and authorizes Falconer to buy the same pack whenever your balance drops below the threshold you chose. Changes that need approval (for example sharing a document with someone new) are reported as `requires_confirmation` and have to be approved in the Falconer app.
+
 ## Find and read documents
 
 | Tool | What it does |
 | --- | --- |
 | `search` | Searches Falconer documents by keyword query, semantic query, or both. |
-| `read` | Reads a Falconer document by document ID, title, or Falconer URL. |
+| `read` | Reads a Falconer document by document ID, title, or Falconer URL. Given a file id or file URL, reads a file placed in the navigation instead, with a temporary download link. |
 
 Use `search` when you do not know the exact document. Use `read` before editing so the agent can copy exact Markdown text from the current document.
 
@@ -50,7 +65,7 @@ Use `search` when you do not know the exact document. Use `read` before editing 
 | `delete_document_content` | Deletes exact Markdown text from a document. |
 | `edit` | Legacy exact replacement tool. Prefer the targeted content tools above. |
 | `overwrite` | Replaces the full Markdown body of a document. |
-| `delete` | Archives a Falconer document by ID. |
+| `delete` | Archives a Falconer document by ID, or deletes a file placed in the navigation by its file id or file URL. |
 
 Prefer `replace_document_content`, `insert_document_content`, and `delete_document_content` for targeted updates. Use `overwrite` only when the whole document needs to be rewritten.
 
@@ -69,14 +84,14 @@ Prefer `replace_document_content`, `insert_document_content`, and `delete_docume
 
 | Tool | What it does |
 | --- | --- |
-| `list_nav_children` | Lists visible child folders and documents for a navigation location. |
+| `list_nav_children` | Lists visible child folders, documents, and files for a navigation location. |
 | `get_nav_tree` | Gets a visible Falconer navigation tree. |
 | `get_folder` | Gets folder metadata and visible one-level children. |
 | `create_folder` | Creates a Falconer folder. |
 | `update_folder` | Updates a folder title or description. |
 | `reorder_folder_children` | Sets the full direct-child order for a folder. |
 | `reorder_nav_children` | Sets the full direct-child order for a folder or document nav item. |
-| `move_nav_item` | Moves a folder or document navigation item. |
+| `move_nav_item` | Moves a folder, document, or file navigation item. |
 | `move_document` | Moves a document navigation placement by document ID. |
 | `publish_document` | Publishes a private document into company navigation. |
 | `delete_folder` | Archives a folder and its documents. |
@@ -102,7 +117,15 @@ Tools for managing a space's [docs site](/public-docs/overview). Publishing, set
 | Tool | What it does |
 | --- | --- |
 | `update_document_permissions` | Updates document ACL mode, organization-wide access, public access, user access, or group access. Direct permission changes on inherited documents switch them to explicit mode automatically. |
-| `upload_media` | Uploads supported images, videos, audio, or file attachments and returns a snippet you can insert into a document. |
+| `upload_media` | Uploads an image, video, or file attachment (PDF, Office, text, and code files) sent as base64 in the tool call and returns a snippet that can be inserted into document content. Pass `placement` to also place the file in the navigation. Best for small files or clients that cannot make HTTP requests. |
+| `create_upload` | Starts an upload of any supported size and returns a short-lived URL that the client sends the raw file bytes to, so the file never passes through the conversation. |
+| `complete_upload` | Finishes an upload started with `create_upload` and returns the same snippet as `upload_media`, plus the file's navigation placement when it was placed. |
+
+By default an upload is an attachment: it only exists inside the documents that insert its snippet.
+Pass `placement: "library"` to also place a PDF, Office, image, or video file in the navigation, in the user's Artifacts folder or under `libraryFolder` as Artifacts > Subfolder, which is where agents should file documents' companion files.
+Pass `placement: "navigation"` with `parentFolderId` only when the user names a folder or Space.
+A placed file is listed by `list_nav_children` and `get_nav_tree` as a `file` item, moved with `move_nav_item`, read with `read`, and deleted with `delete`, all by its file id.
+A sibling that already holds the name is numbered around unless `replace` is set, which hands the new bytes to the existing file so its id and links stay valid.
 
 ## Permissions
 

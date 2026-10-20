@@ -15,6 +15,16 @@ https://falconer.com/api/mcp
 
 When your client connects, it opens Falconer OAuth in your browser. Sign in with your Falconer account and approve the connection.
 
+## Sign up from your agent
+
+You do not need an existing Falconer workspace to connect. If you are new to Falconer, the OAuth browser step lets you create an account (Google, GitHub, or email and password). Connecting automatically creates a workspace named after you, with a free Pro trial when available, and your agent can finish the rest of signup over MCP:
+
+1. The agent reads the `account` settings scope to see the plan options, credit balance, and pricing.
+2. The agent asks what you want to name your workspace and sets `name` in the `org` settings scope.
+3. To pay as you go, the agent sets `credits.purchase` with the pack you choose and whether to turn on auto-reload; to subscribe, it sets `plan` to `"pro"`. Either way it gives you a Stripe-hosted checkout link to open in your browser. Payment details are only ever entered on Stripe's page, never in the chat.
+
+The plans and credit packs are the same ones owners see in organization settings; see [Plans and billing](/plans-and-pricing/plans-and-billing) for what each plan includes.
+
 ## Claude
 
 Falconer supports both Claude.ai and Claude Code: add Falconer to Claude.ai as a custom connector, or configure Falconer in Claude Code from the command line.
