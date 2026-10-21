@@ -1,0 +1,286 @@
+# Set up Knowledge Health
+
+Knowledge Health reads your docs, code and connected tools, checks each source against the others, and turns every problem it finds into a finding you can fix.
+
+This page takes you from nothing to a first audit and a schedule. It covers what Knowledge Health finds, how a scan works, which sources to connect, how to run your first audit, and how to put scans on a schedule. To work through the results, see [Find issues with Knowledge Health](/knowledge-health/find-issues). To control cost and fix problems, see [Manage Knowledge Health](/knowledge-health/manage).
+
+> [!NOTE]
+>
+> **Screenshot needed:** The Knowledge Health page after a first audit, with the category counts, clean-share donut and findings list visible. Full window including the sidebar.
+
+## What Knowledge Health finds
+
+A last-updated date cannot tell you a doc is wrong. Knowledge Health reads the content itself and looks for five kinds of problems.
+
+| Finding type | What it means |
+| --- | --- |
+| **Contradiction** | Two sources make claims that cannot both be true, such as a FAQ and a pricing page that give different answers. |
+| **Stale doc** | A doc describes something that has changed since it was written. |
+| **Coverage gap** | Your team keeps discussing a topic in Slack, tickets or meetings, but nobody wrote it down. |
+| **Redundancy** | The same topic is documented in more than one place. |
+| **Code drift** | A doc no longer matches what the code does, often after a pull request merged. |
+
+Most findings span more than one source. For example, a sales proposal might promise a setup that engineering retired months ago.
+
+## How a scan works
+
+Each run of Knowledge Health is called a scan. Every scan follows the same pattern:
+
+1. **Review existing findings.** Knowledge Health first checks the findings it already filed, so it does not report the same problem twice.
+2. **Check your sources in parallel.** Separate checks look for conflicts across sources, conflicts within a space, docs that disagree with the code, stale content, coverage gaps, support signals, and drift from recent pull requests.
+3. **File findings as it goes.** Findings appear while the scan is in progress. You can leave the page at any time.
+
+Every finding quotes the evidence from each source, explains why it matters, and is ranked by severity.
+
+> [!NOTE]
+>
+> **Diagram needed:** The three steps of a scan (review existing findings, parallel checks across sources and code, findings filed with evidence).
+
+## Before you start
+
+A scan needs two things:
+
+- **At least one connected source** that has finished indexing.
+- **Credits in your balance**, unless your organization uses its own model provider key. See [Manage Knowledge Health](/knowledge-health/manage) for how credits work.
+
+**Run now** and **Schedule** appear on the Knowledge Health page when your organization pays for Falconer usage with credits, or uses its own model provider key. If something is missing, the page tells you what to do next. Every message is listed under Troubleshooting in [Manage Knowledge Health](/knowledge-health/manage).
+
+## Choose sources
+
+Knowledge Health audits the sources you connect. You do not need to move your docs into Falconer first.
+
+Connect sources from the **Integrations** page. For the general flow, see [Connect sources](/set-up/connect-sources). Each integration has its own page with what is synced and how to connect it.
+
+### Public docs and code
+
+Start here. These two give Knowledge Health the most to check against.
+
+- **Public docs:** add your documentation URL on the **Public docs** card in **Integrations**. Knowledge Health reads what your customers and their agents read, so it can catch pages that contradict each other or no longer match the product. A docs site that lives in a GitHub repository can also be connected through [GitHub](/integrations/github).
+- [**GitHub**](/integrations/github)**:** repositories, code files and pull requests. Code is the ground truth for what the product does, so it settles disagreements between docs and flags drift after a pull request merges. Knowledge Health reads your code and never writes to your repositories. It can also propose a new doc when code has no documentation.
+
+### Internal knowledge
+
+These bring in the docs your team writes for itself, which are often where the oldest and most contradictory content lives.
+
+- [**Notion**](/integrations/notion)**:** pages and databases. Specs, wikis and planning docs get checked against your public docs and code.
+- [**Confluence**](/integrations/confluence)**:** pages from the spaces you select. Long-lived runbooks and internal guides are prime candidates for stale and redundant content.
+- Google Drive and Slab ([Google Drive](/integrations/google-drive), [Slab](/integrations/slab)): documents and posts that sit outside your main wiki.
+
+### Support and conversations
+
+These show what people actually ask and decide, which is how Knowledge Health finds gaps.
+
+- [**Zendesk**](/integrations/zendesk)**:** help center and support articles. Knowledge Health compares them with your docs and with the code, since support content often falls behind.
+- [**Slack**](/integrations/slack)**:** discussions your team never wrote down become coverage gaps. Slack also lets you ask Falcon about findings.
+- Linear and Granola ([Linear](/integrations/linear), [Granola](/integrations/granola)): issues and meeting notes that show decisions and known problems that never reached the docs.
+
+See the full list in [Integrations](/integrations).
+
+**Recommended starting point:** connect your docs and your codebase. Add internal knowledge and conversations next to catch more.
+
+> [!NOTE]
+>
+> **Screenshot needed:** **Settings → Integrations** with a few sources connected.
+
+Knowledge Health can run once your first source finishes indexing. Until then the page shows **Indexing your sources** and updates on its own when indexing is done.
+
+### Change sources later
+
+To add a source, connect it in **Settings → Integrations**. To remove one, disconnect it there. To narrow one, use **Configure** on its card to limit the repositories, folders, spaces or channels Falconer can read. The next scan picks up the change once indexing finishes, or click **Run now** to audit right away.
+
+## Run your first audit
+
+### New to Falconer
+
+<Steps>
+<Step title="Sign up">
+
+Create an account at [falconer.com](http://falconer.com).
+
+</Step>
+
+<Step title="Choose Fix outdated docs">
+
+When Falconer asks what you want to do, choose **Fix outdated docs**.
+
+> [!NOTE]
+>
+> **Screenshot needed:** The onboarding goal picker with **Fix outdated docs** highlighted.
+
+</Step>
+
+<Step title="Pick a source to audit">
+
+Enter your docs site URL, or connect the GitHub repository and folder where your docs live.
+
+> [!NOTE]
+>
+> **Screenshot needed:** The source step of onboarding with a docs URL entered.
+
+</Step>
+
+<Step title="Finish setup">
+
+Complete the remaining setup steps. The audit starts in the background, and a progress window shows the steps and the number of findings so far.
+
+> [!NOTE]
+>
+> **Screenshot needed:** The audit progress overlay with a few findings counted.
+
+</Step>
+
+<Step title="Open your report">
+
+The report opens as soon as the first findings are ready. Falconer also emails you when the report is ready, so you can leave and come back.
+
+</Step>
+
+</Steps>
+
+### Already using Falconer
+
+<Steps>
+<Step title="Open Knowledge Health">
+
+Select **Knowledge Health** in the sidebar.
+
+</Step>
+
+<Step title="Click Run now">
+
+The **Run Knowledge Health now?** window shows the **Estimated cost** and your **Credit balance**. For how the estimate and credits work, see [Manage Knowledge Health](/knowledge-health/manage).
+
+> [!NOTE]
+>
+> **Screenshot needed:** The **Run Knowledge Health now?** dialog showing the estimate range and credit balance.
+
+</Step>
+
+<Step title="Confirm">
+
+Click **Run now**. The page shows a run banner with progress, and findings appear as they are filed. To read the banner and the findings, see [Find issues with Knowledge Health](/knowledge-health/find-issues).
+
+</Step>
+
+</Steps>
+
+## Schedule scans
+
+A schedule runs Knowledge Health for you so new problems surface without anyone remembering to check. Schedules are off until someone turns one on.
+
+<Steps>
+<Step title="Open the schedule">
+
+On the **Knowledge Health** page, click **Schedule**. The **Schedule Knowledge Health** window opens.
+
+> [!NOTE]
+>
+> **Screenshot needed:** The **Schedule Knowledge Health** dialog with Weekly selected, a weekday and a timezone.
+
+</Step>
+
+<Step title="Choose a frequency">
+
+Choose **Off**, **Weekly**, **Biweekly** or **Monthly**.
+
+</Step>
+
+<Step title="Pick the day and timezone">
+
+For weekly and biweekly schedules, pick a day of the week. For monthly schedules, pick a day of the month. Then choose your timezone. The window shows the date of the next run.
+
+</Step>
+
+<Step title="Save">
+
+Click **Save**.
+
+</Step>
+
+</Steps>
+
+Scheduled scans start at 08:30 UTC on the day you pick, or later: when many scans are scheduled for the same day, start times are spread across up to 12 hours. You cannot choose a time of day.
+
+To change or turn off the schedule, open **Schedule** again and choose a new frequency or **Off**. With the schedule off, Knowledge Health only runs when someone clicks **Run now**. Scheduled scans use credits like manual ones. See [Manage Knowledge Health](/knowledge-health/manage).
+
+## Who can do what
+
+- **Any member** can open Knowledge Health, run a scan, change the schedule and stop a run.
+- **People who can manage billing** add credits and get the alert when a scan pauses.
+- **Connecting a source** needs permission to manage integrations in Falconer, and sometimes admin access in the other tool.
+
+Falconer reads only the sources, repositories, folders and channels you approve when you connect them. To limit what Knowledge Health audits, limit what you connect. For organization roles, see [Invite teammates and manage permissions](/set-up/invite-teammates-and-manage-permissions).
+
+## FAQ
+
+### Security
+
+<AccordionGroup>
+
+<Accordion title="What data does Knowledge Health read?">
+
+Only the sources you connect and approve. You choose which repositories, folders, documents and Slack channels Falconer can read.
+
+</Accordion>
+
+<Accordion title="Does Knowledge Health change my docs or code?">
+
+No. Falconer reads your data by default and writes only where you enable it, such as editing a Falconer doc or using two-way GitHub sync. When Falcon fixes a finding, it proposes the change for you to review.
+
+</Accordion>
+
+<Accordion title="Is my data used to train AI models?">
+
+No. Falconer does not train on customer data.
+
+</Accordion>
+
+<Accordion title="Can I use my own model provider key?">
+
+Yes. Your organization can bring its own key from providers such as OpenAI or Anthropic. See [Manage Knowledge Health](/knowledge-health/manage) for how billing works with your own key.
+
+</Accordion>
+
+<Accordion title="Which security certifications does Falconer have?">
+
+Falconer is SOC 2 Type II certified, and data is encrypted in transit and at rest. HIPAA compliance is available. For the full report and architecture details, visit [trust.falconer.com](http://trust.falconer.com).
+
+</Accordion>
+
+<Accordion title="Can I run Knowledge Health in my own cloud?">
+
+Yes. Single-tenant and self-hosted deployments are available. [Request a demo](https://falconer.com/demo) to scope a deployment.
+
+</Accordion>
+
+<Accordion title="Are any checks different for HIPAA organizations?">
+
+Yes. Some connector-specific checks are turned off for HIPAA organizations. The core checks across your docs and code still run.
+
+</Accordion>
+
+</AccordionGroup>
+
+### Integrations
+
+<AccordionGroup>
+
+<Accordion title="Do I need to move my docs into Falconer?">
+
+No. Knowledge Health audits your docs where they live, whether that is a public docs site, a GitHub repository, Notion, Confluence, Google Drive or Slab.
+
+</Accordion>
+
+<Accordion title="My help center is not a native integration. Can Knowledge Health still audit it?">
+
+Yes. Add the public help center URL as a docs site and Knowledge Health crawls it.
+
+</Accordion>
+
+<Accordion title="Can I audit a docs site that lives in a GitHub repository?">
+
+Yes. Connect the repository and choose the folder that holds your docs. Knowledge Health treats that folder as your docs and the rest of the repository as code to verify claims against.
+
+</Accordion>
+
+</AccordionGroup>

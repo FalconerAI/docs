@@ -1,0 +1,41 @@
+---
+title: Work from Slack and MCP
+description: Ask about findings in Slack, or read and update them from an MCP client.
+sidebar:
+  order: 5
+---
+
+Ask about findings in Slack, or read and update them from an MCP client.
+
+## From Slack
+
+With Slack connected, mention Falcon in a channel or direct message:
+
+```
+@Falcon what did the last Knowledge Health audit find?
+```
+
+Falcon searches the same findings shown on the Knowledge Health page and replies with their titles, categories, and severities. To connect Slack, see [Slack](/integrations/slack).
+
+## From an MCP client
+
+Connect the Falconer MCP server to Claude Code, Cursor, or Codex. Two tools work with findings:
+
+| Tool | What it does |
+| --- | --- |
+| `list_knowledge_health_findings` | Lists your organization’s findings. |
+| `update_knowledge_health_finding` | Updates a finding. |
+
+See the [MCP quickstart](/mcp-and-cli/quickstart) and the [MCP tools reference](/mcp-and-cli/tools-reference).
+
+## FAQ
+
+<AccordionGroup>
+
+<Accordion title="Can I ask questions about my findings?">
+
+Yes. Ask Falcon in Slack or from an MCP client.
+
+</Accordion>
+
+</AccordionGroup>

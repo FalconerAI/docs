@@ -1,0 +1,119 @@
+# Manage Knowledge Health
+
+This page covers what Knowledge Health costs and how to keep it running. It explains how credits work, how to add credits, what happens when credits run out, which notifications you get, and how to fix common problems. To connect sources, change your schedule or run an audit, see [Set up Knowledge Health](/knowledge-health/set-up). To work through findings, see [Find issues with Knowledge Health](/knowledge-health/find-issues).
+
+> [!NOTE]
+>
+> **Screenshot needed:** The Knowledge Health page with the run banner showing last run, credits spent and next run.
+
+## How credits work
+
+Knowledge Health is billed by usage. Each scan uses credits from your organization’s balance as it works.
+
+- **Metered on model usage:** credits reflect the AI model usage recorded for the scan. They are not charged per document.
+- **Size drives cost:** larger or broader scans use more credits than smaller, narrower ones.
+- **See the estimate first:** when you click **Run now**, Falconer shows the **Estimated cost** as a range and your **Credit balance** before the scan starts. Scheduled scans draw from the same balance.
+- **Last run cost:** the run banner shows the credits the last scan used.
+- **Own key, lower cost:** if your organization uses its own model provider key, model usage is billed by your provider. Other platform operations, such as embeddings, still use Falconer credits.
+
+## Add credits
+
+People who can manage billing add credits in **Settings → Organization settings → Plan and credits**. From there you can buy credits or turn on auto-reload, which buys credits automatically when your balance falls below a threshold you set.
+
+For step-by-step instructions, see [Buy credits and manage auto reload](/plans-and-pricing/buy-credits-and-auto-reload). To review where credits went, see [Track usage and set spending limits](/plans-and-pricing/usage-and-spending-limits). For how credits are priced and how long they last, see [How credits work](/plans-and-pricing/how-credits-work).
+
+> [!NOTE]
+>
+> **Screenshot needed:** **Plan and credits** in organization settings with the **Buy credits** and auto-reload controls.
+
+## Control a run
+
+### When credits run low
+
+- **Before a scan:** if your balance is lower than the low end of the estimate, the **Run now** window warns that the scan will pause when your credits run out.
+- **During a scan:** when your balance reaches zero, the scan pauses. Findings found so far are kept, and the scan resumes by itself once credits are added.
+- **Scheduled scans:** a scheduled scan is skipped when your balance is empty.
+- **No credits at all:** the Knowledge Health page shows **Add credits to run Knowledge Health** with an **Add credits** button.
+
+Turn on auto-reload to avoid pauses.
+
+> [!NOTE]
+>
+> **Screenshot needed:** The paused run banner with the **Add credits** button.
+
+### Stop a run
+
+To stop a scan in progress, click **Stop run** in the run banner and confirm in the **Stop this run?** window. Findings found so far are kept. Credits already used are not refunded.
+
+## Notifications
+
+Knowledge Health sends these notifications. Change which ones you get, and where, in your personal notification settings.
+
+| Notification | Who gets it | Default channels |
+| --- | --- | --- |
+| **Knowledge Health report ready** | The person who started the first audit, when the first report is ready | Inbox, email and Slack |
+| **Knowledge Health report follow-ups** | The same person, in the days after the first report, with next steps | Email |
+| **Knowledge Health paused** | People who can manage billing, when a scan pauses for credits | Inbox and email |
+| **Knowledge Health report shared with you** | People a teammate shares a report with | Inbox and email |
+
+Use the unsubscribe link in any follow-up email to stop them.
+
+## Troubleshooting
+
+| What you see | What to do |
+| --- | --- |
+| **Connect a source to run Knowledge Health** | Click **Connect sources** and connect at least one source. See [Set up Knowledge Health](/knowledge-health/set-up). |
+| **Indexing your sources** | Wait. Knowledge Health can run once your first source finishes indexing, and the page updates when it is ready. |
+| **Add credits to run Knowledge Health** | Click **Add credits** to buy credits, or turn on auto-reload. |
+| **Knowledge Health paused** | Your balance reached zero. Add credits and the scan resumes. |
+| **Knowledge Health queued** | Other scans are ahead of yours. It starts on its own, and you can leave the page. |
+| No **Run now** or **Schedule** buttons | Your organization is not billed by usage credits or an own model key yet. Contact [support@falconer.com](mailto:support@falconer.com). |
+| Few or no findings | Connect more sources, especially your codebase, then run again. See [Set up Knowledge Health](/knowledge-health/set-up). |
+
+## FAQ
+
+<AccordionGroup>
+
+<Accordion title="What is a scan?">
+
+A scan is one Knowledge Health run across your connected docs and sources. Each scan uses credits.
+
+</Accordion>
+
+<Accordion title="How many credits does a scan use?">
+
+It depends on the size and scope of the scan. There is no fixed price per scan or per document. Falconer shows an estimated range before every manual run, and the run banner shows what the last run used.
+
+</Accordion>
+
+<Accordion title="Do I pay for scheduled scans?">
+
+Yes. A scheduled scan uses credits from the same balance as a manual one. Schedules are off by default, so nothing is billed until someone turns one on.
+
+</Accordion>
+
+<Accordion title="Does stopping a scan refund credits?">
+
+No. Credits already used are not refunded. Findings found before you stopped are kept.
+
+</Accordion>
+
+<Accordion title="Does using my own model key make Knowledge Health free?">
+
+No. Your provider bills you for model usage, which lowers your Falconer credit usage. Other platform operations still use Falconer credits.
+
+</Accordion>
+
+<Accordion title="What happens when my balance reaches zero?">
+
+The scan pauses and keeps its findings. It resumes by itself when credits are added. See Control a run above.
+
+</Accordion>
+
+<Accordion title="Do credits expire?">
+
+See [How credits work](/plans-and-pricing/how-credits-work) for credit terms.
+
+</Accordion>
+
+</AccordionGroup>

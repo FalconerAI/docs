@@ -1,0 +1,191 @@
+# Find issues with Knowledge Health
+
+Knowledge Health turns every problem in your knowledge into a finding.
+
+This page covers how to read the Knowledge Health page, understand a finding, fix it with Falcon, triage the rest, and share a report with your team. To connect sources and run a first audit, see [Set up Knowledge Health](/knowledge-health/set-up). To control cost and fix problems, see [Manage Knowledge Health](/knowledge-health/manage).
+
+> [!NOTE]
+>
+> **Screenshot needed:** The full Knowledge Health page with the clean-share donut, category rows and findings list. Full window including the sidebar.
+
+## Read the Knowledge Health page
+
+Select **Knowledge Health** in the sidebar. The page shows:
+
+- **Clean share:** a donut showing the percentage of examined documents with no open finding.
+- **Open findings by category:** the five finding types, with a count for each. A document can have more than one kind of problem, so category counts can add up to more than the number of affected documents. Click a category to see its findings.
+- **Findings list:** each finding with its title, category and severity. Filter the list by Open, Resolved, Ignored or All.
+- **Run banner:** the state of the latest scan, described below.
+
+Findings appear while a scan is running, so you can start reviewing before it finishes.
+
+### Read the run banner
+
+| Banner | What it means |
+| --- | --- |
+| **Knowledge Health queued** | Other scans are ahead of yours. It starts on its own. |
+| **Knowledge Health running** | A scan is in progress, with a progress bar. You can leave the page. |
+| **Knowledge Health paused** | The scan stopped because credits ran out. See [Manage Knowledge Health](/knowledge-health/manage). |
+| **Last run** and **Next run** | No scan is active. The banner shows when the last scan ran, what it used, and when the next scheduled scan starts. **Set schedule** or **Change schedule** opens the schedule. |
+
+> [!NOTE]
+>
+> **Screenshot needed:** The run banner in three states: running with progress, paused for credits, and idle with last run and next run.
+
+## Read a finding
+
+Click a finding to open its details and see why Knowledge Health flagged it.
+
+| Part | What it shows |
+| --- | --- |
+| **Category** | One of the five finding types described in [Set up Knowledge Health](/knowledge-health/set-up) |
+| **Severity** | Critical, Moderate or Low |
+| **Evidence** | Quotes from each source. For a contradiction, you see both statements side by side. |
+| **Why it matters** | The effect on the people and agents who read the doc |
+| **Suggested action** | What to change to resolve it |
+| **Sources** | Links to the cited docs, code files and pull requests |
+| **Owner** | The person responsible for the finding. It defaults to the doc owner. |
+
+Check the evidence before you act. Every claim in a finding links to the source it came from.
+
+> [!NOTE]
+>
+> **Screenshot needed:** An open contradiction finding with both quotes, severity, suggested action and owner visible.
+
+## Fix a finding with Falcon
+
+<Steps>
+<Step title="Assign the finding">
+
+Open the finding and click **Assign to Falcon**. The button changes to **Falcon is working**.
+
+</Step>
+
+<Step title="Follow along (optional)">
+
+Click **Open Falcon session** to see what Falcon is reading and changing.
+
+</Step>
+
+<Step title="Review the fix">
+
+When the draft is ready, click **Review proposed fix**. For a coverage gap, the button reads **Review proposed document**. The doc opens with the proposed change for you to accept or edit.
+
+> [!NOTE]
+>
+> **Screenshot needed:** A finding showing **Review proposed fix**, and the doc opened with the proposed change.
+
+</Step>
+
+<Step title="Resolve">
+
+After you accept the change, the finding is resolved. While someone reviews the change, the finding shows **Fix under review**.
+
+</Step>
+
+</Steps>
+
+Falcon works on one finding at a time. If **Assign to Falcon** is unavailable, hold the pointer over the button to see why. The most common reason is that the fix belongs in a tool Falcon does not edit, such as a Notion or Confluence page. Make the change there, then resolve the finding.
+
+## Triage findings
+
+Not every finding needs Falcon. Use these actions on each finding:
+
+| Action | When to use it |
+| --- | --- |
+| **Owner** | Assign the finding to the person who should fix it. |
+| **Resolve** | You fixed the problem yourself. |
+| **Ignore** | The finding is not a real problem or does not matter to your team. |
+| **Reopen finding** | A resolved finding needs more work. |
+| **Stop ignoring** | You ignored a finding by mistake. |
+
+Each scan checks existing findings before it files new ones, so a finding you ignored is not filed again. If a finding looks wrong, check its evidence, then click **Ignore**.
+
+## Work with findings outside the app
+
+### From Slack
+
+With Slack connected, mention Falcon in a channel or direct message:
+
+```
+@Falcon what did the last Knowledge Health audit find?
+```
+
+Falcon searches the same findings shown on the Knowledge Health page and reports them by title, category and severity. To connect Slack, see [Slack](/integrations/slack).
+
+### From coding agents
+
+Connect the Falconer MCP server to Claude Code, Cursor or Codex to look up findings and fix docs from your editor. See the [MCP quickstart](/mcp-and-cli/quickstart).
+
+## Share a report
+
+Send your findings to the people who own the affected docs.
+
+<Steps>
+<Step title="Open the share dialog">
+
+On the **Knowledge Health** page, click **Share**. The button appears once your organization has a report.
+
+</Step>
+
+<Step title="Add recipients">
+
+In **Share this report**, search for teammates by name or type an email address. You can add up to 20 people. People outside your organization are invited when you send.
+
+</Step>
+
+<Step title="Add a note and send">
+
+Add an optional note, then click **Send**.
+
+> [!NOTE]
+>
+> **Screenshot needed:** The **Share this report** dialog with two recipients and a note.
+
+</Step>
+
+</Steps>
+
+Recipients get a notification in their Falconer inbox and an email with a link to the report. To change which notifications you get, see [Manage Knowledge Health](/knowledge-health/manage).
+
+## FAQ
+
+<AccordionGroup>
+
+<Accordion title="How is this different from tracking last-updated dates?">
+
+Dates show when a doc changed, not whether it is right. Knowledge Health reads the content and compares it with your other sources and your code, so it catches contradictions, gaps and drift that a timestamp never would.
+
+</Accordion>
+
+<Accordion title="How accurate are findings?">
+
+Every finding quotes its evidence so you can verify it. Accuracy is highest when your codebase is connected, because Knowledge Health can check claims against what the code does. See [Set up Knowledge Health](/knowledge-health/set-up).
+
+</Accordion>
+
+<Accordion title="What should I do when a finding is wrong?">
+
+Click **Ignore**. See Triage findings above.
+
+</Accordion>
+
+<Accordion title="Why can't Falcon fix some findings?">
+
+Some fixes belong in tools Falcon does not edit, such as Notion or Confluence pages. The finding explains where the change needs to go. Make the change there, then resolve the finding.
+
+</Accordion>
+
+<Accordion title="Can Falcon fix several findings at once?">
+
+No. Falcon works on one finding at a time. You can still resolve, ignore or assign other findings while it works.
+
+</Accordion>
+
+<Accordion title="Can I ask questions about my findings?">
+
+Yes. Ask Falcon on the Knowledge Health page, in Slack, or from a coding agent connected through MCP.
+
+</Accordion>
+
+</AccordionGroup>

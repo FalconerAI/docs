@@ -9,19 +9,35 @@ Falconer is a fully end-to-end knowledge platform that provides humans and agent
 
 [Quickstart](/quickstart/)
 
-<Card icon="plug" url="/set-up/connect-sources" cta="Connect sources">
-
-## Connect sources
-
-Connect GitHub, Linear, Jira, Slack, Notion, Google Docs, and Confluence to bring context into your docs.
-
-</Card>
-
 <Card icon="heart-rate-monitor" url="/update/find-and-fix-outdated-docs/" cta="Find outdated docs">
 
 ## Find issues
 
 Knowledge Health scans your docs and sources for gaps, contradictions, and code drift.
+
+</Card>
+
+<Card icon="books" url="/get-started/how-falconer-works/" cta="Build your knowledge base">
+
+## Internal knowledge base
+
+Bring docs, code, and conversations into one place your team and agents can search.
+
+</Card>
+
+<Card icon="world" url="/public-docs/" cta="Publish docs">
+
+## Public docs
+
+Publish customer-facing docs from the same source your team writes in.
+
+</Card>
+
+<Card icon="arrows-exchange" url="/two-way-sync/overview/" cta="Set up two-way sync">
+
+## Two-way sync
+
+Keep a Falconer space and a GitHub repository in sync, in both directions.
 
 </Card>
 
@@ -33,6 +49,14 @@ Docs update when related code changes, automatically or after your review.
 
 </Card>
 
+<Card icon="plug" url="/set-up/connect-sources" cta="Connect sources">
+
+## Integrations
+
+Connect GitHub, Linear, Jira, Slack, Notion, Google Docs, and Confluence to bring context into your docs.
+
+</Card>
+
 Connect your code and tools, catch docs that have drifted, and keep every page current as your product changes.
 
 <Card icon="book">
@@ -40,8 +64,8 @@ Connect your code and tools, catch docs that have drifted, and keep every page c
 ## Learn more
 
 - [How Falconer works](/get-started/how-falconer-works/)
-- [Integrations](/docs/integrations/)
-- [MCP quickstart](/docs/mcp-and-cli/quickstart/)
+- [Integrations](/integrations/)
+- [MCP quickstart](/mcp-and-cli/quickstart/)
 
 </Card>
 
@@ -57,11 +81,25 @@ page-context-menu{display:none!important}
 
 /* Hero: copy on the left, the Falconer mark drawn as a blueprint on the right */
 .fx-hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:3rem;align-items:center;padding-block:.5rem 0}
+/* Aurora ray: a slanted, softly glowing ribbon of primary color drifting behind the hero */
+.fx-hero{position:relative;isolation:isolate}
+.fx-hero::before,.fx-hero::after{content:"";position:absolute;z-index:-1;pointer-events:none;-webkit-mask:linear-gradient(to bottom,transparent,#000 35%,#000 55%,transparent);mask:linear-gradient(to bottom,transparent,#000 35%,#000 55%,transparent)}
+.fx-hero::before{inset:46% -12% auto 4%;height:11rem;background:repeating-linear-gradient(90deg,transparent 0 10px,color-mix(in srgb,var(--docsite-color-primary) 35%,transparent) 10px 13px),linear-gradient(90deg,transparent,color-mix(in srgb,var(--docsite-color-primary) 55%,transparent) 30%,color-mix(in srgb,var(--fx-accent-2) 60%,transparent) 55%,color-mix(in srgb,var(--docsite-color-primary) 45%,transparent) 78%,transparent);background-size:140px 100%,100% 100%;filter:blur(22px);opacity:.18;transform:rotate(-8deg) skewX(-18deg);animation:fx-aurora 14s ease-in-out infinite alternate,fx-shimmer 9s linear infinite,fx-hue 11s ease-in-out infinite alternate}
+.fx-hero::after{inset:64% -6% auto 26%;height:6rem;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--fx-accent-3) 70%,transparent) 40%,color-mix(in srgb,var(--docsite-color-primary) 60%,transparent) 70%,transparent);filter:blur(32px);opacity:.14;transform:rotate(-12deg) skewX(-24deg);animation:fx-aurora 18s ease-in-out -6s infinite alternate-reverse,fx-breathe 7s ease-in-out infinite}
+@keyframes fx-aurora{0%{translate:-4% 0;scale:1 1;rotate:0deg}33%{translate:2% -8%;scale:1.08 1.3;rotate:3deg}66%{translate:5% 2%;scale:.94 .85;rotate:-2deg}100%{translate:-2% 6%;scale:1.02 1.1;rotate:1deg}}
+@keyframes fx-shimmer{to{background-position:140px 0,0 0}}
+@keyframes fx-hue{to{filter:blur(22px) hue-rotate(-25deg) saturate(1.3)}}
+@keyframes fx-breathe{0%,100%{opacity:.08}50%{opacity:.16}}
+@media (prefers-reduced-motion:reduce){.fx-hero::before,.fx-hero::after{animation:none}}
+@media (max-width:64em){.fx-hero::before{inset:50% -10% auto -10%}.fx-hero::after{inset:66% -10% auto 10%}}
 .fx-hero-copy>*+*{margin-top:1.25rem}
 .fx-hero h1{margin:0 0 .75rem;padding-bottom:.25rem;font-size:clamp(2.5rem,1.5rem + 3.2vw,4.25rem);line-height:1.04;letter-spacing:-.015em;font-weight:600;color:var(--docsite-color-foreground)}
 .fx-hero-copy p{max-width:36rem;font-size:1.125rem;line-height:1.6;color:var(--docsite-color-foreground-muted)}
 .fx-hero-copy p:first-of-type{color:var(--docsite-color-foreground)}
 .fx-art{width:100%;max-width:22rem;justify-self:end;align-self:start;color:var(--docsite-color-primary)}
+/* Frosted-glass panel filling the logo's square frame */
+.fx-art{position:relative}
+.fx-art::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;-webkit-backdrop-filter:blur(28px) saturate(1.4);backdrop-filter:blur(28px) saturate(1.4);background:linear-gradient(135deg,color-mix(in srgb,Canvas 80%,transparent),color-mix(in srgb,Canvas 55%,transparent));box-shadow:inset 0 1px 0 color-mix(in srgb,#fff 35%,transparent)}
 .fx-art svg{display:block;width:100%;height:auto;overflow:visible}
 
 /* Logo fills once, step by step from the bottom up, and stays filled */
@@ -83,6 +121,7 @@ page-context-menu{display:none!important}
 /* Marketing StackButton (brand variant): square face with two shadow layers that fan out on hover */
 .fx-cta a{position:relative;display:inline-flex;align-items:center;justify-content:center;padding:13px 40px;color:#fff;font-weight:500;font-size:1rem;line-height:1;text-decoration:none}
 .fx-cta a:hover{color:#fff;text-decoration:none}
+:root[data-theme="dark"] .fx-cta a,:root[data-theme="dark"] .fx-cta a:hover{color:hsl(195 80% 8%)}
 .fx-cta .btn-face,.fx-cta .btn-shadow{position:absolute;inset:0;background:var(--docsite-color-primary);border:1px solid var(--fx-accent-2)}
 .fx-cta .btn-face{z-index:3}
 .fx-cta .btn-text{position:relative;z-index:4}
@@ -99,8 +138,9 @@ page-context-menu{display:none!important}
 /* Cards: one bordered strip, cells split by hairlines */
 .sl-markdown-content .fx-track{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:3.5rem;border:1px solid var(--docsite-color-border);border-radius:0;overflow:hidden}
 .fx-track>.docsite-card{margin:0!important;padding:2rem 2rem 2.25rem;border:0!important;border-radius:0;display:flex;flex-direction:column;align-items:flex-start;text-align:start;transition:none;background:transparent}
-.fx-track>.docsite-card+.docsite-card{border-left:1px solid var(--docsite-color-border)!important}
-.fx-track>.docsite-card:hover{background:transparent}
+.fx-track>.docsite-card:not(:nth-child(3n+1)){border-left:1px solid var(--docsite-color-border)!important}
+.fx-track>.docsite-card:nth-child(n+4){border-top:1px solid var(--docsite-color-border)!important}
+.fx-track>.docsite-card,.fx-track>.docsite-card:hover{-webkit-backdrop-filter:blur(28px) saturate(1.4);backdrop-filter:blur(28px) saturate(1.4);background:linear-gradient(135deg,color-mix(in srgb,Canvas 80%,transparent),color-mix(in srgb,Canvas 55%,transparent))}
 
 /* Hover: cursor-following glow, spinning gradient border, and a gentle tilt */
 :root{--fx-accent:hsl(192 100% 30%);--fx-accent-2:hsl(190 60% 59%);--fx-accent-3:hsl(188 64% 79%)}
@@ -135,6 +175,12 @@ page-context-menu{display:none!important}
 .fx-mark .fx-ripple+.fx-ripple{animation-delay:1.5s}
 @keyframes fx-ripple{from{transform:scale(1);opacity:.7}to{transform:scale(2.7);opacity:0}}
 .fx-mark .fx-pulse{animation:fx-pulse 2.4s ease-in-out infinite}
+.fx-mark .fx-packet-r{animation:fx-packet-r 1.6s linear infinite}
+.fx-mark .fx-packet-l{animation:fx-packet-l 1.6s linear infinite}
+@keyframes fx-packet-r{0%{transform:translateX(0);opacity:0}20%,80%{opacity:1}100%{transform:translateX(24px);opacity:0}}
+@keyframes fx-packet-l{0%{transform:translateX(0);opacity:0}20%,80%{opacity:1}100%{transform:translateX(-24px);opacity:0}}
+.fx-mark .fx-meridian{transform-box:fill-box;transform-origin:center;animation:fx-meridian 6s linear infinite}
+@keyframes fx-meridian{0%{transform:scaleX(1)}25%{transform:scaleX(.707)}50%{transform:scaleX(0)}75%{transform:scaleX(-.707)}100%{transform:scaleX(-1)}}
 @keyframes fx-flow{to{stroke-dashoffset:-20}}
 @keyframes fx-rot{to{transform:rotate(360deg)}}
 @keyframes fx-pulse{0%,100%{opacity:.35}50%{opacity:1}}
@@ -159,7 +205,8 @@ page-context-menu{display:none!important}
 @media (max-width:50em){
   .sl-markdown-content .fx-track{grid-template-columns:1fr}
   .fx-track>.docsite-card{padding:1.5rem}
-  .fx-track>.docsite-card+.docsite-card{border-left:0!important;border-top:1px solid var(--docsite-color-border)!important}
+  .fx-track>.docsite-card:not(:nth-child(3n+1)){border-left:0!important}
+  .fx-track>.docsite-card+.docsite-card{border-top:1px solid var(--docsite-color-border)!important}
 }
 </style>
 </head>
@@ -255,7 +302,7 @@ page-context-menu{display:none!important}
         <text x="80" y="108" text-anchor="middle" fill="currentColor" stroke="none" font-size="10" font-weight="600">HEALTH</text>
       </svg>`,
       // Code change flowing into the doc it updates, with Auto-update switched on
-      refresh: `<svg viewBox="0 0 240 160" fill="none" stroke="currentColor" stroke-width="1.5" font-family="inherit">
+      refresh: `<svg viewBox="-20 -10 280 180" fill="none" stroke="currentColor" stroke-width="1.5" font-family="inherit">
         <rect x="2" y="2" width="236" height="30" rx="10" fill="currentColor" fill-opacity=".1"/>
         <path d="M19 13a6 6 0 1 1 -1.5 7.5M19 9v4h4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         <text x="38" y="22" fill="currentColor" stroke="none" font-size="12" font-weight="700">Auto-update</text>
@@ -281,6 +328,70 @@ page-context-menu{display:none!important}
         <g fill="currentColor" stroke="none"><rect x="156" y="95" width="68" height="5" rx="2.5"/><rect x="156" y="105" width="54" height="5" rx="2.5"/></g>
         <circle cx="226" cy="146" r="9" fill="currentColor" stroke="none"/>
         <path d="M222 146l3 3 5-6" style="stroke:var(--fx-accent-3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>`,
+      // Knowledge base: an isometric stack of knowledge layers
+      books: `<svg viewBox="0 0 220 160" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" font-family="inherit">
+        <g transform="translate(0 12)">
+        <g stroke-opacity=".45">
+          <path d="M40 88v4l70 35 70-35v-4" style="fill:Canvas"/><path d="M110 53l70 35-70 35-70-35z" style="fill:Canvas"/>
+        </g>
+        <g stroke-opacity=".7">
+          <path d="M40 74v4l70 35 70-35v-4" style="fill:Canvas"/><path d="M110 39l70 35-70 35-70-35z" style="fill:Canvas"/>
+          <path d="M40 74v4l70 35 70-35v-4" fill="currentColor" fill-opacity=".06"/>
+        </g>
+        <path d="M40 60v4l70 35 70-35v-4" style="fill:Canvas"/>
+        <path d="M40 60v4l70 35 70-35v-4" fill="currentColor" fill-opacity=".14"/>
+        <path d="M110 25l70 35-70 35-70-35z" style="fill:Canvas"/>
+        <path d="M110 25l70 35-70 35-70-35z" fill="currentColor" fill-opacity=".08"/>
+        <path d="M110 95v4"/>
+        <g stroke-linecap="round" stroke-opacity=".55"><path d="M92 40l38 19"/><path d="M82 47l28 14"/><path d="M74 53l26 13"/></g>
+        <path class="fx-pulse" d="M120 71l18 9-18 9-18-9z" style="fill:var(--fx-accent-2);stroke:var(--fx-accent-2)" fill-opacity=".35"/>
+        </g>
+      </svg>`,
+      // Public docs: a globe with a docs site window overlapping it
+      world: `<svg viewBox="0 0 220 160" fill="none" stroke="currentColor" stroke-width="1.5" font-family="inherit">
+        <circle cx="96" cy="72" r="64" stroke-dasharray="2 5" stroke-opacity=".6"/>
+        <circle cx="96" cy="72" r="44" fill="currentColor" fill-opacity=".08"/>
+        <path d="M52 72h88"/>
+        <path d="M58 50h76M58 94h76" stroke-opacity=".5"/>
+        <ellipse class="fx-meridian" cx="96" cy="72" rx="44" ry="44"/>
+        <ellipse class="fx-meridian" cx="96" cy="72" rx="44" ry="44" style="animation-delay:-2s"/>
+        <ellipse class="fx-meridian" cx="96" cy="72" rx="44" ry="44" style="animation-delay:-4s"/>
+        <g transform="translate(-40 -22)">
+        <rect x="112" y="70" width="104" height="80" rx="8" style="fill:Canvas" stroke="none"/>
+        <rect x="112" y="70" width="104" height="80" rx="8" fill="currentColor" fill-opacity=".08"/>
+        <path d="M112 86h104"/>
+        <g fill="currentColor" stroke="none"><circle cx="121" cy="78" r="2"/><circle cx="128" cy="78" r="2"/><circle cx="135" cy="78" r="2"/></g>
+        <path d="M142 86v64" stroke-opacity=".5"/>
+        <g fill="currentColor" stroke="none" fill-opacity=".45"><rect x="119" y="94" width="16" height="3" rx="1.5"/><rect x="119" y="102" width="12" height="3" rx="1.5"/><rect x="119" y="110" width="14" height="3" rx="1.5"/></g>
+        <rect x="150" y="94" width="40" height="6" rx="3" fill="currentColor" stroke="none"/>
+        <g fill="currentColor" stroke="none" fill-opacity=".45"><rect x="150" y="108" width="56" height="3" rx="1.5"/><rect x="150" y="116" width="48" height="3" rx="1.5"/><rect x="150" y="124" width="52" height="3" rx="1.5"/></g>
+        <rect class="fx-pulse" x="150" y="134" width="30" height="8" rx="2" style="fill:var(--fx-accent-2)" fill-opacity=".4" stroke="none"/>
+        </g>
+      </svg>`,
+      // Two-way sync: a Falconer doc and a repo trading changes in both directions
+      'arrows-exchange': `<svg viewBox="-20 -10 280 180" fill="none" stroke="currentColor" stroke-width="1.5" font-family="inherit">
+        <g transform="translate(140 0)">
+        <rect x="2" y="22" width="84" height="116" rx="10" fill="currentColor" fill-opacity=".08"/>
+        <path transform="translate(30 36) scale(.9)" fill="currentColor" stroke="none" d="M6.5616 12.0365L4.84115 13.757V20.949L0 25.7885H2.43219L5.8648 22.3559H13.4417L15.1622 20.6355H6.5616V12.0365Z M10.0041 8.5956L8.28362 10.316V18.9166H16.8842L18.6047 17.1962H10.0057V8.59726L10.0041 8.5956Z M18.6055 13.7574H13.4425V5.15511L11.722 6.87556V15.4745H20.321L22.0414 13.7541H18.6038L18.6055 13.7574Z M22.0459 10.3166H16.8829V1.71602L15.1641 3.43647V12.0371H23.7631L25.4819 10.3166H22.0459Z M18.597 0V8.599H27.1959V0H18.597Z"/>
+        <g fill="currentColor" stroke="none" fill-opacity=".45"><rect x="14" y="84" width="60" height="4" rx="2"/><rect x="14" y="94" width="48" height="4" rx="2"/><rect x="14" y="104" width="54" height="4" rx="2"/><rect x="14" y="114" width="38" height="4" rx="2"/></g>
+        </g>
+        <g transform="translate(-130 0)">
+        <rect x="154" y="22" width="84" height="116" rx="10"/>
+        <text x="166" y="44" fill="currentColor" stroke="none" font-size="10" font-weight="700">main</text>
+        <g stroke-width="2"><circle cx="178" cy="64" r="5"/><circle cx="178" cy="94" r="5"/><circle cx="178" cy="124" r="5" fill="currentColor"/><path d="M178 69v20M178 99v20"/></g>
+        <g fill="currentColor" stroke="none" fill-opacity=".45"><rect x="192" y="62" width="34" height="4" rx="2"/><rect x="192" y="92" width="28" height="4" rx="2"/><rect x="192" y="122" width="36" height="4" rx="2"/></g>
+        </g>
+        <rect class="fx-pulse" x="150" y="80" width="68" height="12" rx="3" style="fill:var(--fx-accent-2)" fill-opacity=".35" stroke="none"/>
+        <circle class="fx-pulse" cx="48" cy="124" r="9" stroke-width="2" style="stroke:var(--fx-accent-2);animation-delay:-1.2s"/>
+        <g style="fill:var(--fx-accent-2)" stroke="none">
+          <circle class="fx-packet-r" cx="112" cy="62" r="3"/><circle class="fx-packet-r" cx="112" cy="62" r="3" style="animation-delay:-.8s"/>
+          <circle class="fx-packet-l" cx="138" cy="98" r="3"/><circle class="fx-packet-l" cx="138" cy="98" r="3" style="animation-delay:-.8s"/>
+        </g>
+        <path class="fx-flow" d="M112 62H136" style="stroke:var(--fx-accent-2)" stroke-width="2.5"/>
+        <path d="M131 56l6 6-6 6" style="stroke:var(--fx-accent-2)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path class="fx-flow" d="M138 98H114" style="stroke:var(--fx-accent-2)" stroke-width="2.5"/>
+        <path d="M119 92l-6 6 6 6" style="stroke:var(--fx-accent-2)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>`
     };
     cards.forEach(c => {
@@ -290,6 +401,18 @@ page-context-menu{display:none!important}
 
     // Custom card icons in place of the Tabler set, drawn in a single color (currentColor).
     const ICONS = {
+      // Stacked pages: the internal knowledge base
+      books: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="4" y="6" width="13" height="15" rx="1.5"/><path d="M7 3h12.5A1.5 1.5 0 0 1 21 4.5V18"/><path d="M7.5 11h6M7.5 15h4"/>
+      </svg>`,
+      // Globe: docs published to the web
+      world: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18a14 14 0 0 1 0-18z"/>
+      </svg>`,
+      // Git branch: a Falconer space and a repository kept in sync
+      'arrows-exchange': `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="6" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="7" r="2"/><path d="M6 7v10"/><path d="M18 9a6 6 0 0 1-6 6H6"/>
+      </svg>`,
       // Hub with four connected sources
       plug: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <circle cx="12" cy="12" r="3"/>

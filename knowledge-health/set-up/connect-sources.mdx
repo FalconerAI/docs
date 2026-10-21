@@ -1,0 +1,53 @@
+---
+title: Connect sources
+description: Choose the tools Knowledge Health audits, and see what each one adds.
+sidebar:
+  order: 2
+---
+
+Choose the tools Knowledge Health audits, and see what each one adds.
+
+Knowledge Health audits your docs where they live, so you don’t need to move them into Falconer. To connect a source, open **Settings** and choose **Integrations**. For how integrations connect in general, see [Connect sources](/set-up/connect-sources) in the Knowledge base.
+
+## What each source adds
+
+| Source | What it adds |
+| --- | --- |
+| **Public docs** | Your documentation site, added by URL on the **Public docs** card. Knowledge Health crawls the site and checks its pages against each other and against your code. |
+| [**GitHub**](/integrations/github) | Repositories, code files, and pull requests. Knowledge Health checks doc claims against the code and flags drift after a pull request merges. It reads repositories and never writes to them. |
+| [**Notion**](/integrations/notion) | Pages and databases you share with Falconer. |
+| [**Confluence**](/integrations/confluence) | Pages from the spaces you select. |
+| [**Google Drive**](/integrations/google-drive) | Docs, sheets, and slides from the drives you connect. |
+| [**Google Workspace**](/integrations/google-workspace) | Documents across your Google Workspace, connected for the whole organization. |
+| [**Slab**](/integrations/slab) | Posts from your Slab knowledge base. |
+| [**Slack**](/integrations/slack) | Conversations Knowledge Health uses to find coverage gaps. |
+| [**Linear**](/integrations/linear) | Issues that record decisions and known problems. |
+| [**Granola**](/integrations/granola) | Meeting notes that record what people discussed and decided. |
+
+Knowledge Health doesn’t read Asana, Jira, Zendesk, Gmail, or connected databases.
+
+Start with your docs and your code, then add wikis and conversations.
+
+Knowledge Health can run once your first source finishes indexing. Until then, the page shows **Indexing your sources** and updates when indexing is done.
+
+## Audit docs stored in a repository
+
+Connect the repository and choose the folder that holds your docs. Knowledge Health treats that folder as your docs and the rest of the repository as code to check them against.
+
+## Change sources later
+
+To add a source, connect it in **Integrations**. To remove one, disconnect it there. To narrow one, click **Configure** on its card and limit the repositories, folders, spaces, or channels Falconer can read.
+
+The next scan picks up the change once indexing finishes. To audit right away, click **Run now**.
+
+## FAQ
+
+<AccordionGroup>
+
+<Accordion title="My help center isn't a native integration. Can Knowledge Health still audit it?">
+
+Yes. Add the public help center URL on the **Public docs** card, and Knowledge Health crawls it like any docs site.
+
+</Accordion>
+
+</AccordionGroup>

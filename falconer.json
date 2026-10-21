@@ -128,6 +128,7 @@
               "ask/find-answers-with-falconer.mdx",
               "ask/personalize-the-agent.mdx",
               "ask/use-voice-mode.mdx",
+              "ask/chat-history.mdx",
               "collaborate-in-conversations.mdx"
             ]
           },
@@ -144,13 +145,18 @@
             "anchor": "Integrations",
             "pages": [
               "integrations/index.mdx",
+              "integrations/asana.mdx",
+              "integrations/bitbucket.mdx",
               "integrations/confluence.mdx",
               "integrations/github.mdx",
+              "integrations/gmail.mdx",
               "integrations/google-drive.mdx",
               "integrations/google-workspace.mdx",
               "integrations/granola.mdx",
+              "integrations/jira.mdx",
               "integrations/linear.mdx",
               "integrations/notion.mdx",
+              "integrations/slab.mdx",
               "integrations/slack.mdx",
               "integrations/zendesk.mdx",
               "connect-a-database.mdx"
@@ -172,6 +178,7 @@
             "pages": [
               "write/write-a-doc-from-slack.mdx",
               "write/write-a-doc.mdx",
+              "write/comment-on-a-doc.mdx",
               "create-and-work-with-media.mdx",
               "use-structured-tables.mdx",
               "sync-a-table-with-work.mdx"
@@ -309,6 +316,39 @@
               "public-docs/plans-and-limits.mdx",
               "public-docs/automate.mdx",
               "public-docs/troubleshooting.mdx"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Knowledge Health",
+        "pages": [
+          "knowledge-health/overview.mdx",
+          {
+            "anchor": "Set up",
+            "pages": [
+              "knowledge-health/set-up/run-your-first-scan.mdx",
+              "knowledge-health/set-up/connect-sources.mdx",
+              "knowledge-health/set-up/schedule-scans.mdx",
+              "knowledge-health/set-up/who-can-do-what.mdx"
+            ]
+          },
+          {
+            "anchor": "Find issues",
+            "pages": [
+              "knowledge-health/find-issues/read-the-page.mdx",
+              "knowledge-health/find-issues/understand-a-finding.mdx",
+              "knowledge-health/find-issues/fix-and-triage-findings.mdx",
+              "knowledge-health/find-issues/share-a-report.mdx",
+              "knowledge-health/find-issues/work-from-slack-and-mcp.mdx"
+            ]
+          },
+          {
+            "anchor": "Manage",
+            "pages": [
+              "knowledge-health/manage/credits.mdx",
+              "knowledge-health/manage/notifications.mdx",
+              "knowledge-health/manage/troubleshooting.mdx"
             ]
           }
         ]
