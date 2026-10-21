@@ -7,7 +7,7 @@ sidebar:
 
 Choose the tools Knowledge Health audits, and see what each one adds.
 
-Knowledge Health audits your docs where they live, so you don’t need to move them into Falconer. To connect a source, open **Settings** and choose **Integrations**. For how integrations connect in general, see [Connect sources](/set-up/connect-sources) in the Knowledge base.
+Knowledge Health works best when your docs are in Falconer, and it also audits docs where they already live. It reads the context across all your connected tools, works out which sources hold the truth, and flags issues after checking each source against the others. To connect a source, open **Settings** and choose **Integrations**. For how integrations connect in general, see [Connect sources](/set-up/connect-sources) in the Knowledge base.
 
 ## What each source adds
 
@@ -23,8 +23,6 @@ Knowledge Health audits your docs where they live, so you don’t need to move t
 | [**Slack**](/integrations/slack) | Conversations Knowledge Health uses to find coverage gaps. |
 | [**Linear**](/integrations/linear) | Issues that record decisions and known problems. |
 | [**Granola**](/integrations/granola) | Meeting notes that record what people discussed and decided. |
-
-Knowledge Health doesn’t read Asana, Jira, Zendesk, Gmail, or connected databases.
 
 Start with your docs and your code, then add wikis and conversations.
 
@@ -47,6 +45,12 @@ The next scan picks up the change once indexing finishes. To audit right away, c
 <Accordion title="My help center isn't a native integration. Can Knowledge Health still audit it?">
 
 Yes. Add the public help center URL on the **Public docs** card, and Knowledge Health crawls it like any docs site.
+
+</Accordion>
+
+<Accordion title="Does Knowledge Health read Asana, Jira, Zendesk, Gmail, or databases?">
+
+Not yet. Support for these sources is in development. You can still connect them for search and Falcon.
 
 </Accordion>
 
