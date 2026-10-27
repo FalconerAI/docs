@@ -39,10 +39,7 @@ If only one organization is available, your client can usually omit `organizatio
 | `edit_settings` | Changes settings in one scope. Owners can rename the organization and set its description (`org` scope) and change the plan (`account` scope): `plan: "trial"` starts the free Pro trial; `plan: "credits"` (pay as you go) opens a Stripe page that saves a card and authorizes automatic credit top-ups without charging anything now; `credits.purchase` buys a credit pack now; `plan: "pro"` opens a monthly seat subscription checkout and `"pro-annual"` a yearly one. Each returns a Stripe-hosted URL in the change detail. `credits.autoReload` changes the top-up pack and threshold, or turns top-ups off. Seats match workspace membership automatically. On a document (`document` scope) it sets status, labels, reviewers, appearance, auto-update and custom instructions; `type: "skill"` turns the document into an agent skill, whose `activation`, `contextKeys` and `description` can be set in the same call. |
 | `create_billing_portal_session` | Returns a Stripe-hosted billing portal URL for managing the payment method, seats, and invoices. A workspace that has never been billed has no portal yet; to save a card without charging it, set `credits.autoReload` or `plan: "credits"` with `edit_settings`. |
 
-For the first week, a new workspace's `account` scope lists the setup steps its owners still have open in the `onboarding` key: naming the workspace, connecting a source and choosing a plan.
-While a step is open, the server also offers an `onboard_workspace` prompt that walks your agent through them.
-`list_integrations` lists every source the workspace can connect, each with a link the person opens in their browser to sign in to the provider; when the flow finishes, the page tells them to go back to their agent.
-It also reports when a source still needs a step in Falconer (picking Jira or Asana projects, or Confluence spaces), with a link to that step, and the latest indexing run.
+For the first week, a new workspace's `account` scope lists the setup steps its owners still have open in the `onboarding` key: naming the workspace, connecting a source and choosing a plan. While a step is open, the server also offers an `onboard_workspace` prompt that walks your agent through them. `list_integrations` lists every source the workspace can connect, each with a link the person opens in their browser to sign in to the provider; when the flow finishes, the page tells them to go back to their agent. It also reports when a source still needs a step in Falconer (picking Jira or Asana projects, or Confluence spaces), with a link to that step, and the latest indexing run.
 
 Connecting a brand-new account automatically creates its organization server-side, so no tool call is needed to sign up. The plans, seats and credit packs these tools expose are the same ones described in [Plans and billing](/plans-and-pricing/plans-and-billing) and [Buy credits and manage auto reload](/plans-and-pricing/buy-credits-and-auto-reload). Payment details are only ever entered on Stripe-hosted pages opened in a browser. Agents should never ask for card details in chat; after checkout, they read the `account` scope again to confirm the plan, purchase or auto-reload took effect. Auto-reload is only turned on when you agree to it: paying for a pack with auto-reload saves the card and authorizes Falconer to buy the same pack whenever your balance drops below the threshold you chose. Changes that need approval (for example sharing a document with someone new) are reported as `requires_confirmation` and have to be approved in the Falconer app.
 
@@ -112,6 +109,17 @@ Tools for managing a space's [docs site](/public-docs/overview). Publishing, set
 
 `publish_docs_build` also rolls back when you pass an older build. `set_docs_redirects` replaces the whole list, so pass the list you read as `base` to merge your edits.
 
+## Knowledge Health
+
+Tools for reading and triaging your organization’s [Knowledge Health](/knowledge-health/find-issues/work-from-slack-and-mcp) findings from an MCP client.
+
+| Tool | What it does |
+| --- | --- |
+| `list_knowledge_health_findings` | Lists your organization’s open findings for one category, optionally filtered by severity. Returns 20 findings per page by default (up to 50), with `nextOffset` for the next page. |
+| `update_knowledge_health_finding` | Updates a finding by its key: set `status` to `resolved` or `ignored`, assign an owner with `ownerEmail`, or pass `ownerEmail: null` to clear the owner. |
+
+Call `list_knowledge_health_findings` first to get each finding’s key, then pass that key to `update_knowledge_health_finding`.
+
 ## Permissions and media
 
 | Tool | What it does |
@@ -121,11 +129,7 @@ Tools for managing a space's [docs site](/public-docs/overview). Publishing, set
 | `create_upload` | Starts an upload of any supported size and returns a short-lived URL that the client sends the raw file bytes to, so the file never passes through the conversation. |
 | `complete_upload` | Finishes an upload started with `create_upload` and returns the same snippet as `upload_media`, plus the file's navigation placement when it was placed. |
 
-By default an upload is an attachment: it only exists inside the documents that insert its snippet.
-Pass `placement: "library"` to also place a PDF, Office, image, or video file in the navigation, in the user's Artifacts folder or under `libraryFolder` as Artifacts > Subfolder, which is where agents should file documents' companion files.
-Pass `placement: "navigation"` with `parentFolderId` only when the user names a folder or Space.
-A placed file is listed by `list_nav_children` and `get_nav_tree` as a `file` item, moved with `move_nav_item`, read with `read`, and deleted with `delete`, all by its file id.
-A sibling that already holds the name is numbered around unless `replace` is set, which hands the new bytes to the existing file so its id and links stay valid.
+By default an upload is an attachment: it only exists inside the documents that insert its snippet. Pass `placement: "library"` to also place a PDF, Office, image, or video file in the navigation, in the user's Artifacts folder or under `libraryFolder` as Artifacts > Subfolder, which is where agents should file documents' companion files. Pass `placement: "navigation"` with `parentFolderId` only when the user names a folder or Space. A placed file is listed by `list_nav_children` and `get_nav_tree` as a `file` item, moved with `move_nav_item`, read with `read`, and deleted with `delete`, all by its file id. A sibling that already holds the name is numbered around unless `replace` is set, which hands the new bytes to the existing file so its id and links stay valid.
 
 ## Permissions
 
