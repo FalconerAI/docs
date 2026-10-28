@@ -1,15 +1,15 @@
 ---
 title: Automatically update documents
-description: Turn on auto-update for any document and Falconer will keep it current, automatically. When a pull request merges, Falconer reads the diff, finds which docs are affected, and proposes changes for your review.
+description: Turn on auto-update for any document and Falconer will keep it current, automatically. When a pull request merges, Falconer reads the diff, finds which docs are affected, and updates them. By default changes apply directly; switch to Review mode to approve each change first.
 sidebar:
   order: 1
 ---
 
-Turn on auto-update for any document and Falconer will keep it current, automatically. When a pull request merges, Falconer reads the PR, finds which docs are affected, and proposes changes for your review.
+Turn on auto-update for any document and Falconer will keep it current, automatically. When a pull request merges, Falconer reads the PR, finds which docs are affected, and updates them. By default, auto-update runs in **Full self-driving** mode and applies changes directly. Switch to **Review** mode if you want to approve each change first. See [Update mode](#update-mode).
 
 ## Prerequisites
 
-- **Pro subscription** - Sign up for a free trial at [https://falconer.com/pricing](https://falconer.com/pricing)
+- **Go, Pro, or Enterprise plan** - See [Plans and billing](/plans-and-pricing/plans-and-billing)
 - **GitHub integration** — GitHub App installed with repositories connected to Falconer so Falconer can detect updates
 - **Slack integration** — Falconer agent connected with DM permissions enabled to receive notifications
 - **Document ownership** — you must be the document owner to receive notifications (document creators are owners by default)
@@ -36,7 +36,7 @@ When you first toggle on auto-update, we will run an initial workflow to update 
 When a pull request merges in a connected repository:
 
 1. Falconer search identifies impacted documents
-2. Falconer proposes edits for the impacted document
+2. Falconer drafts edits for the impacted document and, depending on the [update mode](#update-mode), applies them or holds them for review
 3. Document owners are notified by Slack DM with a summary and action buttons
 
 ![](/images/auto-update-notification.png)

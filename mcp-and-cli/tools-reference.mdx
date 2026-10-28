@@ -37,7 +37,7 @@ If only one organization is available, your client can usually omit `organizatio
 | Tool | What it does |
 | --- | --- |
 | `read_settings` | Reads one settings scope: `user` (display name, model, thinking effort, notification preferences), `document` (a document or skill by uuid), `org` (name, description, defaults) or `account` (plan, credit balance and packs, auto-reload, trial state, seats, pricing, available offer, and the setup steps a new workspace still has open). Every key reports its value, allowed values and whether it is editable. |
-| `edit_settings` | Changes settings in one scope. Owners can rename the organization and set its description (`org` scope) and change the plan (`account` scope): `plan: "trial"` starts the free Pro trial; `plan: "credits"` (pay as you go) opens a Stripe page that saves a card and authorizes automatic credit top-ups without charging anything now; `credits.purchase` buys a credit pack now; `plan: "pro"` opens a monthly seat subscription checkout and `"pro-annual"` a yearly one. Each returns a Stripe-hosted URL in the change detail. `credits.autoReload` changes the top-up pack and threshold, or turns top-ups off. Seats match workspace membership automatically. On a document (`document` scope) it sets status, labels, reviewers, appearance, auto-update and custom instructions; `type: "skill"` turns the document into an agent skill, whose `activation`, `contextKeys` and `description` can be set in the same call. |
+| `edit_settings` | Changes settings in one scope. Owners can rename the organization and set its description (`org` scope) and change the plan (`account` scope): `plan: "trial"` starts the free Pro trial; `plan: "credits"` (pay as you go) opens a Stripe page that saves a card and authorizes automatic credit top-ups without charging anything now; `credits.purchase` buys a credit pack now; `plan: "pro"` opens a monthly seat subscription checkout and `"pro-annual"` a yearly one. Each returns a Stripe-hosted URL in the change detail. `credits.autoReload` changes the top-up pack and threshold, or turns top-ups off. A Pro checkout starts with one seat per current member. After that, seats are separate from membership, as described in [Plans and billing](/plans-and-pricing/plans-and-billing#purchased-seats-and-members). On a document (`document` scope) it sets status, labels, reviewers, appearance, auto-update and custom instructions; `type: "skill"` turns the document into an agent skill, whose `activation`, `contextKeys` and `description` can be set in the same call. |
 | `create_billing_portal_session` | Returns a Stripe-hosted billing portal URL for managing the payment method, seats, and invoices. A workspace that has never been billed has no portal yet; to save a card without charging it, set `credits.autoReload` or `plan: "credits"` with `edit_settings`. |
 
 For the first week, a new workspace's `account` scope lists the setup steps its owners still have open in the `onboarding` key: naming the workspace, connecting a source and choosing a plan. While a step is open, the server also offers an `onboard_workspace` prompt that walks your agent through them. `list_integrations` lists every source the workspace can connect, each with a link the person opens in their browser to sign in to the provider; when the flow finishes, the page tells them to go back to their agent. It also reports when a source still needs a step in Falconer (picking Jira or Asana projects, or Confluence spaces), with a link to that step, and the latest indexing run.
@@ -95,6 +95,21 @@ Prefer `replace_document_content`, `insert_document_content`, and `delete_docume
 | `delete_folder` | Archives a folder and its documents. |
 
 Inspect navigation placement before moving documents or folders. If a document move or publish reports ambiguous placement, retry with the returned `sourceNavItemId`.
+
+## Spaces and two-way sync
+
+Tools for [spaces](/organize/spaces) and for [two-way sync](/two-way-sync/overview) between a space and a GitHub repository. Creating, converting, and archiving spaces need an organization owner. Pushing and exporting use your personal GitHub account.
+
+| Need | Tools |
+| --- | --- |
+| Spaces | `list_spaces`, `create_space`, `convert_folder_to_space`, `archive_space` |
+| Pick a repository | `get_github_connection`, `list_sync_repositories`, `list_repository_branches`, `list_repository_folders`, `create_repository_branch`, `detect_repository_docs_config` |
+| Bind and manage sync | `bind_repository`, `get_two_way_sync_run`, `retry_two_way_sync`, `export_space_to_repository`, `get_two_way_sync_settings`, `update_two_way_sync_settings`, `disconnect_repository` |
+| Status and history | `list_two_way_sync_status`, `get_two_way_sync_file_status`, `get_two_way_sync_file_history`, `list_two_way_sync_commits`, `list_two_way_sync_pull_requests` |
+| Push changes | `get_file_diff`, `push_file`, `push_all_changes`, `keep_file` |
+| Conflicts | `list_two_way_sync_conflicts`, `get_file_conflict`, `resolve_file_conflict`, `resolve_file_conflicts` |
+
+`bind_repository` turns on sync and imports the repository; poll `get_two_way_sync_run` with the returned task id. Pass `setUpDocsite` to also reserve a docs site seeded from the repository's docs config.
 
 ## Public docs sites
 
