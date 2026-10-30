@@ -72,11 +72,24 @@ Prefer `replace_document_content`, `insert_document_content`, and `delete_docume
 | Tool | What it does |
 | --- | --- |
 | `list_document_comments` | Lists comment threads on a Falconer document. |
+| `create_comment` | Starts a new comment thread anchored to exact text in the document. Mentioned users and the document creator may be notified, and a delivered notification can't be recalled by deleting the comment. |
 | `reply_to_comment` | Replies to an existing document comment. |
 | `edit_comment` | Edits one of your existing comments. |
 | `delete_comment` | Deletes one of your existing comments. |
 | `resolve_comment` | Resolves a document comment thread. |
 | `unresolve_comment` | Reopens a resolved document comment thread. |
+
+## Revisions
+
+Each revision has a version number, such as v3, that matches the document's history page.
+
+| Tool | What it does |
+| --- | --- |
+| `list_document_revisions` | Lists a document's revisions with their version numbers. |
+| `read_document_revision` | Reads the Markdown content of one revision. |
+| `create_document_revision` | Saves the document's current content as a new revision. |
+| `restore_document_revision` | Restores the document to a revision. |
+| `delete_document_revision` | Deletes one revision. |
 
 ## Navigation and folders
 
@@ -129,6 +142,7 @@ Call `list_knowledge_health_findings` first to get each finding’s key, then pa
 | `upload_media` | Uploads an image, video, or file attachment (PDF, Office, text, and code files) sent as base64 in the tool call and returns a snippet that can be inserted into document content. Pass `placement` to also place the file in the navigation. Best for small files or clients that cannot make HTTP requests. |
 | `create_upload` | Starts an upload of any supported size and returns a short-lived URL that the client sends the raw file bytes to, so the file never passes through the conversation. |
 | `complete_upload` | Finishes an upload started with `create_upload` and returns the same snippet as `upload_media`, plus the file's navigation placement when it was placed. |
+| `get_media_download_urls` | Returns short-lived download URLs for Falconer images and videos you can access. Download them right away; don't embed or store the URLs. |
 
 By default an upload is an attachment: it only exists inside the documents that insert its snippet. Pass `placement: "library"` to also place a PDF, Office, image, or video file in the navigation, in the user's Artifacts folder or under `libraryFolder` as Artifacts > Subfolder, which is where agents should file documents' companion files. Pass `placement: "navigation"` with `parentFolderId` only when the user names a folder or Space. A placed file is listed by `list_nav_children` and `get_nav_tree` as a `file` item, moved with `move_nav_item`, read with `read`, and deleted with `delete`, all by its file id. A sibling that already holds the name is numbered around unless `replace` is set, which hands the new bytes to the existing file so its id and links stay valid.
 
