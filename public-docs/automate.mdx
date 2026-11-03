@@ -11,9 +11,9 @@ Everything you can do from **Site configuration** is also a tool on the Falconer
 
 ## Before you start
 
-- [Connect the Falconer MCP](/mcp-and-cli/connect) to your client. For unattended runs, such as a CI job, use an [organization bot](/mcp-and-cli/organization-bots) instead of a personal login.
+- [Connect the Falconer MCP](/mcp-and-cli/connect) to your client. For unattended runs that change the site, such as a CI job that triggers builds or publishes, authenticate as a person who has the access listed below. [Organization bots](/mcp-and-cli/organization-bots) are read-only: a bot can read sites, builds, and broken links, but Falconer rejects its writes, including creating pages, starting builds, and publishing.
 - Publishing, settings, passwords, and custom domains need an organization owner. Editing pages and starting builds need edit access to the space.
-- Every tool takes a `spaceId`. Get it from `list_docs_sites`, which lists the sites you can see, or `list_spaces`.
+- Every tool takes a `spaceId`. Get it from `list_docs_sites`, which lists the sites you can see, or `list_spaces`. Space and repository tools such as `list_spaces` and `bind_repository` are listed under [Spaces and two-way sync](/mcp-and-cli/tools-reference#spaces-and-two-way-sync).
 
 ## Set up a site
 
@@ -56,7 +56,7 @@ Pages created through the file tools follow the same rules as pages created in t
 
 ## The same operations over HTTP
 
-The public API exposes every operation above under `https://falconer.com/api/v1/docs-sites`, with the same names and permissions. Authenticate with an [organization bot token](/mcp-and-cli/organization-bots) or an API key. The full reference is the OpenAPI document at `https://falconer.com/api/v1/openapi.json`.
+The public API exposes every operation above under `https://falconer.com/api/v1/docs-sites`, with the same names and permissions. Authenticate as a person with an API key. An [organization bot token](/mcp-and-cli/organization-bots) works only for read requests, such as checking a build or its broken links. The full reference is the OpenAPI document at `https://falconer.com/api/v1/openapi.json`.
 
 ## Example: publish after a merge
 
