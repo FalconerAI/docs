@@ -17,6 +17,7 @@ To connect a source, open **Settings** and choose **Integrations**. For how inte
 | --- | --- |
 | **Public docs** | Your documentation site, added by URL on the **Public docs** card. Knowledge Health crawls the site and checks its pages against each other and against your code (if connected). |
 | [**GitHub**](/integrations/github) | Repositories, code files, and pull requests. Knowledge Health checks doc claims against the code and flags drift after a pull request merges. It reads repositories and never writes to them. |
+| [**Bitbucket**](/integrations/bitbucket) | Repositories and merged pull requests. Knowledge Health checks doc claims against the code, the same way it does for GitHub. |
 | [**Notion**](/integrations/notion) | Pages and databases you share with Falconer. |
 | [**Confluence**](/integrations/confluence) | Pages from the spaces you select. |
 | [**Google Drive**](/integrations/google-drive) | Docs, sheets, and slides from the drives you connect. |
@@ -25,10 +26,14 @@ To connect a source, open **Settings** and choose **Integrations**. For how inte
 | [**Slack**](/integrations/slack) | Conversations Knowledge Health uses to find coverage gaps. |
 | [**Linear**](/integrations/linear) | Issues that record decisions and known problems. |
 | [**Granola**](/integrations/granola) | Meeting notes that record what people discussed and decided. |
+| [**Jira**](/integrations/jira) | Issues that record decisions and known problems, checked along with Linear and GitHub issues. |
+| [**Asana**](/integrations/asana) | Tasks that record decisions and known problems, checked along with Linear and GitHub issues. |
+| [**Zendesk**](/integrations/zendesk) | Help center articles, checked against your other docs and your code. |
+| **Intercom** | Help center articles, checked against your other docs and your code. |
 
 Start with your docs and your code, then add wikis and conversations.
 
-Knowledge Health can run once your first source finishes indexing. Until then, the page shows **Indexing your sources** and updates when indexing is done.
+Knowledge Health can run once your first source finishes syncing. Until then, the page shows **Syncing your data** and updates when the sync is done. If you already have past scans, the run banner shows **Syncing your sources** and **Run now is available once the sync finishes**.
 
 ## Audit docs stored in a repository
 
@@ -52,7 +57,7 @@ Yes. Add the public help center URL on the **Public docs** card, and Knowledge H
 
 <Accordion title="Does Knowledge Health read Asana, Jira, Zendesk, Gmail, or databases?">
 
-Not yet. Support for these sources is in development. You can still connect them for search and Falcon.
+Partly. Knowledge Health reads Zendesk and Intercom help center articles, and it checks issues in Jira and Asana along with Linear and GitHub. Gmail and databases aren’t audited yet. You can still connect them for search and Falcon.
 
 </Accordion>
 

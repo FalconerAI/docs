@@ -7,7 +7,7 @@ sidebar:
 
 Falconer MCP exposes tools your AI client can use to find, read, create, update, organize, and manage Falconer documents.
 
-![Claude.ai connector settings showing Falconer MCP tool permissions](/images/falconer-mcp-tool-permissions.png)
+![Claude web connector settings showing Falconer MCP tool permissions](/images/falconer-mcp-tool-permissions.png)
 
 ## Use Falconer knowledge and connected tools
 
@@ -53,6 +53,16 @@ Connecting a brand-new account automatically creates its organization server-sid
 
 Use `search` when you do not know the exact document. Use `read` before editing so the agent can copy exact Markdown text from the current document.
 
+## Revisions
+
+| Tool | What it does |
+| --- | --- |
+| `list_document_revisions` | Lists a document’s revisions. Each has a version number, such as `v3`, that matches the document history. |
+| `read_document_revision` | Reads the Markdown content of one revision. Pass the version number, such as `3` or `v3`. |
+| `create_document_revision` | Saves the current content as a new revision. |
+| `restore_document_revision` | Restores a document to an earlier revision. |
+| `delete_document_revision` | Deletes one revision. |
+
 ## Create and update documents
 
 | Tool | What it does |
@@ -61,6 +71,7 @@ Use `search` when you do not know the exact document. Use `read` before editing 
 | `replace_document_content` | Replaces exact Markdown text in a document. |
 | `insert_document_content` | Inserts Markdown before or after exact anchor text, or at the start or end of a document. |
 | `delete_document_content` | Deletes exact Markdown text from a document. |
+| `apply_document_edits` | Applies several text and table edits in one call. Use it to change tables, which `read` returns as `<Table id>` blocks. |
 | `edit` | Legacy exact replacement tool. Prefer the targeted content tools above. |
 | `overwrite` | Replaces the full Markdown body of a document. |
 | `delete` | Archives a Falconer document by ID, or deletes a file placed in the navigation by its file id or file URL. |
@@ -72,6 +83,7 @@ Prefer `replace_document_content`, `insert_document_content`, and `delete_docume
 | Tool | What it does |
 | --- | --- |
 | `list_document_comments` | Lists comment threads on a Falconer document. |
+| `create_comment` | Starts a new comment thread anchored to exact Markdown text from `read`. It can notify the document creator and mentioned people. |
 | `reply_to_comment` | Replies to an existing document comment. |
 | `edit_comment` | Edits one of your existing comments. |
 | `delete_comment` | Deletes one of your existing comments. |
@@ -90,9 +102,14 @@ Prefer `replace_document_content`, `insert_document_content`, and `delete_docume
 | `reorder_folder_children` | Sets the full direct-child order for a folder. |
 | `reorder_nav_children` | Sets the full direct-child order for a folder or document nav item. |
 | `move_nav_item` | Moves a folder, document, or file navigation item. |
+| `move_nav_items` | Moves up to 50 folders, documents, or files to one place in a single call. Each item reports moved or failed on its own. |
 | `move_document` | Moves a document navigation placement by document ID. |
 | `publish_document` | Publishes a private document into company navigation. |
-| `delete_folder` | Archives a folder and its documents. |
+| `delete_folder` | Removes a folder and everything under it. Documents placed only inside it are archived, documents placed elsewhere too are kept, and library files inside it are deleted. |
+| `list_spaces` | Lists the Spaces you can view. |
+| `create_space` | Creates a Space. Organization owners only. |
+| `convert_folder_to_space` | Turns a top-level company folder into a Space and keeps its contents. Organization owners only. |
+| `archive_space` | Archives a Space with all its documents. Organization owners only. Use this, not `delete_folder`, to remove a Space. |
 
 Inspect navigation placement before moving documents or folders. If a document move or publish reports ambiguous placement, retry with the returned `sourceNavItemId`.
 
@@ -116,16 +133,22 @@ Tools for reading and triaging your organization’s [Knowledge Health](/knowled
 
 | Tool | What it does |
 | --- | --- |
-| `list_knowledge_health_findings` | Lists your organization’s open findings for one category, optionally filtered by severity. Returns 20 findings per page by default (up to 50), with `nextOffset` for the next page. |
-| `update_knowledge_health_finding` | Updates a finding by its key: set `status` to `resolved` or `ignored`, assign an owner with `ownerEmail`, or pass `ownerEmail: null` to clear the owner. |
+| `knowledge_health_get_summary` | Returns the Knowledge Health score, open finding counts by category and severity, the change since the previous run, and the top open findings. |
+| `knowledge_health_list_findings` | Lists your organization’s open findings for one category (required), optionally filtered by severity. Returns 20 findings per page by default (up to 50); pass `offset` for the next page, or `titlesOnly` to scan a category quickly. |
+| `knowledge_health_update_finding` | Updates a finding by its `findingKey`: set `status` to `resolved` or `ignored`, assign an owner with `ownerEmail`, or pass `ownerEmail: null` to clear the owners. |
+| `knowledge_health_get_finding` | Returns one finding by its `findingKey` with its full context: claims, evidence, documents to fix, owners and dates. Works for resolved and ignored findings too. |
 
-Call `list_knowledge_health_findings` first to get each finding’s key, then pass that key to `update_knowledge_health_finding`.
+Start with `knowledge_health_get_summary`. Call `knowledge_health_list_findings` to get each finding’s `findingKey`, then pass that key to `knowledge_health_get_finding` or `knowledge_health_update_finding`. If Knowledge Health is not turned on for your organization, these tools say so instead of returning findings.
 
 ## Permissions and media
 
 | Tool | What it does |
 | --- | --- |
 | `update_document_permissions` | Updates document ACL mode, organization-wide access, public access, user access, or group access. Direct permission changes on inherited documents switch them to explicit mode automatically. |
+| `set_document_status` | Sets a document’s status: `draft`, `in_review`, `approved`, `authoritative`, or `outdated`. |
+| `list_document_reviewers` | Lists the reviewers assigned to a document. |
+| `update_document_reviewers` | Adds or removes reviewers by user ID or email. Adding a reviewer gives them comment access if needed and can notify them. |
+| `get_media_download_urls` | Returns short-lived download links for Falconer images and videos you can access. Download them right away and do not store the links. |
 | `upload_media` | Uploads an image, video, or file attachment (PDF, Office, text, and code files) sent as base64 in the tool call and returns a snippet that can be inserted into document content. Pass `placement` to also place the file in the navigation. Best for small files or clients that cannot make HTTP requests. |
 | `create_upload` | Starts an upload of any supported size and returns a short-lived URL that the client sends the raw file bytes to, so the file never passes through the conversation. |
 | `complete_upload` | Finishes an upload started with `create_upload` and returns the same snippet as `upload_media`, plus the file's navigation placement when it was placed. |
@@ -135,3 +158,5 @@ By default an upload is an attachment: it only exists inside the documents that 
 ## Permissions
 
 The MCP connection uses the permissions of the authenticated Falconer user or organization bot. Your client can only access documents, folders, comments, and permissions that identity can access in Falconer.
+
+When you connect through the Falconer plugin for OpenAI, these tools are hidden: `ask_falcon`, `apply_document_edits`, `read_settings`, `edit_settings`, `create_billing_portal_session`, `document_search`, `source_tree`, `git_raw`, `set_docs_custom_domain` and `activate_docs_custom_domain`.

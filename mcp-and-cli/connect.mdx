@@ -1,6 +1,6 @@
 ---
 title: Connect MCP
-description: Connect Falconer MCP to Claude.ai, Claude Code, Codex CLI, or Cursor.
+description: Connect Falconer MCP to Claude web, Claude Code, Codex CLI, or Cursor.
 sidebar:
   order: 2
 ---
@@ -27,11 +27,11 @@ The plans and credit packs are the same ones owners see in organization settings
 
 ## Claude
 
-Falconer supports both Claude.ai and Claude Code: add Falconer to Claude.ai as a custom connector, or configure Falconer in Claude Code from the command line.
+Falconer supports both Claude web and Claude Code: add Falconer to Claude web as a custom connector, or configure Falconer in Claude Code from the command line.
 
-**Claude.ai**
+**Claude web**
 
-[Add to Claude.ai](https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=Falconer&connectorUrl=https%3A%2F%2Ffalconer.com%2Fapi%2Fmcp)
+[Add to Claude web](https://claude.ai/customize/connectors?modal=add-custom-connector&connectorName=Falconer&connectorUrl=https%3A%2F%2Ffalconer.com%2Fapi%2Fmcp)
 
 This opens Claude with the Falconer connector name and MCP URL prefilled. Connect the connector, then sign in to Falconer when Claude asks for authorization.
 
@@ -44,7 +44,7 @@ Manual setup:
 5. Leave **OAuth Client ID** and **OAuth Client Secret** empty.
 6. Click **Add**, connect the Falconer connector, and sign in to Falconer when Claude asks for authorization.
 
-![Claude.ai Add custom connector modal with Falconer name and MCP server URL](/images/falconer-mcp-claude-connector.png)
+![Claude web Add custom connector modal with Falconer name and MCP server URL](/images/falconer-mcp-claude-connector.png)
 
 **Claude Code**
 
@@ -141,7 +141,7 @@ For Cursor app, remove the `Falconer` entry from your Cursor MCP config or remov
 
 For Cursor Agent, remove Falconer from Cursor Agent MCP settings.
 
-For Claude.ai, remove or disconnect the Falconer custom connector from Claude.ai connector settings.
+For Claude web, remove or disconnect the Falconer custom connector from Claude web connector settings.
 
 For other clients, remove Falconer using that client's MCP documentation.
 
@@ -153,4 +153,4 @@ For other clients, remove Falconer using that client's MCP documentation.
 | The client says authentication is required | Reconnect Falconer and complete the browser OAuth flow. |
 | The client cannot choose an organization | Ask it to call `list_organizations`, then use the returned `organizationId`. |
 | The token expired or was revoked | Reconnect Falconer from your MCP client. |
-| Your client does not support Falconer MCP | Use Claude.ai, Claude Code, Codex CLI, Cursor, or another client that supports HTTP MCP. You can also use the Falconer CLI for direct command-line access. |
+| Your client does not support Falconer MCP | Use Claude web, Claude Code, Codex CLI, Cursor, or another client that supports HTTP MCP. You can also use the Falconer CLI for direct command-line access. |

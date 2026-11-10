@@ -23,7 +23,7 @@ Sign in with OAuth:
 falconer oauth login
 ```
 
-This opens your browser for Falconer authentication. Your local credentials are stored at `~/.config/falconer/config.json`.
+This opens your browser for Falconer authentication. Your local credentials are stored at `~/.config/falconer/config.json`. If you set `XDG_CONFIG_HOME`, the file is at `$XDG_CONFIG_HOME/falconer/config.json` instead.
 
 Verify your signed-in account and active organization:
 
@@ -47,7 +47,10 @@ Manage your session and organization:
 falconer oauth status
 falconer oauth org list
 falconer oauth org set <org-id-or-name>
+falconer oauth logout
 ```
+
+`falconer login`, `falconer logout` and `falconer status` still work but are deprecated. Use the `oauth` commands instead.
 
 Search and read docs:
 
@@ -57,6 +60,12 @@ falconer read <document-id-or-url>
 ```
 
 Search results include document metadata and a preview. Use the returned `id` or a Falconer URL with `falconer read`.
+
+Ask a question about your workspace and get an answer with citations. `ask` only reads; it never changes your documents:
+
+```bash
+falconer ask "How do we deploy the ingest service?"
+```
 
 ```text
 % falconer search "runbooks"
