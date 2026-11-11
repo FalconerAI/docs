@@ -78,6 +78,8 @@ Use `search` when you do not know the exact document. Use `read` before editing 
 
 Prefer `replace_document_content`, `insert_document_content`, and `delete_document_content` for targeted updates. Use `overwrite` only when the whole document needs to be rewritten.
 
+When custom instructions govern a document, `read` returns them with a `rulesHash`. Pass it as `customInstructionsHash` on every write, or the write is refused. See [Set custom instructions for the agent](/set-up/set-custom-instructions#use-custom-instructions-from-mcp-the-api-and-the-cli).
+
 ## Comments
 
 | Tool | What it does |
