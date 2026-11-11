@@ -56,10 +56,8 @@ See [Manage or disconnect sync](/two-way-sync/manage-sync).
 ## What gets imported
 
 - `.md` and `.mdx` files become documents, and directories become folders.
-- Images and other files are listed in the **Files** tab.
-  See [Images and other files](/two-way-sync/images-and-files).
-- Markdown inside `node_modules` and build output directories such as `dist`, `build`, and `.next` isn't imported as documents.
-  Every tracked file still appears in the **Files** tab and counts toward the [size limits](/two-way-sync/images-and-files#size-limits), so if your repository commits generated output, choose a narrower base path.
+- Images and other files are listed in the **Files** tab. See [Images and other files](/two-way-sync/images-and-files).
+- Markdown inside `node_modules`, `vendor`, and build output directories (`dist`, `build`, `target`, and `.next`) isn’t imported as documents. Every tracked file still appears in the **Files** tab and counts toward the [size limits](/two-way-sync/images-and-files#size-limits), so if your repository commits generated output, choose a narrower base path.
 
 If the import doesn't finish, the space header shows **Import failed**.
 Open the GitHub sync drawer and click **Retry import** in the **Issues** tab.

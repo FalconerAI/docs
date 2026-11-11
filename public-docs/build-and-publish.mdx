@@ -39,7 +39,9 @@ Publishing reaches every edge location within about a minute. Until then the sit
 | **Indexed** | Search and Ask the docs can answer from this build |
 | **Failed** | The build didn't finish. Start a new one to retry. |
 
-Search indexing runs after the build itself. If you publish before indexing finishes, Falconer asks you to confirm with **Publish anyway**. Site search and Ask the docs then answer from the previously indexed build until indexing completes. If indexing fails or stalls, click **Index docsite** on the build to run it again.
+Search indexing runs after the build itself. If you publish before indexing finishes, Falconer asks you to confirm with **Publish anyway**. Site search and Ask the docs then answer from the previously indexed build until indexing completes. If indexing fails, or shows no progress for 5 minutes, click **Index docsite** on the build to run it again.
+
+A build that stays **Queued** for 30 minutes, or stops making progress while **Building**, is marked **Failed** with “Build stopped unexpectedly”. Start a new build to retry.
 
 ## Roll back
 
@@ -54,7 +56,7 @@ To take the site offline, click **Unpublish** on the site card. Visitors get a n
 - **Cancel** a build while it's still queued.
 - **Delete** a finished build you no longer need. The live build can't be deleted; publish another build or unpublish first.
 
-Falconer keeps the five most recent builds plus the live one, and removes older builds automatically.
+Falconer keeps the five most recent builds plus the live one, and removes older builds automatically. Private previews are kept separately: the five most recent per person for each site.
 
 ## Issues
 

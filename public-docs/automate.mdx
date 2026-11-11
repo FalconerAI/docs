@@ -39,7 +39,7 @@ Pages created through the file tools follow the same rules as pages created in t
 3. `get_docs_broken_links` lists what the build found, the same list as **Issues**.
 4. `request_docs_preview` builds a private preview of the current content; poll `get_docs_preview` for the URL, which opens for signed-in owners.
 5. `publish_docs_build` makes a build live. Pass an older build id to roll back, and `force` to publish before indexing has finished.
-6. `unpublish_docs_site` takes the site offline; `cancel_docs_build` and `delete_docs_build` manage the list.
+6. `unpublish_docs_site` takes the site offline. `list_docs_builds` lists builds, and `cancel_docs_build` and `delete_docs_build` manage the list.`retry_docs_build_index` runs search indexing again on a build, the same as **Index docsite**.
 
 ## Change settings
 
@@ -52,7 +52,7 @@ Pages created through the file tools follow the same rules as pages created in t
 1. `set_docs_custom_domain` attaches the domain and returns the CNAME target for a subdomain, or the proxy target for a path.
 2. Add the DNS record or forwarding rule, then `check_docs_custom_domain` until it reports `ready`.
 3. `activate_docs_custom_domain` starts serving the site there. This turns on the paid add-on; see [Plans and limits](/public-docs/plans-and-limits#add-ons).
-4. `disable_docs_custom_domain` stops serving and billing but keeps the setup; `remove_docs_custom_domain` deletes it.
+4. `disable_docs_custom_domain` stops serving and billing but keeps the setup; `remove_docs_custom_domain` deletes it.`get_docs_custom_domain` reads the current setup and status.
 
 ## The same operations over HTTP
 

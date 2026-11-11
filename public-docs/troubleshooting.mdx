@@ -26,9 +26,9 @@ What to check when a page, build, link, image, domain, or redirect doesn't behav
 
 ## A build failed or is stuck
 
-- A build that hasn't progressed for 30 minutes is marked **Failed** with "Build stopped unexpectedly". Start a new one; one build runs at a time per site.
+- A build that stays **Queued** for 30 minutes, or stays **Building** for about 20 minutes without progress, is marked **Failed** with “Build stopped unexpectedly (worker restart or timeout). Generate again to retry.” Start a new one; one build runs at a time per site.
 - **Failed** means the build didn't finish. Start a new one to retry. A page with a problem, such as an OpenAPI page that can't find its document or a diagram that doesn't parse, shows an error in its place instead of failing the build, so a build that keeps failing isn't caused by one page. Contact Falconer with the build number.
-- **Indexing** that never reaches **Indexed** keeps search and Ask the docs on the previous build. Click **Index docsite** on the build to run it again. See [Build status](/public-docs/build-and-publish#build-status).
+- **Indexing** that never reaches **Indexed** keeps search and Ask the docs on the previous build. If indexing has made no progress for 5 minutes, click **Index docsite** on the build to run it again. See [Build status](/public-docs/build-and-publish#build-status).
 
 ## Issues lists broken links
 

@@ -19,12 +19,14 @@ Falcon searches the same findings shown on the Knowledge Health page and replies
 
 ## From an MCP client
 
-Connect the Falconer MCP server to Claude Code, Cursor, or Codex. Two tools work with findings:
+Connect the Falconer MCP server to Claude Code, Cursor, or Codex. Four tools work with findings:
 
 | Tool | What it does |
 | --- | --- |
-| `list_knowledge_health_findings` | Lists your organization’s findings. |
-| `update_knowledge_health_finding` | Updates a finding. |
+| `knowledge_health_get_summary` | Shows the Knowledge Health score, open finding counts, the last and next run, and the top open findings. |
+| `knowledge_health_list_findings` | Lists open findings for one category. |
+| `knowledge_health_get_finding` | Shows the full details of one finding. |
+| `knowledge_health_update_finding` | Updates a finding's status or owner. |
 
 See the [MCP quickstart](/mcp-and-cli/quickstart) and the [MCP tools reference](/mcp-and-cli/tools-reference).
 

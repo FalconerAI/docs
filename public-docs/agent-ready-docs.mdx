@@ -16,7 +16,7 @@ More and more readers never open your docs themselves. They ask ChatGPT, Claude,
 | `llms.txt` | An index of the site for agents, following the llms.txt convention: the site name, one line per page with its title, description, and a link to its Markdown version. |
 | `llms-full.txt` | The whole site as one Markdown file, so an agent can read everything in a single fetch. |
 | A Markdown twin of every page | Each page is also published at the same address with a `.md` extension, as clean Markdown with no layout, navigation, or script. |
-| Content negotiation | A client that requests a page with `Accept: text/markdown` gets the Markdown twin at the page's normal address, without knowing the `.md` convention. |
+| Content negotiation | A client that requests a page with `Accept: text/markdown` gets the Markdown twin at the page's normal address, without knowing the `.md` convention. If the header also lists HTML, Markdown needs an equal or higher weight (`q` value), or the client gets the HTML page. |
 | Discovery hints | Each page links to its Markdown version with `rel="alternate"` in its head, and carries a short note pointing agents at the twin and at `llms-full.txt`. |
 
 The Markdown versions follow the same rules as the pages: private pages are never built, and pages marked `noindex` are left out of `llms.txt` and `llms-full.txt`. When search engines are turned off, `robots.txt` keeps the Markdown mirrors out of their results too.

@@ -49,7 +49,9 @@ The site card at the top of the space shows its address. Owners can change it:
 1. Click the pencil next to the address, labeled **Edit address**.
 2. Enter a new **Docs site path** and click **Save this address**.
 
-The address is a single label of 1 to 63 lowercase letters, numbers, and hyphens, with no hyphen at the start or end, and it has to be unique across Falconer. A few labels such as `www`, `app`, `api`, `docs`, and `admin` are reserved.
+The address is a single label of 1 to 63 lowercase letters, numbers, and hyphens, with no hyphen at the start or end, and it has to be unique across Falconer. These labels are reserved: `www`, `app`, `api`, `mail`, `admin`, `docs`, `publicdocs`, `preview`, `staging`, and `dev`.
+
+A new site’s address is made from the space name. If that address is taken, Falconer adds a number, such as `acme-2`.
 
 When you change the address of a live site, the new address starts serving first and the old one is removed. Falconer then rebuilds and republishes so links, the sitemap, and `llms.txt` use the new address. Older builds show **Built for outdated subdomain** and keep the old address in their links until you build again.
 

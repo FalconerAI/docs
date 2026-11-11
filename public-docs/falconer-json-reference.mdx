@@ -60,13 +60,15 @@ Paths are relative to the root of the synced path, without a leading slash. Empt
 | `colors.primaryDark` | hex color | Accent color in the dark theme |
 | `navbar.links` | up to 10 of `{ label, href }` | Header links. Labels up to 40 characters, `https://` URLs. |
 | `navbar.primary` | `{ label, href }` | The header button |
-| `contextual.options` | ordered list | Page actions: `copy`, `view`, `assistant`, `chatgpt`, `claude`. The first is the button, the rest go in its menu. |
+| `contextual.options` | ordered list | Page actions: `copy`, `view`, `assistant`, `chatgpt`, `claude`. The first is the button, the rest go in its menu. Defaults to `copy`, `assistant`, `chatgpt`, `claude`. |
 | `seo.description` | string, up to 500 characters | Default meta description |
 | `seo.indexable` | boolean | Whether search engines may index the site. Defaults to `true`. |
-| `seo.metatags` | up to 30 of `{ name, content }` | Extra meta tags on every page |
+| `seo.metatags` | up to 30 of `{ name, content }` | Extra meta tags on every page. Names up to 100 characters, content up to 1,000. |
 | `social` | up to 20 of `{ icon, href }` | Footer social icons |
-| `analytics` | up to 10 of `{ name, snippet }` | HTML added to the head of every page |
-| `footer.links` | up to 6 columns | Each column is `{ header, items }` with up to 10 `{ label, href }` items. `href` is an `https://` URL or a path on the site. |
+| `analytics` | up to 10 of `{ name, snippet }` | HTML added to the head of every page. Names up to 60 characters, snippets up to 10,000. |
+| `footer.links` | up to 6 columns | Each column is `{ header, items }` with up to 10 `{ label, href }` items. `header` is optional. Headers and labels are up to 40 characters. `href` is an `https://` URL or a path on the site starting with `/`. |
+| `feedback.thumbsRating` | boolean | Shows a thumbs up or down rating on each page. Defaults to `true`. |
+| `feedback.agentFeedback` | boolean | Lets AI agents and the site's Ask assistant leave comments on pages. Defaults to `false`. |
 
 Supported `social` icons: `github`, `gitlab`, `bitbucket`, `codeberg`, `stackoverflow`, `discord`, `slack`, `matrix`, `telegram`, `whatsapp`, `signal`, `mastodon`, `bluesky`, `threads`, `twitter`, `x.com`, `linkedin`, `facebook`, `instagram`, `tiktok`, `pinterest`, `reddit`, `youtube`, `twitch`, `patreon`, `discourse`, `zulip`, `rss`, `email`, `phone`.
 
