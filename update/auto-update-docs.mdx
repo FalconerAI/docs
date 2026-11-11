@@ -11,9 +11,9 @@ Turn on auto-update for any document and Falconer will keep it current, automati
 
 - **Pro subscription:** sign up for a free trial at <https://falconer.com/pricing>
 - **GitHub integration:** GitHub App installed with repositories connected to Falconer so Falconer can detect updates
-- **Slack integration:** Falconer agent connected with DM permissions enabled to receive notifications
-- **Document ownership:** you must be the document owner to receive notifications (document creators are owners by default)
-- **Document visibility:** auto-update only works on documents with org-wide or public visibility. Private documents are excluded.
+- **Slack integration (optional):** Falconer agent connected with DM permissions enabled to receive notifications in Slack. Notifications also appear in your Falconer inbox.
+- **Owner or reviewer:** document owners and auto-update reviewers receive notifications (document creators are owners by default)
+- **Document placement:** auto-update works on documents in your company navigation or the Files view. Documents in a private section are excluded.
 
 ## Enable auto-update
 
@@ -25,9 +25,11 @@ To turn it on or off for a document if you have dismissed the banner:
 
 1. Open the document in the editor
 2. Click the more button on top right corner, and select **Details** in the right sidebar
-3. Toggle **Auto-update** on
+3. Under **Auto-update**, turn on **Enabled**
 
-![](/images/auto-update-details.png)
+To turn on auto-update for every document in a folder or Space, see [Auto-update folders and Spaces](/update/auto-update-folders-and-spaces).
+
+![Auto-update section in the document Details sidebar](/images/auto-update-doc-details-inherited.png)
 
 ## How it works
 
@@ -37,7 +39,7 @@ When a pull request merges in a connected repository:
 
 1. Falconer search identifies impacted documents
 2. Falconer proposes edits for the impacted document
-3. Document owners are notified by Slack DM with a summary and action buttons
+3. Document owners and auto-update reviewers are notified in their Falconer inbox and by Slack DM, with a summary and action buttons
 
 ![](/images/auto-update-notification.png)
 
@@ -50,9 +52,9 @@ D -->|Full self-driving| E[Changes applied to published doc]
 D -->|Review| F[Draft held for owner review]
 E --> G{"Notification<br/>cadence"}
 F --> H{"Notification<br/>cadence"}
-G -->|Immediate| G1[Slack DM sent right away]
+G -->|Immediate| G1[Notification sent right away]
 G -->|Digest| G2[Bundled into a digest]
-H -->|Immediate| H1[Slack DM sent right away]
+H -->|Immediate| H1[Notification sent right away]
 H -->|Digest| H2[Bundled into a digest]
 H1 --> J{"Doc owner<br/>action"}
 H2 --> J
@@ -65,7 +67,9 @@ J -->|Reject| M[Draft discarded.<br/>No changes made.]
 
 When you enable auto-update, the default mode is **Full self-driving mode**. Falconer applies changes to the document immediately without a review step.
 
-You can switch to **Review mode** in the Details panel. In this mode, Falconer holds proposed changes for your review and notifies you in Slack.
+You can switch to **Review mode** in the Details panel. In this mode, Falconer holds proposed changes for review and notifies the document owner and auto-update reviewers.
+
+A document can also get its mode from its folder or Space. See [Update modes and reviewers](/update/auto-update-folders-and-spaces#update-modes-and-reviewers).
 
 ## Multiple PRs, one document
 
@@ -75,11 +79,12 @@ When multiple pull requests affect the same document before you’ve reviewed pe
 
 **Not receiving notifications**
 
-- Confirm you are listed as the document owner
+- Confirm you are the document owner or an auto-update reviewer
 - Check that Slack DM permissions are enabled for the Falconer bot
 - Verify the GitHub integration is active and the repository is connected
 
 **Document not picked up by auto-update**
 
-- Confirm auto-update is toggled on in the Details panel
-- Check that the document is not set to private visibility
+- Confirm auto-update is on in the Details panel. If the document follows a folder or Space, the panel shows where the setting comes from.
+- Check that the document is not in a private section
+- If the document or its folder has sharing that restricts editing, folder and Space settings do not reach it. Turn auto-update on for the document directly.

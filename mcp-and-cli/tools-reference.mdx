@@ -100,7 +100,7 @@ When custom instructions govern a document, `read` returns them with a `rulesHas
 | `get_nav_tree` | Gets a visible Falconer navigation tree. |
 | `get_folder` | Gets folder metadata and visible one-level children. |
 | `create_folder` | Creates a Falconer folder. |
-| `update_folder` | Updates a folder title or description. |
+| `update_folder` | Updates a folder title or description, and its auto-update setting and mode. Auto-update changes return a preview until you call it again with `confirmed: true`. |
 | `reorder_folder_children` | Sets the full direct-child order for a folder. |
 | `reorder_nav_children` | Sets the full direct-child order for a folder or document nav item. |
 | `move_nav_item` | Moves a folder, document, or file navigation item. |
@@ -112,6 +112,13 @@ When custom instructions govern a document, `read` returns them with a `rulesHas
 | `create_space` | Creates a Space. Organization owners only. |
 | `convert_folder_to_space` | Turns a top-level company folder into a Space and keeps its contents. Organization owners only. |
 | `archive_space` | Archives a Space with all its documents. Organization owners only. Use this, not `delete_folder`, to remove a Space. |
+| `update_space` | Changes a Space's auto-update setting and mode. Returns a preview until you call it again with `confirmed: true`. |
+| `list_auto_update_approvers` | Lists the auto-update reviewers of a document, a folder or the Company space. |
+| `update_auto_update_approvers` | Adds or removes auto-update reviewers on a document, a folder or the Company space. |
+| `list_auto_update_history` | Lists a Space's auto-update history, newest first. Needs edit access to the Space. |
+| `list_auto_update_history_documents` | Lists all the documents of one auto-update history entry. |
+
+See [Auto-update folders and Spaces](/update/auto-update-folders-and-spaces) for how these settings work.
 
 Inspect navigation placement before moving documents or folders. If a document move or publish reports ambiguous placement, retry with the returned `sourceNavItemId`.
 
