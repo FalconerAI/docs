@@ -203,6 +203,7 @@
             "anchor": "Update",
             "pages": [
               "update/auto-update-docs.mdx",
+              "update/auto-update-folders-and-spaces.mdx",
               "update/edit-a-doc-with-inline-ai.mdx",
               "update/find-and-fix-outdated-docs.mdx",
               "update/keep-docs-in-sync-with-prs.mdx",
